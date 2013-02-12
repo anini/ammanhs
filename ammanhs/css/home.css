@@ -1,0 +1,54 @@
+@-webkit-keyframes rotating-left {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes rotating-right {
+    from { -webkit-transform: rotate(360deg); }
+    to { -webkit-transform: rotate(0deg); }
+}
+
+#welcome-box {
+	position: relative;
+	overflow: hidden;
+}
+
+.gear {
+	position: absolute;
+}
+
+#gear-1 {
+	top: 200px;
+	right: 226px;
+	-webkit-animation: rotating-left 120s linear infinite;
+	-moz-animation: rotating-left 120s linear infinite;
+	-o-animation: rotating-left 120s linear infinite;
+	animation: rotating-left 120s linear infinite;
+}
+
+#gear-2 {
+	right: 12px;
+	top: 12px;
+	-webkit-animation: rotating-right 120s linear infinite;
+	-moz-animation: rotating-right 120s linear infinite;
+	-o-animation: rotating-right 120s linear infinite;
+	animation: rotating-right 120s linear infinite;
+}
+
+#gear-3 {
+	top: 280px;
+	right: -47px;
+	-webkit-animation: rotating-left 70s linear infinite;
+	-moz-animation: rotating-left 70s linear infinite;
+	-o-animation: rotating-left 70s linear infinite;
+	animation: rotating-left 70s linear infinite;
+}
+
+#gear-4 {
+	top: -47px;
+	left: -47px;
+	-webkit-animation: rotating-left 70s linear infinite;
+	-moz-animation: rotating-left 70s linear infinite;
+	-o-animation: rotating-left 70s linear infinite;
+	animation: rotating-left 70s linear infinite;
+}

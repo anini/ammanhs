@@ -1,0 +1,179 @@
+# FIXME: REVIEW: group all -f -d in one block
+# FIXME: REVIEW: group all images into one site/.*/.jpg
+# FIXME: REVIEW: move case-sensitivity fixes into Yii
+
+# Maintenance mode
+RewriteEngine on
+RewriteCond     %{DOCUMENT_ROOT}/maintenance.html -f
+RewriteCond     %{SCRIPT_FILENAME}      !maintenance.html
+RewriteCond     %{REQUEST_FILENAME} !images/maintenance.jpg
+RewriteCond     %{REQUEST_FILENAME} !images/maintenance_0.1.png
+RewriteRule     ^.*$     /maintenance.html [R=302,L]
+
+Options +FollowSymlinks
+
+# Disable access to .svn and .git entries
+RewriteRule ^(.*/)?.svn/ - [F,L]
+RewriteRule ^(.*/)?.git/ - [F,L]
+
+# Sama 301s
+RewriteRule \.asp http://arabblogs.com%{REQUEST_URI} [R=301,L]
+RewriteRule ^photos/ http://arabblogs.com%{REQUEST_URI} [R=301,L]
+RewriteRule ^videos/ http://arabblogs.com%{REQUEST_URI} [R=301,L]
+RewriteRule ^addons/ http://arabblogs.com%{REQUEST_URI} [R=301,L]
+
+# Redirects dev and beta to live
+RewriteCond %{HTTP_USER_AGENT} (bot|crawl|index|spider) [NC]
+RewriteCond %{HTTP_HOST} ^([^\.]*\.)(?:dev|beta|jeeran-ii)\.(?:.*)$ [NC]
+RewriteRule ^ http://%1jeeran.com%{REQUEST_URI} [L,R=301]
+
+# Disable sitemaps for dev and beta
+RewriteCond %{HTTP_HOST} ^(.*\.)?(dev|beta|jeeran-ii)\.(.*)$ [NC]
+RewriteRule ^sitemap([^/]*)\.xml - [G,L]
+
+# proxy old api link
+RewriteCond %{HTTP_HOST} ^amman\. [NC]
+RewriteRule ^api-2\.0/ http://jeeran.com%{REQUEST_URI} [P,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^mobile-app/?$ index.php?r=site/page&view=mobile-iphone [QSA,L]
+RewriteRule ^mobile/iphone /mobile-app/ [L,R=301]
+RewriteRule ^blognotice/$  blognotice.html [L]
+RewriteRule ^(sites/amman.jeeran.com/files/imagecache/) http://jeeran.com/themes/1.1/images/common/logo_ar.png [L,R=301]
+
+# ancient drupal search
+RewriteRule ^jeeran_search.* /search? [L,R=301]
+RewriteRule ^apache_solr.* /search? [L,R=301]
+
+# FIXME: REVIEW: why this is not a route in Yii ?
+# FIXME: REVIEW: why not using NC for case sensitivity
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^mobile/iphone/ar/?$ index.php?r=site/page&view=mobile-iphone [QSA,L]
+
+## FIXME: THES IS TEMPORARY
+RewriteRule ^community/gathering/?\?? index.php?r=site/page&view=gathering [QSA,L]
+
+# */admin -> admin/*
+RewriteRule ^(\w+)/admin/?$     /admin/$1/ [R=302,L]
+
+# case sensitivity (can handel things like UsEr)
+RewriteCond %{REQUEST_URI} !^/user.*$
+RewriteRule ^user(.*)$     /user$1 [NC,R=301,L]
+RewriteCond %{REQUEST_URI} !^/place.*$
+RewriteRule ^place(.*)$     /place$1 [NC,R=301,L]
+# although it can can be in a shorter way, I'll keep it systematic
+RewriteCond %{REQUEST_URI} !^/u/.*$
+RewriteRule ^u/(.*)$     /u/$1 [NC,R=301,L]
+RewriteCond %{REQUEST_URI} !^/r/.*$
+RewriteRule ^r/(.*)$     /r/$1 [NC,R=301,L]
+RewriteCond %{REQUEST_URI} !^/h/.*$
+RewriteRule ^h/(.*)$     /h/$1 [NC,R=301,L]
+
+# legacy redirects
+# redirect links contains node
+RewriteRule ^node/ / [NC,R=301,L]
+
+
+#http://amman.jeeran.com/sites/amman.jeeran.com/files/imagecache/place_logo/size-1_148.gif redirect to the default place image
+RewriteRule ^sites/([^/]+)\.jeeran\.com/files/imagecache/place_logo /images/default-place.png [NC,R=301,L]
+
+# profile images eg. http://amman.jeeran.com/sites/amman.jeeran.com/files/pictures/picture-5322.jpg
+RewriteRule ^sites/([^/]+)\.jeeran\.com/files/pictures/picture-([0-9]+).jpg /images/default-person.png [NC,R=301,L]
+# old favicons:
+RewriteRule sites/.*/favicon.ico http://jeeran.com/favicon.ico [L,R=301]
+
+# http://amman.jeeran.com/comment/reply/*
+RewriteRule ^comment/reply /h/ [NC,R=301,L]
+RewriteRule ^hiwaraat\/?$ /h/ [NC,R=301,L]
+
+# browse all eg. http://amman.jeeran.com/places/browse/*
+RewriteRule ^places/browse /search?sort=hottest [NC,R=301,L]
+
+# merge dammam and khobar
+#RewriteCond %{HTTP_HOST} ^(khobar|dammam)\.(.*)$ [NC]
+#RewriteRule ^ http://dammam-khobar.%2%{REQUEST_URI} [L,R=301]
+
+# Split Cities
+#RewriteCond %{REQUEST_URI} ^(.*)/maankarak/(.*)$ [NC]
+#RewriteRule ^ %1/karak/%2 [L,R=302]
+
+#RewriteCond %{REQUEST_URI} ^(.*)/jarashajloun/(.*)$ [NC]
+#RewriteRule ^ %1/jarash/%2 [L,R=302]
+
+RewriteCond %{REQUEST_URI} ^(.*)/aqaba/(.*)$ [NC]
+RewriteRule ^ %1/aqabawadirum/%2 [L,R=301]
+
+#RewriteCond %{REQUEST_URI} ^(.*)/dammamkhobar/(.*)$ [NC]
+#RewriteRule ^ %1/dammam/%2 [L,R=302]
+
+# legacy .NET urls
+RewriteRule ^(blogs|adserver|imcc|(jeeran_)?external[0-9]?\.html|leaderboard\.html|noindex-members\.html)(.*) http://blogs.jeeran.com%{REQUEST_URI} [L,R=301]
+RewriteRule ^(im|js|asp-bin)/(.*) http://blogs.jeeran.com%{REQUEST_URI} [L,R=301]
+# All old sections should no more redirect to blog notice
+# RewriteRule ^(files|analytics|survey|signup|photos|videos)(.*) http://blogs.jeeran.com [L,R=301]
+RewriteRule ^music(.*) http://www.bandoora.com/ [L,R=301]
+
+# the rule below is wrong because the ? after www.
+#RewriteCond %{HTTP_HOST} ^(www\.)?(.*?)$ [NC]
+#RewriteRule ^(.*) http://blogs.%2%{REQUEST_URI} [L,R=301]
+
+# remove the www prefix
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^ http://%1%{REQUEST_URI} [L,R=301]
+
+#RewriteCond %{HTTP_HOST} ^(dubai)\.(.*)$ [NC]
+#RewriteCond %{REMOTE_ADDR} !93\.95\.200\.82
+#RewriteCond %{REMOTE_ADDR} !192\.168[0-9.]
+#RewriteRule ^ http://www.jeeran.com [R=302,L]
+
+
+<IfModule deflate_module>
+AddOutputFilterByType DEFLATE text/html text/plain text/xml text/javascript text/css application/json application/javascript
+
+# Netscape 4.x has some problems...
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+
+# Netscape 4.06-4.08 have some more problems
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+
+# MSIE masquerades as Netscape, but it is fine
+BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+# Do NOT compress localhost
+#SetEnvIf Remote_Host 127.0.0.1 no-gzip
+
+# Make sure proxies don't deliver the wrong content
+Header append Vary User-Agent env=!dont-vary
+</IfModule>
+<IfModule expires_module>
+<FilesMatch "\.(gif|jpe?g|png|css|js)(\?.*)?$">
+ExpiresActive On
+ExpiresDefault "access plus 1 month"
+Header append Cache-Control "public"
+</FilesMatch>
+</IfModule>
+
+RewriteCond %{HTTP_HOST} ^m\.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index-m.php [L]
+
+Options +FollowSymLinks
+IndexIgnore */*
+RewriteEngine on
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^api-([\d\.]+)/(.*)$ api-$1.php?url=$2 [QSA,L]
+# otherwise forward it to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . index.php
+#RewriteRule ^.*$ index.php [L]
+
+AddDefaultCharset UTF-8
+#php_admin_value mbstring.func_overload "7"
+#php_admin_value mbstring.internal_encoding "UTF-8"
+
+<FilesMatch "channel\.html$">
+ExpiresActive On
+ExpiresDefault "access plus 1 year"
+Header append Cache-Control "public"
+</FilesMatch>

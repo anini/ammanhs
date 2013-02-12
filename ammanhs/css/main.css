@@ -1,0 +1,41 @@
+@font-face {
+	font-family: ammanhs;
+	src: url('ammanhs.ttf');
+}
+
+body
+{
+	margin: 0;
+	padding: 0;
+	color: #555;
+	font: normal 11pt 'ammanhs',Arial,Helvetica,sans-serif;
+	background: #EFEFEF;
+}
+
+#page {
+    padding-top: 60px;
+}
+.popup-form{
+	margin: 12px;
+}
+.popup-form .error{
+	font-size: 12px;
+}
+#signup-lable{
+	text-shadow: 0px 0px 1px rgba(82, 168, 236, 0.796875);
+}
+#header-avatar{
+	margin-top: -4px;
+	border: 1px solid #BBB;
+}
+
+@-webkit-keyframes wipe{
+	0% { -webkit-mask-position: -90px 0; }
+	100% { -webkit-mask-position: 230px 0; }
+}
+.flash:hover{
+	-webkit-animation: wipe 1s;
+	-webkit-mask-position: -90px 0px;
+	-webkit-mask-size: 320px 200px;
+	-webkit-mask-image: -webkit-gradient(linear, 61 47, 15 15, from(rgb(0, 0, 0)), color-stop(0.1, rgba(0, 0, 0, 0)), to(rgb(0, 0, 0)));
+}

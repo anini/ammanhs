@@ -1,0 +1,3 @@
+  * create cron script to remove stall (too old ) preview files
+  * have a lock while the script is working
+

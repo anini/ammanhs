@@ -1,0 +1,197 @@
+<?php
+
+/**
+ * This is the model class for table "{{user}}".
+ *
+ * The followings are the available columns in table '{{user}}':
+ * @property integer $id
+ * @property string $username
+ * @property string $password
+ * @property string $email
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $type
+ * @property integer $gender
+ * @property string $about
+ * @property string $avatar_uri
+ * @property integer $created_at
+ * @property integer $last_login_at
+ * @property string $twitter_uri
+ * @property string $facebook_uri
+ * @property string $country
+ * @property integer $stat_projects
+ * @property integer $stat_threads
+ * @property integer $stat_replies
+ * @property integer $stat_votes
+ *
+ * The followings are the available model relations:
+ * @property Thread[] $threads
+ * @property ThreadReply[] $threadReplys
+ */
+class User extends CActiveRecord
+{
+	public $_identity;
+	public $rememberMe;
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * @return User the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
+
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return '{{user}}';
+	}
+
+	/**
+	 * @return array validation rules for model attributes.
+	 */
+	public function rules()
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
+		return array(
+			array('username, email', 'required'),
+			array('password', 'required', 'on'=>'signup'),
+			array('username, email', 'required', 'on'=>'update'),
+			// Alphanumeric Validator: Only letters, numbers and underscores are allowed.
+			array('username', 'match', 'pattern'=>'/^\w+$/', 'on'=>'signup','message'=>'Invalid username! Alphanumerics only.'),
+			// Validator: User name should start with a letter.
+			array('username', 'match', 'pattern'=>'/^[a-zA-Z]/', 'on'=>'signup','message'=>'Username should start with a letter.'),
+			array('username', 'length', 'min'=>5, 'on'=>'signup'),
+			array('username', 'unique', 'on'=>'signup'),
+			array('gender, created_at, last_login_at', 'numerical', 'integerOnly'=>true),
+			array('username, password, first_name, last_name, country', 'length', 'max'=>64),
+			array('email, twitter_uri, facebook_uri', 'length', 'max'=>128),
+			array('type', 'length', 'max'=>6),
+			array('password', 'length', 'min'=>6, 'on'=>'signup, create, update'),
+			array('avatar_uri', 'length', 'max'=>256),
+			array('avatar_uri', 'unsafe'),
+			array('avatar_uri', 'ImageValidator', 'sub_dir'=>'avatar', 'attributeName'=>'id'),
+			array('avatar_uri', 'file', 'types'=>'jpg, gif, png', 'maxSize'=>'5242880', 'allowEmpty'=>true, 'tooLarge'=>'Maximum image size is 5MB.', 'wrongType'=>'Only files with "jpg, gif, png" extensions are allowed.'),
+			array('about', 'safe'),
+			array('username, email', 'unique', 'on'=>'signup, create, update'),
+			array('type', 'required', 'on'=>'create, update'),
+			array('email', 'email'),
+			array('avatar_uri, created_at, last_login_at, stat_threads, stat_projects, stat_replies, stat_votes', 'unsafe'),
+			array('type', 'unsafe', 'on'=>'signup, profile'),
+			// The following rule is used by search().
+			// Please remove those attributes that should not be searched.
+			array('id, username, email, first_name, last_name, type, gender, about, avatar_uri, created_at, last_login_at, twitter_uri, facebook_uri, country', 'safe', 'on'=>'search'),
+		);
+	}
+
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
+	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+			'threads' => array(self::HAS_MANY, 'Thread', 'user_id'),
+			'threadReplys' => array(self::HAS_MANY, 'ThreadReply', 'user_id'),
+		);
+	}
+
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'id' => 'ID',
+			'username' => 'Username',
+			'password' => 'Password',
+			'email' => 'Email',
+			'first_name' => 'First Name',
+			'last_name' => 'Last Name',
+			'type' => 'Type',
+			'gender' => 'Gender',
+			'about' => 'About',
+			'avatar_uri' => 'Avatar',
+			'created_at' => 'Created At',
+			'last_login_at' => 'Last Login At',
+			'twitter_uri' => 'Twitter Uri',
+			'facebook_uri' => 'Facebook Uri',
+			'country' => 'Country',
+		);
+	}
+
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 */
+	public function search()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('username',$this->username,true);
+		$criteria->compare('email',$this->email,true);
+		$criteria->compare('first_name',$this->first_name,true);
+		$criteria->compare('last_name',$this->last_name,true);
+		$criteria->compare('type',$this->type,true);
+		$criteria->compare('gender',$this->gender);
+		$criteria->compare('about',$this->about,true);
+		$criteria->compare('avatar_uri',$this->avatar_uri,true);
+		$criteria->compare('created_at',$this->created_at);
+		$criteria->compare('last_login_at',$this->last_login_at);
+		$criteria->compare('twitter_uri',$this->twitter_uri,true);
+		$criteria->compare('facebook_uri',$this->facebook_uri,true);
+		$criteria->compare('country',$this->country,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	public function beforeSave()
+	{
+		if (!$this->created_at) {
+			$this->created_at = time();
+        }
+        return parent::beforeSave();
+	}
+
+	public function getName(){
+		if($this->first_name)
+			return "{$this->first_name} {$this->last_name}";
+		else
+			return $this->username;
+	}
+
+	public function avatar($w=false, $h=false, $attributes=array()){
+		return  '<div style="width:'.($w).'px;height:'.($h).'px">'.
+					Img::embed($this->avatar_uri, $w, $h,($this->gender==2)?'default-female.jpg':'default-male.jpg',array_merge($attributes, array("title"=>$this->name))).
+				'</div>';
+	}
+
+	public function avatar_a($w=false, $h=false, $img_attributes=array(), $anchor_attributes=array()){
+		$default_img_attributes = array("title"=>$this->name);
+		$default_anchor_attributes = array("href"=> $this->profileLink());
+		return  '<div style="width:'.($w).'px;height:'.($h).'px">'.
+					Img::a($this->avatar_uri, $w, $h,($this->gender==2)?'default-female.jpg':'default-male.jpg',
+						array_merge($default_img_attributes , $img_attributes),
+						array_merge($default_anchor_attributes , $anchor_attributes)
+                	).
+				'</div>';
+	}
+
+	public function profileLink($absolute=false){
+		if ($absolute || !(Yii::app() instanceof CWebApplication))
+			return Yii::app()->urlManager->createAbsoluteUrl('user/show', array('id' => $this->id));
+		return Yii::app()->urlManager->createUrl('user/show', array('id' => $this->id));
+	}
+
+}
