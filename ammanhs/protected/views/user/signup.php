@@ -1,45 +1,25 @@
-<?php
-/* @var $this UserController */
-/* @var $model User */
-/* @var $form CActiveForm  */
-
-$this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
-?>
-
-<h1>Signup</h1>
-
-<p>Please fill out the following form with your info:</p>
-
-<div class="form">
-
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'user-form',
-    'type'=>'horizontal',
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<?php echo $form->textFieldRow($model,'username'); ?>
-
-	<?php echo $form->textFieldRow($model,'email'); ?>
-
-	<?php echo $form->passwordFieldRow($model,'password'); ?>
-
-	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
-            'buttonType'=>'submit',
-            'type'=>'primary',
-            'label'=>'Signup',
-        )); ?>
-	</div>
-
+<?php 
+if(!isset($model))
+$model = new User('signup');
+$form=$this->beginWidget('CActiveForm', array(
+		'id'=>'user-signup-form',
+		'action'=>'/signup',
+		'htmlOptions'=>array(
+			'class'=>'form-inline popup-form',
+			'onsubmit'=>'return connect(this);'
+			)
+		)); ?>
+		<div class="control-group">
+			<?php echo $form->textField($model,'username', array('placeholder' => Yii::t('core', 'Pick a Username'))); ?>
+			<?php echo $form->error($model,'username', array('class' => 'help-inline error')); ?>
+		</div>
+		<div class="control-group">
+			<?php echo $form->textField($model,'email', array('placeholder' => Yii::t('core', 'Your Email'))); ?>
+			<?php echo $form->error($model,'email', array('class' => 'help-inline error')); ?>
+		</div>
+		<div class="control-group">
+			<?php echo $form->passwordField($model,'password', array('placeholder' => Yii::t('core', 'Strong Password'))); ?>
+			<?php echo $form->error($model,'password', array('class' => 'help-inline error')); ?>
+		</div>
+		<button class="btn btn-block btn-primary" type="submit"><?php echo Yii::t('core','Signup for Free!'); ?></button>
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

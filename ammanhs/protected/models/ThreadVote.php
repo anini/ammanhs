@@ -100,14 +100,30 @@ class ThreadVote extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	protected function beforeValidate() {
+		if(!$this->user_id){
+        	$this->user_id = Yii::app()->user->id;
+        }
+        return true;
+    }
 	
 	public function beforeSave()
 	{
-		if (!$this->created_at) {
+		if(!$this->created_at){
 			$this->created_at = time();
-        } else {
+        }else{
         	$this->updated_at = time();
         }
         return parent::beforeSave();
+	}
+
+	public function afterSave()
+	{
+		parent::afterSave();
+		UserLog::addActivity('Vote', $this->thread);
+		$this->user->stat_votes++;
+		$this->user->save();
+		$this->thread->updateStatVotes();
 	}
 }

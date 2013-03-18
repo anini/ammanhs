@@ -17,12 +17,16 @@
  * @property integer $created_at
  * @property integer $last_login_at
  * @property string $twitter_uri
+ * @property string $twitter_id
  * @property string $facebook_uri
+ * @property string $facebook_id
+ * @property string $google_uri
+ * @property string $google_id
  * @property string $country
- * @property integer $stat_projects
  * @property integer $stat_threads
  * @property integer $stat_replies
  * @property integer $stat_votes
+ * @property integer $stat_points
  *
  * The followings are the available model relations:
  * @property Thread[] $threads
@@ -67,9 +71,9 @@ class User extends CActiveRecord
 			array('username', 'match', 'pattern'=>'/^[a-zA-Z]/', 'on'=>'signup','message'=>'Username should start with a letter.'),
 			array('username', 'length', 'min'=>5, 'on'=>'signup'),
 			array('username', 'unique', 'on'=>'signup'),
-			array('gender, created_at, last_login_at', 'numerical', 'integerOnly'=>true),
+			array('gender, created_at, last_login_at, stat_votes, stat_threads, stat_points, twitter_id,facebook_id, google_id', 'numerical', 'integerOnly'=>true),
 			array('username, password, first_name, last_name, country', 'length', 'max'=>64),
-			array('email, twitter_uri, facebook_uri', 'length', 'max'=>128),
+			array('email, twitter_uri, facebook_uri, google_uri', 'length', 'max'=>128),
 			array('type', 'length', 'max'=>6),
 			array('password', 'length', 'min'=>6, 'on'=>'signup, create, update'),
 			array('avatar_uri', 'length', 'max'=>256),
@@ -80,11 +84,11 @@ class User extends CActiveRecord
 			array('username, email', 'unique', 'on'=>'signup, create, update'),
 			array('type', 'required', 'on'=>'create, update'),
 			array('email', 'email'),
-			array('avatar_uri, created_at, last_login_at, stat_threads, stat_projects, stat_replies, stat_votes', 'unsafe'),
+			array('avatar_uri, created_at, last_login_at, stat_threads, stat_replies, stat_votes, stat_points, twitter_id, facebook_id, google_id', 'unsafe'),
 			array('type', 'unsafe', 'on'=>'signup, profile'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, email, first_name, last_name, type, gender, about, avatar_uri, created_at, last_login_at, twitter_uri, facebook_uri, country', 'safe', 'on'=>'search'),
+			array('id, username, email, first_name, last_name, type, gender, about, avatar_uri, created_at, last_login_at, twitter_id, facebook_id, google_id. twitter_uri, facebook_uri, google_uri, country', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -108,20 +112,21 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'username' => 'Username',
-			'password' => 'Password',
-			'email' => 'Email',
-			'first_name' => 'First Name',
-			'last_name' => 'Last Name',
-			'type' => 'Type',
-			'gender' => 'Gender',
-			'about' => 'About',
-			'avatar_uri' => 'Avatar',
+			'username' => Yii::t('core', 'Username'),
+			'password' => Yii::t('core', 'Password'),
+			'email' => Yii::t('core', 'Email'),
+			'first_name' => Yii::t('core', 'First Name'),
+			'last_name' => Yii::t('core', 'Last Name'),
+			'type' => Yii::t('core', 'Type'),
+			'gender' => Yii::t('core', 'Gender'),
+			'about' => Yii::t('core', 'About Me'),
+			'avatar_uri' => Yii::t('core', 'Avatar'),
 			'created_at' => 'Created At',
 			'last_login_at' => 'Last Login At',
-			'twitter_uri' => 'Twitter Uri',
-			'facebook_uri' => 'Facebook Uri',
-			'country' => 'Country',
+			'twitter_uri' => Yii::t('core', 'Twitter Account'),
+			'facebook_uri' => Yii::t('core', 'Facebook Account'),
+			'google_uri' => Yii::t('core', 'Google+ Account'),
+			'country' => Yii::t('core', 'Country'),
 		);
 	}
 
@@ -149,6 +154,10 @@ class User extends CActiveRecord
 		$criteria->compare('last_login_at',$this->last_login_at);
 		$criteria->compare('twitter_uri',$this->twitter_uri,true);
 		$criteria->compare('facebook_uri',$this->facebook_uri,true);
+		$criteria->compare('google_uri',$this->facebook_uri,true);
+		$criteria->compare('twitter_id',$this->twitter_uri,true);
+		$criteria->compare('facebook_id',$this->facebook_uri,true);
+		$criteria->compare('google_id',$this->facebook_uri,true);
 		$criteria->compare('country',$this->country,true);
 
 		return new CActiveDataProvider($this, array(
@@ -158,10 +167,18 @@ class User extends CActiveRecord
 
 	public function beforeSave()
 	{
-		if (!$this->created_at) {
+		if (!$this->created_at){
 			$this->created_at = time();
         }
         return parent::beforeSave();
+	}
+
+	public function afterSave()
+	{
+		parent::afterSave();
+		if($this->isNewRecord){
+			UserLog::addActivity('Join');
+		}
 	}
 
 	public function getName(){
@@ -171,16 +188,16 @@ class User extends CActiveRecord
 			return $this->username;
 	}
 
-	public function avatar($w=false, $h=false, $attributes=array()){
-		return  '<div style="width:'.($w).'px;height:'.($h).'px">'.
+	public function avatar($w=false, $h=false, $with_container=true, $attributes=array()){
+		return  (($with_container)?'<div style="width:'.($w).'px;height:'.($h).'px">':'').
 					Img::embed($this->avatar_uri, $w, $h,($this->gender==2)?'default-female.jpg':'default-male.jpg',array_merge($attributes, array("title"=>$this->name))).
-				'</div>';
+				(($with_container)?'</div>':'');
 	}
 
-	public function avatar_a($w=false, $h=false, $img_attributes=array(), $anchor_attributes=array()){
-		$default_img_attributes = array("title"=>$this->name);
-		$default_anchor_attributes = array("href"=> $this->profileLink());
-		return  '<div style="width:'.($w).'px;height:'.($h).'px">'.
+	public function avatar_a($w=false, $h=false, $img_attributes=array(), $anchor_attributes=array(), $container_style=""){
+		$default_img_attributes = array('title'=>$this->name, 'data-original-title'=>$this->name);
+		$default_anchor_attributes = array('href'=> $this->profileLink(), 'style'=>"text-decoration: none;");
+		return  '<div style="'.$container_style.'">'.
 					Img::a($this->avatar_uri, $w, $h,($this->gender==2)?'default-female.jpg':'default-male.jpg',
 						array_merge($default_img_attributes , $img_attributes),
 						array_merge($default_anchor_attributes , $anchor_attributes)
@@ -190,8 +207,31 @@ class User extends CActiveRecord
 
 	public function profileLink($absolute=false){
 		if ($absolute || !(Yii::app() instanceof CWebApplication))
-			return Yii::app()->urlManager->createAbsoluteUrl('user/show', array('id' => $this->id));
-		return Yii::app()->urlManager->createUrl('user/show', array('id' => $this->id));
+			return Yii::app()->urlManager->createAbsoluteUrl('user/view', array('id' => $this->id));
+		return Yii::app()->urlManager->createUrl('user/view', array('id' => $this->id));
 	}
 
+	public function getUserFeed($limit=10, $types=array('thread','thread_reply'), $newer_than=0){
+		$condition = 'user_id='.$this->id;
+		
+		$last_index = count($types) - 1;
+		$condition .= " AND (";
+		foreach($types as $key=>$type){
+			$condition .= " {$type}_id IS NOT NULL";
+			if($key < $last_index){
+				$condition .= " OR";
+			}
+		}
+		$condition .= " )";
+
+		if($newer_than>0){
+			$condition .= " AND created_at < {$newer_than}";
+		}
+		$user_feed = UserLog::model()->findAll(array(
+			'condition' => $condition,
+			'order' => 't.created_at DESC',
+			'limit' => $limit,
+			));
+        return $user_feed;
+	}
 }

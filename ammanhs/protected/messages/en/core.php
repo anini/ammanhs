@@ -1,6 +1,7 @@
 <?php
 return array(
 	'Amman Hackerspace'=>'Amman Hackerspace',
+	'slogan'=>'Arabic Knowledge Hub',
 	// Header
 	'Home'=>'Home',
 	'Threads'=>'Threads',

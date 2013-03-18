@@ -19,7 +19,7 @@
 
 #gear-1 {
 	top: 200px;
-	right: 226px;
+	left: 222px;
 	-webkit-animation: rotating-left 120s linear infinite;
 	-moz-animation: rotating-left 120s linear infinite;
 	-o-animation: rotating-left 120s linear infinite;
@@ -27,7 +27,7 @@
 }
 
 #gear-2 {
-	right: 12px;
+	left: 10px;
 	top: 12px;
 	-webkit-animation: rotating-right 120s linear infinite;
 	-moz-animation: rotating-right 120s linear infinite;
@@ -37,7 +37,7 @@
 
 #gear-3 {
 	top: 280px;
-	right: -47px;
+	left: -47px;
 	-webkit-animation: rotating-left 70s linear infinite;
 	-moz-animation: rotating-left 70s linear infinite;
 	-o-animation: rotating-left 70s linear infinite;
@@ -46,7 +46,7 @@
 
 #gear-4 {
 	top: -47px;
-	left: -47px;
+	right: -47px;
 	-webkit-animation: rotating-left 70s linear infinite;
 	-moz-animation: rotating-left 70s linear infinite;
 	-o-animation: rotating-left 70s linear infinite;

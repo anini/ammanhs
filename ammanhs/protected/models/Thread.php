@@ -125,21 +125,44 @@ class Thread extends CActiveRecord
 		));
 	}
 
+	protected function beforeValidate() {
+		if(!$this->user_id){
+        	$this->user_id = Yii::app()->user->id;
+        }
+        return true;
+    }
+
 	public function beforeSave()
 	{
-		if (!$this->created_at) {
+		if(!$this->created_at){
 			$this->created_at = time();
-        } else {
+        }else{
         	$this->updated_at = time();
         }
         return parent::beforeSave();
+	}
+
+	public function afterSave()
+	{
+		parent::afterSave();
+		if($this->isNewRecord){
+			UserLog::addActivity('Create', $this, 3);
+			$this->user->stat_points+=3;
+			$this->user->stat_threads++;
+			$this->user->save();
+		}
 	}
 
 	public function updateStatVotes(){
 		$positive_votes = COUNT(ThreadVote::model()->findByAttributes(array('thread_id'=>$this->id, 'vote_type'=>1)));
 		$negative_votes = COUNT(ThreadVote::model()->findByAttributes(array('thread_id'=>$this->id, 'vote_type'=>-1)));
 		$this->stat_votes = (int)($positive_votes - $negative_votes);
-		$this->save();
-		return true;
+		return $this->save();
+	}
+
+	public function getLink($absolute=false){
+		if ($absolute || !(Yii::app() instanceof CWebApplication))
+			return Yii::app()->urlManager->createAbsoluteUrl('thread/show', array('id' => $this->id));
+		return Yii::app()->urlManager->createUrl('thread/show', array('id' => $this->id));
 	}
 }

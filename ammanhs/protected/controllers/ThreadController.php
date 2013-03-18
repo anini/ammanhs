@@ -67,7 +67,6 @@ class ThreadController extends Controller
 	public function actionCreate()
 	{
 		$model=new Thread;
-		$model->user_id = Yii::app()->user->id;
 
 		$this->performAjaxValidation($model);
 
@@ -132,26 +131,14 @@ class ThreadController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex($type='recent')
+	public function actionIndex()
 	{
-		switch ($type) {
-			case 'me':
-				$threads = Thread::model()->findAll(array(
-					'order'=>'created_at desc',
-					'condition'=>'user_id='.Yii::app()->user->id));
-				break;
-			case 'top':
-				$threads = Thread::model()->findAll(array(
-					'order'=>'stat_replies desc'));
-				break;
-			default:
-				$threads = Thread::model()->findAll(array(
-					'order'=>'created_at desc'));
-				break;
-		}
-		
+		$threads = Thread::model()->findAll(array(
+				'order'=>'created_at desc'));
+
 		$this->render('index',array(
 			'threads'=>$threads,
+			'type'=>'recentp',
 		));
 	}
 
@@ -162,6 +149,7 @@ class ThreadController extends Controller
 		
 		$this->render('index',array(
 			'threads'=>$threads,
+			'type'=>'recent',
 		));
 	}
 
@@ -172,6 +160,7 @@ class ThreadController extends Controller
 		
 		$this->render('index',array(
 			'threads'=>$threads,
+			'type'=>'top',
 		));
 	}
 
@@ -183,6 +172,7 @@ class ThreadController extends Controller
 		
 		$this->render('index',array(
 			'threads'=>$threads,
+			'type'=>'me',
 		));
 	}
 
@@ -190,12 +180,13 @@ class ThreadController extends Controller
 	public function actionThreads($type){
 		//This action should only be called via Ajax
 		if (!Yii::app()->request->isAjaxRequest){
-			//$this->redirect(array('index','type'=>'top'));
-			throw new CHttpException(404, 'Bad request.');
+			$this->redirect(array('/thread#me'));
+			//throw new CHttpException(404, 'Bad request.');
         }
 		switch ($type) {
 			case '1':
 				if (Yii::app()->user->isGuest){
+					Yii::app()->user->returnUrl = '/thread#me';
 					$login_form = new LoginForm;
 					return $this->renderPartial('//user/login', array('model'=>$login_form));
 				}
@@ -224,23 +215,18 @@ class ThreadController extends Controller
         $thread_id = $_POST['Vote']['thread_id'];
         $vote_type = $_POST['Vote']['type'];
         $user_id = Yii::app()->user->id;
-
         $thread = Thread::model()->findByPk($thread_id);
         $thread_vote = ThreadVote::model()->findByAttributes(array('user_id'=>$user_id, 'thread_id'=>$thread_id));
         
         if (!$thread_vote){
         	$thread_vote = new ThreadVote();
-        	$thread_vote->user_id = $user_id;
         	$thread_vote->thread_id = $thread_id;
         }
 
         $thread_vote->vote_type = $vote_type;
         
         if ($thread_vote->save()){
-        	if ($thread->updateStatVotes())
-        		$errno = 0;	
-        	else
-        		$errno = -1;
+        	$errno = 0;	
         } else {
         	$errno = 1;
         }

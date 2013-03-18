@@ -1,3 +1,39 @@
+$(document).ready(function(){
+    hash = document.location.hash;
+    if(hash){
+        switch(hash){
+            case '#me':
+                switch_threads_tab(1);
+                break;
+            case '#top':
+                switch_threads_tab(2);
+                break;
+            /*case '#recent':
+                switch_threads_tab(3);
+                break;*/
+        }
+    }else{
+        switch(type){
+            case 'me':
+                $('.nav-tabs .active').removeClass('active');
+                $('.tab-content .active').removeClass('active');
+                document.location.hash = 'top';
+                $('#me-tab').addClass('active');
+                $('#me-tab-label').addClass('active');
+                break;
+            case 'top':
+                $('.nav-tabs .active').removeClass('active');
+                $('.tab-content .active').removeClass('active');
+                document.location.hash = 'top';
+                $('#top-tab').addClass('active');
+                $('#top-tab-label').addClass('active');
+                break;
+            default:
+                document.location.hash = 'recent';
+        }
+    }
+});
+
 function add_thread_reply(form){
 	f = $(form);
 	$('.yw0').attr('disabled', 'disabled');
@@ -7,7 +43,7 @@ function add_thread_reply(form){
 		'data':f.serialize(),
 		'success':function(data){
 			$('.yw0').attr('disabled', 'enabled');
-			$('#thread_replies').append(data);
+			$('#thread-replies').append(data);
 			$('#ThreadReply_content').val('');
 			$('#wmd-preview').html('');
 		}
@@ -15,18 +51,35 @@ function add_thread_reply(form){
 	return false;
 }
 
-function switch_threads_tab(){
-	$(".nav-tabs .active a").attr('href');
-	var href = $(".nav-tabs .active a").attr('href');
-	var tab_no = (href.split('_'))[2];
+function switch_threads_tab(tab){
 	$.ajax({
 		'type':'get',
 		'url':'/thread/threads',
-		'data':{'type':tab_no},
+		'data':{'type':tab},
 		'success':function(data){
-			
-			$('#threads-container').html(data);
-			$('#threads-container').slideDown();
+            $('#threads-container').hide('slow', function(){
+                $('#threads-container').html(data);
+                $('#threads-container').slideDown('slow');
+            });
+            $('.nav-tabs .active').removeClass('active');
+            $('.tab-content .active').removeClass('active');
+            switch(tab){
+                case 1:
+                    document.location.hash = 'me';
+                    $('#me-tab').addClass('active');
+                    $('#me-tab-label').addClass('active');
+                    break;
+                case 2:
+                    document.location.hash = 'top';
+                    $('#top-tab').addClass('active');
+                    $('#top-tab-label').addClass('active');
+                    break;
+                case 3:
+                    document.location.hash = 'recent';
+                    $('#recent-tab').addClass('active');
+                    $('#recent-tab-label').addClass('active');
+                    break;
+            }
 		}
 	});
 	return false;
@@ -63,15 +116,15 @@ function vote(e){
             	up_arrow = p.find('.vote-up');
             	down_arrow = p.find('.vote-down');
             	if (data.vote_type == 1) {
-            		up_arrow.removeClass('vote-down-off');
-            		down_arrow.removeClass('vote-up-on');
+            		up_arrow.removeClass('vote-up-off');
+            		down_arrow.removeClass('vote-down-on');
             		up_arrow.addClass('vote-up-on');
             		down_arrow.addClass('vote-down-off');
             	} else if (data.vote_type == -1) {
             		down_arrow.removeClass('vote-down-off');
             		up_arrow.removeClass('vote-up-on');
-            		down_arrow.addClass('vote-up-on');
-            		up_arrow.addClass('vote-down-off');
+            		down_arrow.addClass('vote-down-on');
+            		up_arrow.addClass('vote-up-off');
             	} else {
             		down_arrow.removeClass('vote-down-on');
             		up_arrow.removeClass('vote-up-on');

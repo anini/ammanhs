@@ -1,22 +1,31 @@
 <?php
 $this->breadcrumbs=array(
-	'Threads',
+	Yii::t('core', 'Threads'),
 );
+Yii::app()->clientScript->registerScript("threads-type", "var type = '{$type}';", CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/thread.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerCSSFile('/css/thread.css');
 ?>
 
-<?php $this->widget('bootstrap.widgets.TbTabs', array(
-    'type'=>'tabs',
-    'tabs'=>array(
-        array('label'=>'My Threads', 'content'=>'My Threads', 'htmlOptions'=>array('onclick'=>'function(){alert("banana");}')),
-        array('label'=>'Top Threads', 'content'=>'Top Threads'),
-        array('label'=>'Recent Threads', 'content'=>'Recent Threads', 'active'=>true),
-        ),
-    'events'=>array('shown'=>'js:switch_threads_tab'),
-    'htmlOptions'=>array('onclick'=>'slide_up_threads_container();'),
-)); ?>
+<div id="yw0" class="ge-ss">
+    <ul id="yw1" class="nav nav-tabs">
+        <li id="me-tab" onclick="switch_threads_tab(1)">
+            <a data-toggle="tab" href="#me"><?php echo Yii::t('core', 'My Threads'); ?></a>
+        </li>
+        <li id="top-tab" onclick="switch_threads_tab(2)">
+            <a data-toggle="tab" href="#top"><?php echo Yii::t('core', 'Top Threads'); ?></a>
+        </li>
+        <li id="recent-tab" onclick="switch_threads_tab(3)" class="active">
+            <a data-toggle="tab" href="#recent"><?php echo Yii::t('core', 'Recent Threads'); ?></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div id="me-tab-label" class="tab-pane"><?php echo Yii::t('core', 'My Threads'); ?></div>
+        <div id="top-tab-label" class="tab-pane"><?php echo Yii::t('core', 'Top Threads'); ?></div>
+        <div id="recent-tab-label" class="tab-pane active"><?php echo Yii::t('core', 'Recent Threads'); ?></div>
+    </div>
+</div>
 
-<div id="threads-container">
+<div id="threads-container" class="ge-ss">
     <?php $this->renderPartial('_threads', array('threads'=>$threads)); ?>
 </div>

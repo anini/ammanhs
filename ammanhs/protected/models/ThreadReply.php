@@ -47,6 +47,7 @@ class ThreadReply extends CActiveRecord
 			array('user_id, thread_id, content', 'required'),
 			array('user_id, thread_id, stat_votes, created_at, updated_at, publish_status', 'numerical', 'integerOnly'=>true),
 			array('content', 'safe'),
+			//array('content', 'unique'),
 			array('id, user_id, thread_id, stat_votes, created_at, updated_at, publish_status', 'unsafe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -109,11 +110,18 @@ class ThreadReply extends CActiveRecord
 		));
 	}
 
+	protected function beforeValidate() {
+		if(!$this->user_id){
+        	$this->user_id = Yii::app()->user->id;
+        }
+        return true;
+    }
+
 	public function beforeSave()
 	{
-		if (!$this->created_at) {
+		if(!$this->created_at){
 			$this->created_at = time();
-        } else {
+        }else{
         	$this->updated_at = time();
         }
         return parent::beforeSave();
@@ -122,8 +130,27 @@ class ThreadReply extends CActiveRecord
 	public function afterSave()
 	{
 		parent::afterSave();
+		if($this->isNewRecord){
+			UserLog::addActivity('Create', $this, 1);
+			$this->user->stat_points++;
+			$this->user->stat_replies++;
+			$this->user->save();
+		}
 		$this->thread->stat_replies = count($this->thread->replies);
 		$this->thread->save();
+	}
+
+	public function updateStatVotes(){
+		$positive_votes = COUNT(ThreadReplyVote::model()->findByAttributes(array('thread_reply_id'=>$this->id, 'vote_type'=>1)));
+		$negative_votes = COUNT(ThreadReplyVote::model()->findByAttributes(array('thread_reply_id'=>$this->id, 'vote_type'=>-1)));
+		$this->stat_votes = (int)($positive_votes - $negative_votes);
+		return $this->save();
+	}
+
+	public function getLink($absolute=false){
+		if ($absolute || !(Yii::app() instanceof CWebApplication))
+			return Yii::app()->urlManager->createAbsoluteUrl('thread/show', array('id' => $this->id)).'#thread='.$this->id;
+		return Yii::app()->urlManager->createUrl('thread/show', array('id' => $this->id)).'#thread='.$this->id;
 	}
 
 }

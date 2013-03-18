@@ -12,7 +12,7 @@
             $this->beginWidget('zii.widgets.CPortlet', array(
                 'title'=>'Operations',
             ));
-            $this->widget('bootstrap.widgets.TbMenu', array(
+            $this->widget('zii.widgets.CMenu', array(
                 'items'=>$this->menu,
                 'htmlOptions'=>array('class'=>'operations'),
             ));

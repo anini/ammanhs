@@ -31,7 +31,7 @@ class ThreadReplyController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','vote'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -70,12 +70,11 @@ class ThreadReplyController extends Controller
         	throw new CHttpException(404, 'Thread is not exist.');
         }
 
-		$model=new ThreadReply;
-		$model->user_id=Yii::app()->user->id;
+		$model = new ThreadReply;
 		$model->thread_id=$thread_id;
-		$parser=new CMarkdownParser;
-    	$_POST['ThreadReply']['content']=$parser->safeTransform($_POST['ThreadReply']['content']);
-		$model->attributes=$_POST['ThreadReply'];
+		$parser = new CMarkdownParser;
+    	$_POST['ThreadReply']['content'] = $parser->safeTransform($_POST['ThreadReply']['content']);
+		$model->attributes = $_POST['ThreadReply'];
 	
 		if($model->save())
 			return $this->renderPartial('view', array('model'=>$model));
@@ -136,6 +135,38 @@ class ThreadReplyController extends Controller
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
+	}
+
+	public function actionVote()
+	{
+		if (empty($_POST['Vote']) || !Yii::app()->request->isAjaxRequest){
+			throw new CHttpException(404, 'Bad request.');
+        }
+
+        $thread_reply_id = $_POST['Vote']['thread_reply_id'];
+        $vote_type = $_POST['Vote']['type'];
+        $user_id = Yii::app()->user->id;
+        $thread_reply = ThreadReply::model()->findByPk($thread_reply_id);
+        $thread_reply_vote = ThreadReplyVote::model()->findByAttributes(array('user_id'=>$user_id, 'thread_reply_id'=>$thread_reply_id));
+        
+        if (!$thread_reply_vote){
+        	$thread_reply_vote = new ThreadReplyVote();
+        	$thread_reply_vote->thread_reply_id = $thread_reply_id;
+        }
+
+        $thread_reply_vote->vote_type = $vote_type;
+        
+        if ($thread_reply_vote->save()){
+        	$errno = 0;	
+        } else {
+        	$errno = 1;
+        }
+
+        $stat_votes = $thread_reply->stat_votes;
+        $r = array('errno'=>$errno, 'vote_type'=>$vote_type, 'stat_votes'=>$stat_votes);
+        $json = CJSON::encode($r);
+        header('Content-type: text/javascript; charset=UTF-8');
+        echo $json;  
 	}
 
 	/**

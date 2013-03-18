@@ -4,16 +4,16 @@ setlocale(LC_ALL, 'en_US.UTF-8');
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
-Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
+// Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return CMap::mergeArray(
  array(
- 	'theme'=>'bootstrap',
+ 	//'theme'=>'bootstrap',
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Amman Hackerspace',
 	
-	'language' => 'en',
+	'language' => 'ar',
   	'sourceLanguage' =>'00',
 	
 	// preloading 'log' component
@@ -52,10 +52,14 @@ return CMap::mergeArray(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
-		'bootstrap'=>array(
-            'class' => 'ext.bootstrap.components.Bootstrap',
-	    	'responsiveCss' => true,
-        ),
+/*		'bootstrap'=>array(
+            'class'=>'ext.bootstrap.components.Bootstrap',
+	    	'responsiveCss'=>false,
+	    	'coreCss'=>false,
+	    	'yiiCss'=>false,
+	    	'jqueryCss'=>false,
+	    	'enableBootboxJS'=>false,
+        ),*/
 		// uncomment the following to enable URLs in path-format
 		
 		'urlManager'=>array(
@@ -67,9 +71,8 @@ return CMap::mergeArray(
 				'login'=>'user/login',
 				'logout'=>'user/logout',
 				'signup'=>'user/signup',
-				'profile'=>'user/profile',
-				'settings'=>'user/settings',
-				'user/<id:\d+>'=>'user/show/<id:\d+>',
+				'settings'=>'user/profile',
+				'user/<id:\w+>'=>'user/view',
 				'gii'=>'gii',
 				'<controller:\w+>'=>'<controller>/index',
 				//'<view:[^\/]+>'=>'site/page',

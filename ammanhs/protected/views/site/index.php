@@ -6,8 +6,8 @@ $cs->registerCSSFile("/css/home.css");
 ?>
 
 <div class="hero-unit" id="welcome-box">
-  <h1>Amman Hackerspace</h1>
-  <h2>build! unite! multiply!</h2>
+  <h1><?php echo Yii::t('core', 'Amman Hackerspace'); ?></h1>
+  <h2><?php echo Yii::t('core', 'slogan'); ?></h2>
   <br/>
   <p>
     <a class="btn btn-primary btn-large">

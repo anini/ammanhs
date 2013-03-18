@@ -27,7 +27,7 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('show','login','signup'),
+				'actions'=>array('view','login','signup'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -35,7 +35,7 @@ class UserController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','create','index','update','view'),
+				'actions'=>array('admin','delete','create','index','update'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -62,8 +62,11 @@ class UserController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = $this->loadModel($id);
+		$user_feed = $model->getUserFeed();
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
+			'user_feed'=>$user_feed,
 		));
 	}
 
@@ -167,23 +170,26 @@ class UserController extends Controller
 
 	public function actionLogin()
 	{
-		if(!Yii::app()->user->isGuest)
-			$this->redirect(Yii::app()->homeUrl);
-
+		$this->layout=false;
+		if(!Yii::app()->user->isGuest){
+			echo 'logged-in';
+			exit();
+		}
+			
 		if(!isset(Yii::app()->session['login_ref']))
 			Yii::app()->session['login_ref']=isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'/';
 		
         $model = new LoginForm;
-
-	    $this->performAjaxValidation($model);
 
 	    // collect user input data
 		if(isset($_POST['LoginForm']))
 		{
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->getReturnUrl(Yii::app()->homeUrl));
+			if($model->validate() && $model->login()){
+				echo 'logged-in';
+				exit();
+			}
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
@@ -200,21 +206,28 @@ class UserController extends Controller
 
 	public function actionSignup()
 	{
-		if(!Yii::app()->user->isGuest)
-			$this->redirect(Yii::app()->homeUrl);
+		$this->layout=false;
+
+		if(!Yii::app()->user->isGuest){
+			echo 'logged-in';
+			exit();
+		}
 
 		$model=new User('signup');
-
-	    $this->performAjaxValidation($model);
 
 	    if(isset($_POST['User']))
 	    {
 	        $model->attributes=$_POST['User'];
-	        $model->password=md5($model->password);
+	        if($_POST['User']['password'])
+	        	$model->password=md5($model->password);
 	        if($model->save())
 	        {
-	            $model->login();
-	            $this->redirect(Yii::app()->homeUrl);
+	        	$login_form = new LoginForm;
+	        	$login_form->attributes = $model->attributes;
+	            if($login_form->login()){
+					echo 'logged-in';
+					exit();
+				}
 	        }
 	        $model->password = null;
 	    }
@@ -261,7 +274,10 @@ class UserController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=User::model()->findByPk($id);
+		if(is_numeric($id))
+			$model=User::model()->findByPk($id);
+		else
+			$model=User::model()->findByAttributes(array('username'=>$id));
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

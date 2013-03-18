@@ -101,13 +101,35 @@ class ThreadReplyVote extends CActiveRecord
 		));
 	}
 
+	protected function beforeValidate() {
+		if(!$this->user_id){
+        	$this->user_id = Yii::app()->user->id;
+        }
+        return true;
+    }
+
 	public function beforeSave()
 	{
-		if (!$this->created_at) {
+		if(!$this->created_at){
 			$this->created_at = time();
-        } else {
+        }else{
         	$this->updated_at = time();
         }
         return parent::beforeSave();
+	}
+
+	public function afterSave()
+	{
+		parent::afterSave();
+		$vote_type='';
+		if($this->vote_type==1){
+			$vote_type='VoteUp';
+		}elseif($this->vote_type==-1){
+			$vote_type='VoteDown';
+		}
+		UserLog::addActivity($vote_type, $this->threadReply);
+		$this->user->stat_votes++;
+		$this->user->save();
+		$this->threadReply->updateStatVotes();
 	}
 }

@@ -10,7 +10,7 @@ class m130102_151046_create_tbl_thread extends CDbMigration
 			$this->createTable('tbl_thread', array(
 				'id' => 'int(11) NOT NULL AUTO_INCREMENT',
                 'user_id' => 'int(11) NOT NULL',
-                'type' => 'enum("question","idea","discussion","announcement","article") NOT NULL DEFAULT "question"',
+                'type' => 'enum("Question","Idea","Discussion","Announcement","Article") NOT NULL DEFAULT "Question"',
                 'status' => 'int(11) NOT NULL DEFAULT 0',
                 'title' => 'varchar(256) NOT NULL',
                 'content' => 'text',

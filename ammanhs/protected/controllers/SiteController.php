@@ -21,6 +21,11 @@ class SiteController extends Controller
 		);
 	}
 
+	public function actionRefreshHeader(){
+		$this->layout = false;
+        $this->renderPartial('//layouts/_header');
+	}
+
 	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.

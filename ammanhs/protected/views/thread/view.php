@@ -1,7 +1,7 @@
 <?php
 $this->pageTitle = $model->title;
 $this->breadcrumbs=array(
-	'Threads'=>array('index'),
+	Yii::t('core','Threads')=>array('index'),
 	$model->title,
 );
 Yii::app()->clientScript->registerCSSFile('/css/thread.css');
@@ -14,62 +14,85 @@ $this->menu=array(
 	array('label'=>'Manage Thread','url'=>array('admin')),
 );
 ?>
+<div class="row">
+	<div class="span2 text-center user-info-box" style="padding: 5px 0;">
+		<?php echo $model->user->avatar_a(160, 160, array('class'=>'img-rounded')); ?>
+		<h4><?php echo $model->user->name; ?></h4>
+		<div>User Info</div>
+	</div>
 
-<table id="user-info-table">
-	<tr>
-		<td>
-			<div class="user-info-box">
-				<?php echo $model->user->avatar_a(128, 128); ?>
-			    <div id="user-name"><?php echo $model->user->name; ?></div>
-			    <div>User Info</div>
-			</div>
-		</td>
-		<td width="100%">
-			<div>
-				<div id="thread-title">
-					<b style=""><?php echo $model->title; ?></b>
-					<span><?php echo date('Y-m-d', $model->created_at); ?></span>
+	<div class="span7">
+		<div class="row">
+			<div class="span7 user-info-box">
+				<div class="row">
+					<div class="span5 ">
+						<h4 style="margin-right: 10px;"><?php echo $model->title; ?></h4>
+					</div>
+					<div class="span2 text-left">
+						<h4 class="muted" style="margin-left: 10px;"><?php echo date('Y-m-d', $model->created_at); ?></h4>
+					</div>
 				</div>
-				<table>
-					<tr width="100%">
-						<td id="thread-content">
-							<p><?php echo $model->content; ?></p>
-						</td>
-						<?php
-						$form=$this->beginWidget('CActiveForm',array(
-							'id'=>'thread-vote-form',
-							'action'=>'/thread/vote',
-							'htmlOptions'=>array(
-								'onsubmit' => 'return vote(this);'
-							),
-						)); ?>
-						<input type="hidden" name="Vote[thread_id]" value="<?php echo  $model->id; ?>"/>
-						<input type="hidden" id="thread-vote-type" name="Vote[type]" value="0"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span7" style="position:relative;">
+				<table width="100%">
+					<tr>
+						<td><?php echo $model->content; ?></td>
 						<td id="thread-vote">
+							<?php
+							$form=$this->beginWidget('CActiveForm',array(
+								'id'=>'thread-vote-form',
+								'action'=>'/thread/vote',
+								'htmlOptions'=>array(
+									'onsubmit' => 'return vote(this);'
+								),
+							)); ?>
+							<input type="hidden" name="Vote[thread_id]" value="<?php echo  $model->id; ?>"/>
+							<input type="hidden" id="thread-vote-type" name="Vote[type]" value="0"/>
 							<div class="arrow vote-up vote-up-off" title="Vote this <?php echo $model->type; ?> up!" onclick="$('#thread-vote-type').val(1); $('#thread-vote-form').submit();"></div>
 							<div class="vote-number"><?php echo $model->stat_votes; ?></div>
 							<div class="arrow vote-down vote-down-off" title="Vote this <?php echo $model->type; ?> down!" onclick="$('#thread-vote-type').val(-1); $('#thread-vote-form').submit();"></div>
+							<?php $this->endWidget(); ?>
 						</td>
-						<?php $this->endWidget(); ?>
 					</tr>
 				</table>
 			</div>
-		</td>
-	</tr>
-</table>
+		</div>
+	</div>
+</div>
+<hr/>
+
+
+
 
 <div id="thread-replies">
-	<?php
-	foreach ($model->replies as $reply) {
-		$this->renderPartial('../threadReply/view', array('model' => $reply));
-	}
-	?>
+	<?php if($model->stat_replies) { ?>
+		<?php
+		$form=$this->beginWidget('CActiveForm',array(
+			'id'=>'thread-reply-vote-form',
+			'action'=>'/threadReply/vote',
+			'htmlOptions'=>array(
+				'onsubmit' => 'return vote(this);'
+			),
+		)); ?>
+		<input type="hidden" id="thread-reply-vote-id" name="Vote[thread_reply_id]" value="0"/>
+		<input type="hidden" id="thread-reply-vote-type" name="Vote[type]" value="0"/>
+		<?php $this->endWidget(); ?>
+		<?php
+		foreach ($model->replies as $reply) {
+			$this->renderPartial('../threadReply/view', array('model' => $reply));
+		}
+		?>
+	<?php } ?>
 </div>
+
+
 
 <div id="new-thread">
 	<table width="100%">
 		<tr>
-			<td style="padding-left: 60px;">
+			<td style="padding-right: 50px; padding-left: 20px;">
 				<div class="reply-user">
 					<?php if (Yii::app()->user->isGuest) { ?>
 						<div style="width:96px;height:96px"><img src="/images/default-male.jpg" width="96px" height="96px" title="Test User" alt="Test User"></div>
@@ -81,7 +104,7 @@ $this->menu=array(
 			<td style="width: 100%;">
 				<div>
 					<?php
-					$form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+					$form=$this->beginWidget('zii.widgets.CActiveForm',array(
 						'id'=>'thread-reply-form',
 						'action'=>'/threadReply/create?thread_id='.$model->id,
 						'enableAjaxValidation'=>false,
@@ -91,14 +114,10 @@ $this->menu=array(
 					)); ?>
 					<?php echo $form->errorSummary($thread_reply); ?>
 
-					<div style="float: right;">
-						<?php $this->widget('bootstrap.widgets.TbButton', array(
-							'buttonType'=>'submit',
-							'htmlOptions'=>array('style'=>'font-weight: bold;'),
-							'label'=> 'Reply',
-						)); ?>
+					<div style="float: left;">
+						<button class="btn btn-block btn-primary" type="submit"><?php echo Yii::t('core','Reply'); ?></button>
 					</div>
-					<?php echo $form->markdownEditorRow($thread_reply, 'content', array('height'=>'100px', 'placeholder'=>'Have something to say?!'));?>
+					<?php //echo $form->markdownEditorRow($thread_reply, 'content', array('height'=>'100px', 'placeholder'=>'Have something to say?!'));?>
 					<?php $this->endWidget(); ?>
 				</div>
 			</td>

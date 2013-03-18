@@ -75,12 +75,12 @@ class CStringValidator extends CValidator
 
 		if($this->min!==null && $length<$this->min)
 		{
-			$message=$this->tooShort!==null?$this->tooShort:Yii::t('yii','{attribute} is too short (minimum is {min} characters).');
+			$message=$this->tooShort!==null?$this->tooShort:Yii::t('core','{attribute} is too short (minimum is {min} characters).');
 			$this->addError($object,$attribute,$message,array('{min}'=>$this->min));
 		}
 		if($this->max!==null && $length>$this->max)
 		{
-			$message=$this->tooLong!==null?$this->tooLong:Yii::t('yii','{attribute} is too long (maximum is {max} characters).');
+			$message=$this->tooLong!==null?$this->tooLong:Yii::t('core','{attribute} is too long (maximum is {max} characters).');
 			$this->addError($object,$attribute,$message,array('{max}'=>$this->max));
 		}
 		if($this->is!==null && $length!==$this->is)
@@ -110,14 +110,14 @@ class CStringValidator extends CValidator
 		));
 
 		if(($tooShort=$this->tooShort)===null)
-			$tooShort=Yii::t('yii','{attribute} is too short (minimum is {min} characters).');
+			$tooShort=Yii::t('core','{attribute} is too short (minimum is {min} characters).');
 		$tooShort=strtr($tooShort, array(
 			'{attribute}'=>$label,
 			'{min}'=>$this->min,
 		));
 
 		if(($tooLong=$this->tooLong)===null)
-			$tooLong=Yii::t('yii','{attribute} is too long (maximum is {max} characters).');
+			$tooLong=Yii::t('core','{attribute} is too long (maximum is {max} characters).');
 		$tooLong=strtr($tooLong, array(
 			'{attribute}'=>$label,
 			'{max}'=>$this->max,

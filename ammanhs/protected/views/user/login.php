@@ -1,45 +1,27 @@
-<?php
-/* @var $this UserController */
-/* @var $model User */
-/* @var $form CActiveForm  */
-
-$this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
-?>
-
-<h1>Login</h1>
-
-<p>Please fill out the following form with your login credentials:</p>
-
-<div class="form">
-
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'user-form',
-    'type'=>'horizontal',
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<?php echo $form->textFieldRow($model,'username'); ?>
-
-	<?php echo $form->passwordFieldRow($model,'password'); ?>
-
-	<?php echo $form->checkBoxRow($model,'rememberMe'); ?>
-
-	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
-            'buttonType'=>'submit',
-            'type'=>'primary',
-            'label'=>'Login',
-        )); ?>
-	</div>
-
+<?php if(!isset($model))
+$model = new LoginForm;
+$form=$this->beginWidget('CActiveForm', array(
+		'id'=>'user-login-form',
+		'action'=>'/login',
+		'htmlOptions'=>array(
+			'class'=>'form-inline popup-form',
+			'onsubmit'=>'return connect(this);'
+			)
+		)); ?>
+		<div class="control-group">
+			<?php echo $form->textField($model,'username', array('placeholder' => 'Username or email')); ?>
+			<?php echo $form->error($model,'username', array('class' => 'help-inline error')); ?>
+		</div>
+		<div class="control-group">
+			<?php echo $form->passwordField($model,'password', array('placeholder' => 'Password')); ?>
+			<?php echo $form->error($model,'password', array('class' => 'help-inline error')); ?>
+		</div>
+		<div class="control-group" style="margin-top: -10px;">
+			<label class="checkbox" for="LoginForm_rememberMe">
+				<input id="ytLoginForm_rememberMe" type="hidden" value="0" name="LoginForm[rememberMe]">
+				<input name="LoginForm[rememberMe]" id="LoginForm_rememberMe" value="1" type="checkbox"><?php echo Yii::t('core','Remember Me'); ?>
+				<span class="help-inline error" id="LoginForm_rememberMe_em_" style="display: none"></span>
+			</label>
+		</div>
+		<button class="btn btn-block btn-primary" type="submit"><?php echo Yii::t('core','Login'); ?></button>
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

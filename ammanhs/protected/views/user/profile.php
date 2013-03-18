@@ -1,46 +1,33 @@
 <?php
 $this->breadcrumbs=array(
-	'Profile'=>array('index'),
-	'Settings',
+	Yii::t('core', 'Profile')=>array($this->createUrl('user/view', array('id'=>Yii::app()->user->id))),
+	Yii::t('core', 'Settings'),
 );
 $cs = Yii::app()->clientScript;
-$cs->registerCSSFile("/css/bootstrap-fileupload.css");
-$cs->registerScriptFile('/js/bootstrap-fileupload.js', CClientScript::POS_END);
+$cs->registerCSSFile("/css/fileupload.css");
+$cs->registerScriptFile('/js/fileupload.js', CClientScript::POS_END);
 $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'image'});", CClientScript::POS_END) ;
 ?>
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+<?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'user-form',
 	'enableAjaxValidation'=>true,
-	'type'=>'horizontal',
 	'htmlOptions' => array(
         'enctype' => 'multipart/form-data',
+        'class' => 'form-horizontal',
+        'enableClientValidation'=>true
     ),
 )); ?>
 
-	<?php echo $form->errorSummary($model); ?>
+<?php echo $form->errorSummary($model, '<button type="button" class="close" data-dismiss="alert">&times;</button>', null, array('class'=>'alert alert-error')); ?>
 
-	<?php echo $form->textFieldRow($model,'email',array('class'=>'span5')); ?>
-
-	<?php echo $form->radioButtonListRow($model,'gender',array('1'=>'Male','2'=>'Female'),array('separator'=>'')); ?>
-
-	<?php echo $form->textFieldRow($model,'first_name',array('class'=>'span5', 'maxlength'=>64)); ?>
-
-	<?php echo $form->textFieldRow($model,'last_name',array('class'=>'span5', 'maxlength'=>64)); ?>
-
-	<?php echo $form->textFieldRow($model,'country',array('class'=>'span5', 'maxlength'=>64)); ?>
-
-	<?php echo $form->textFieldRow($model,'twitter_uri',array('class'=>'span5', 'maxlength'=>64)); ?>
-
-	<?php echo $form->textFieldRow($model,'facebook_uri',array('class'=>'span5', 'maxlength'=>128)); ?>
-
-	<?php //echo $form->fileFieldRow($model,'avatar_uri',array('class'=>'span5')); ?>
-
-	<!--<label class="control-label" for="User_avatar_uri">Avatar</label>-->
-	<div class="fileupload fileupload-new" data-provides="fileupload" style="margin-left: 180px;">
-		
-		<div class="fileupload-preview thumbnail" style="width: 160px; height: 160px;">
-			<?php echo $model->avatar(160, 160); ?>
+<div class="control-group">
+<div class="form-inline">
+	<div class="row">
+	<div class="span2">
+	<div class="fileupload fileupload-new" data-provides="fileupload">
+		<div class="fileupload-preview thumbnail" class="span2">
+			<?php echo $model->avatar(160, 160, false); ?>
 		</div>
 		<div>
 			<span class="btn btn-file">
@@ -48,21 +35,75 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 				<span class="fileupload-exists">Change</span>
 				<input name="User[avatar_uri]" id="User_avatar_uri" type="file"/>
 			</span>
-			<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 			<span class="help-inline error" id="User_avatar_uri_em_" style="display: none"></span>
 		</div>
 	</div>
+</div>
+<div class="span7">
+		<div class="control-group">
+		<?php echo $form->textField($model,'first_name', array('style'=>'max-width: 119px;', 'placeholder'=>Yii::t('core', 'First Name'))); ?>
+		<?php echo $form->textField($model,'last_name', array('style'=>'max-width: 119px;', 'placeholder'=>Yii::t('core', 'Last Name'))); ?>
+		
+		<?php echo $form->error($model,'first_name'); ?>
+		<?php echo $form->error($model,'last_name'); ?>
+		</div>
+		<div class="control-group">
+		<?php echo $form->textField($model,'email', array('class'=>'span3', 'placeholder'=>Yii::t('core', 'Email'))); ?>
+		<span class="help-inline"><?php echo $form->error($model,'email'); ?></span>
+		</div>
+		<div class="control-group">
+				<?php echo $form->textField($model,'country', array('class'=>'span3', 'placeholder'=>Yii::t('core', 'Country'))); ?>
+				<?php echo $form->error($model,'country'); ?>
+		</div>
 
+		<div class="btn-group" data-toggle="buttons-radio">
+		  <button type="button" class="btn">Male</button>
+		  <button type="button" class="btn">Female</button>
+		</div>
+</div>
+</div>
+</div>
 
+</div>
 
-	<?php echo $form->textAreaRow($model,'about',array('rows'=>6, 'cols'=>50, 'class'=>'span5')); ?>
-
-	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'submit',
-			'type'=>'primary',
-			'label'=>'Save',
-		)); ?>
+<div class="control-group">
+	<?php echo $form->labelEx($model,'twitter_uri', array('class'=>'control-label')); ?>
+	<div class="controls">
+		<div class="input-prepend">
+		<span class="add-on">@</span>
+		<?php echo $form->textField($model,'twitter_uri'); ?>
+		</div>
+		<?php echo $form->error($model,'twitter_uri'); ?>
 	</div>
+</div>
+
+<div class="control-group">
+	<?php echo $form->labelEx($model,'facebook_uri', array('class'=>'control-label')); ?>
+	<div class="controls">
+		<?php echo $form->textField($model,'facebook_uri'); ?>
+		<?php echo $form->error($model,'facebook_uri'); ?>
+	</div>
+</div>
+
+<div class="control-group">
+	<?php echo $form->labelEx($model,'google_uri', array('class'=>'control-label')); ?>
+	<div class="controls">
+		<?php echo $form->textField($model,'google_uri'); ?>
+		<?php echo $form->error($model,'google_uri'); ?>
+	</div>
+</div>
+
+<div class="control-group">
+	<?php echo $form->labelEx($model,'about', array('class'=>'control-label')); ?>
+	<div class="controls">
+		<?php echo $form->textArea($model,'about',array('rows'=>5)); ?>
+		<?php echo $form->error($model,'about'); ?>
+	</div>
+</div>
+
+<div class="form-actions">
+	<button class="btn btn-primary" type="submit"><?php echo Yii::t('core','Save'); ?></button>
+	<button type="button" class="btn"><?php echo Yii::t('core','Cancel'); ?></button>
+</div>
 
 <?php $this->endWidget(); ?>

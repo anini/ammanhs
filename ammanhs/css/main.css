@@ -1,6 +1,23 @@
 @font-face {
-	font-family: ammanhs;
-	src: url('ammanhs.ttf');
+	font-family: GE SS Bold;
+	src: url('GE SS Bold.otf');
+}
+
+@font-face {
+	font-family: GE SS Light;
+	src: url('GE SS Light.otf');
+}
+
+@font-face {
+	font-family: GE SS Medium;
+	src: url('GE SS Medium.otf');
+}
+
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    direction: rtl;
 }
 
 body
@@ -8,12 +25,19 @@ body
 	margin: 0;
 	padding: 0;
 	color: #555;
-	font: normal 11pt 'ammanhs',Arial,Helvetica,sans-serif;
-	background: #EFEFEF;
+	font: normal 11pt 'GE SS Medium',Arial;
+	background: #FFFFFF;
+    line-height: 15px;
+    color: #333333;
 }
 
 #page {
     padding-top: 60px;
+    font-family: Arial, sans-serif;
+}
+#content{
+    line-height: 20px;
+    font-size: 16px;
 }
 .popup-form{
 	margin: 12px;
@@ -25,8 +49,12 @@ body
 	text-shadow: 0px 0px 1px rgba(82, 168, 236, 0.796875);
 }
 #header-avatar{
-	margin-top: -4px;
 	border: 1px solid #BBB;
+    margin: 3px 10px;
+}
+.user-icons{
+    padding: 10px !important;
+    font-size: 18px;
 }
 
 @-webkit-keyframes wipe{
@@ -38,4 +66,33 @@ body
 	-webkit-mask-position: -90px 0px;
 	-webkit-mask-size: 320px 200px;
 	-webkit-mask-image: -webkit-gradient(linear, 61 47, 15 15, from(rgb(0, 0, 0)), color-stop(0.1, rgba(0, 0, 0, 0)), to(rgb(0, 0, 0)));
+}
+#header-search{
+    padding-left: 24px;
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.breadcrumbs, .navbar-inner{
+    font-family: 'GE SS Medium', Arial;
+    font-weight: bold;
+}
+
+
+.ge-ss {
+    font-family: 'GE SS Medium', Arial;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.ge-ss-strong{
+    font-family: 'GE SS Bold',Arial;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#user-header .tooltip{
+    top: 40px !important;
 }
