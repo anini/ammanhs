@@ -20,4 +20,23 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
+
+	/**
+	 * internally used method
+	 */
+	public function dynamicPartialCallback() {
+		$params=func_get_args();
+	    $view=array_shift($params);
+	    $data=array_shift($params);
+	    $processOutput=array_shift($params);
+	    return $this->renderPartial($view, $data, true, $processOutput);
+	}
+
+	/**
+	 * renders a partial dynamically even when done between beginCache/endCache
+	 * Note: be aware of $data passed by controller
+	 */
+	public function dynamicPartial($view, $data=NULL, $processOutput=false) {
+		return $this->renderDynamic('dynamicPartialCallback', $view, $data, $processOutput);
+	}
 }

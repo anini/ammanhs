@@ -231,7 +231,8 @@ class ThreadController extends Controller
         	$errno = 1;
         }
 
-        $stat_votes = $thread->stat_votes;
+        if($thread->updateStatVotes())
+        	$stat_votes = $thread->stat_votes;
         $r = array('errno'=>$errno, 'vote_type'=>$vote_type, 'stat_votes'=>$stat_votes);
         $json = CJSON::encode($r);
         header('Content-type: text/javascript; charset=UTF-8');

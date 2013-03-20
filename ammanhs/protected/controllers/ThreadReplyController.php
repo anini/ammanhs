@@ -161,8 +161,8 @@ class ThreadReplyController extends Controller
         } else {
         	$errno = 1;
         }
-
-        $stat_votes = $thread_reply->stat_votes;
+        if($thread_reply->updateStatVotes())
+        	$stat_votes = $thread_reply->stat_votes;
         $r = array('errno'=>$errno, 'vote_type'=>$vote_type, 'stat_votes'=>$stat_votes);
         $json = CJSON::encode($r);
         header('Content-type: text/javascript; charset=UTF-8');

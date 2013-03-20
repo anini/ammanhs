@@ -145,6 +145,8 @@
 }
 .reply-vote, #thread-vote{
 	width: 40px;
+}
+#thread-vote{
 	padding-top: 20px;
 }
 #new-thread{
@@ -182,4 +184,14 @@
 }
 #new-thread td{
 	vertical-align: top;
+}
+
+.nav-tabs > li{
+	float: left !important;
+}
+
+.summary a:hover{
+	text-decoration: none !important;
+	color: #333333 !important;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
 }

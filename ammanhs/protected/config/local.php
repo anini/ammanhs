@@ -1,14 +1,6 @@
 <?php
 return array(
 'components'=>array(
-		/*'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/jeeran-ii.db',
-			'tablePrefix' => 'tbl_',
-			//  'schemaCachingDuration' => 3600,
-			 //'enableProfiling' => true,
-		),
-		// uncomment the following to use a MySQL database
-		*/
 		'db'=>array(
 			'class' => 'CDbConnection',
 			'tablePrefix' => 'tbl_',
@@ -20,17 +12,6 @@ return array(
 			// 'schemaCachingDuration' => 3600,
 			'enableProfiling' => true,
 		),
-		
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array( 'class' => 'CProfileLogRoute' ,),
-				// uncomment the following to show log messages on web pages
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				)
-		), 
 		'cache'=>array(
 			'class'=>'CFileCache',
 			//'class'=>'CMemCache',
@@ -102,11 +83,6 @@ return array(
 		),
 */
 ),
-'params'=>array(
-		// below some configration for s3
-		'host'=>'local.ammanhs.com',
-		'adminEmail'=>'mohd.anini@gmail.com',
-)
 );
 
 

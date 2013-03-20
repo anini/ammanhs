@@ -614,6 +614,24 @@ class CActiveForm extends CWidget
 	}
 
 	/**
+	* Renders a WYSIWYG Markdown editor
+	* @param $model
+	* @param $attribute
+	* @param array $htmlOptions
+	* @return string
+	*/
+	public function markdownEditor($model, $attribute, $htmlOptions = array())
+	{
+		ob_start();
+		Yii::app()->controller->widget('MarkdownEditor', array(
+			'model' => $model,
+			'attribute' => $attribute,
+			'htmlOptions' => $htmlOptions,
+		));
+		return ob_get_clean();
+	}
+
+	/**
 	 * Renders a file field for a model attribute.
 	 * This method is a wrapper of {@link CHtml::activeFileField}.
 	 * Please check {@link CHtml::activeFileField} for detailed information

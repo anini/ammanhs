@@ -130,6 +130,5 @@ class ThreadReplyVote extends CActiveRecord
 		UserLog::addActivity($vote_type, $this->threadReply);
 		$this->user->stat_votes++;
 		$this->user->save();
-		$this->threadReply->updateStatVotes();
 	}
 }

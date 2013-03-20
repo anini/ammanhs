@@ -188,8 +188,8 @@ class User extends CActiveRecord
 			return $this->username;
 	}
 
-	public function avatar($w=false, $h=false, $with_container=true, $attributes=array()){
-		return  (($with_container)?'<div style="width:'.($w).'px;height:'.($h).'px">':'').
+	public function avatar($w=false, $h=false, $with_container=true, $attributes=array(), $container_style=""){
+		return  (($with_container)?'<div style="'.$container_style.'">':'').
 					Img::embed($this->avatar_uri, $w, $h,($this->gender==2)?'default-female.jpg':'default-male.jpg',array_merge($attributes, array("title"=>$this->name))).
 				(($with_container)?'</div>':'');
 	}

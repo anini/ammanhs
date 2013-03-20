@@ -1,16 +1,11 @@
 @font-face {
-	font-family: GE SS Bold;
-	src: url('GE SS Bold.otf');
-}
-
-@font-face {
 	font-family: GE SS Light;
-	src: url('GE SS Light.otf');
+	src: url('GESSLight.otf');
 }
 
 @font-face {
 	font-family: GE SS Medium;
-	src: url('GE SS Medium.otf');
+	src: url('GESSMedium.otf');
 }
 
 html {
@@ -20,8 +15,7 @@ html {
     direction: rtl;
 }
 
-body
-{
+body {
 	margin: 0;
 	padding: 0;
 	color: #555;
@@ -67,6 +61,9 @@ body
 	-webkit-mask-size: 320px 200px;
 	-webkit-mask-image: -webkit-gradient(linear, 61 47, 15 15, from(rgb(0, 0, 0)), color-stop(0.1, rgba(0, 0, 0, 0)), to(rgb(0, 0, 0)));
 }
+.navbar-search{
+    padding-left: 20px;
+}
 #header-search{
     padding-left: 24px;
     -moz-transition: all 0.5s ease;
@@ -80,19 +77,15 @@ body
     font-weight: bold;
 }
 
-
 .ge-ss {
     font-family: 'GE SS Medium', Arial;
     font-weight: bold;
-    font-size: 15px;
-}
-
-.ge-ss-strong{
-    font-family: 'GE SS Bold',Arial;
-    font-weight: bold;
-    font-size: 15px;
 }
 
 #user-header .tooltip{
     top: 40px !important;
+}
+
+#connect-modal .modal-body{
+    overflow: hidden !important;
 }

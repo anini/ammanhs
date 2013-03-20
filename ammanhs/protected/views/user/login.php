@@ -1,20 +1,21 @@
-<?php if(!isset($model))
-$model = new LoginForm;
+<?php if(!isset($login_form))
+	$login_form = new LoginForm;
 $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'user-login-form',
 		'action'=>'/login',
 		'htmlOptions'=>array(
 			'class'=>'form-inline popup-form',
+			'style'=>'float: right;',
 			'onsubmit'=>'return connect(this);'
 			)
 		)); ?>
 		<div class="control-group">
-			<?php echo $form->textField($model,'username', array('placeholder' => 'Username or email')); ?>
-			<?php echo $form->error($model,'username', array('class' => 'help-inline error')); ?>
+			<?php echo $form->textField($login_form,'username', array('placeholder' => 'Username or email')); ?>
+			<?php echo $form->error($login_form,'username', array('class' => 'help-inline error')); ?>
 		</div>
 		<div class="control-group">
-			<?php echo $form->passwordField($model,'password', array('placeholder' => 'Password')); ?>
-			<?php echo $form->error($model,'password', array('class' => 'help-inline error')); ?>
+			<?php echo $form->passwordField($login_form,'password', array('placeholder' => 'Password')); ?>
+			<?php echo $form->error($login_form,'password', array('class' => 'help-inline error')); ?>
 		</div>
 		<div class="control-group" style="margin-top: -10px;">
 			<label class="checkbox" for="LoginForm_rememberMe">
@@ -23,5 +24,5 @@ $form=$this->beginWidget('CActiveForm', array(
 				<span class="help-inline error" id="LoginForm_rememberMe_em_" style="display: none"></span>
 			</label>
 		</div>
-		<button class="btn btn-block btn-primary" type="submit"><?php echo Yii::t('core','Login'); ?></button>
+		<button class="btn btn-primary" type="submit" style="width: 220px;"><?php echo Yii::t('core','Login'); ?></button>
 <?php $this->endWidget(); ?>

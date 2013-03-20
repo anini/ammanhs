@@ -124,6 +124,5 @@ class ThreadVote extends CActiveRecord
 		UserLog::addActivity('Vote', $this->thread);
 		$this->user->stat_votes++;
 		$this->user->save();
-		$this->thread->updateStatVotes();
 	}
 }

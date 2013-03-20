@@ -25,8 +25,7 @@ class {ClassName} extends CDbMigration
             //     list($q, $p)=$sql;
             //     $this->execute($q , $p);
             // }
-
-			
+            
 			// [[ YOUR CODE GOES HERE ]] //
 				
 				// 

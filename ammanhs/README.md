@@ -1,5 +1,5 @@
 ammanhs
 =======
 
-Amman Hacker Space
+Amman Hackerspace
 http://ammanhs.com/

@@ -192,7 +192,7 @@ class UserController extends Controller
 			}
 		}
 		// display the login form
-		$this->render('login',array('model'=>$model));
+		$this->render('login',array('login_form'=>$model));
 	}
 
 	/**

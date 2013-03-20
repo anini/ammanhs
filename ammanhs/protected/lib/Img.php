@@ -2,32 +2,6 @@
 
 class Img
 {
-  public static function s3Check($img) {
-    $i=(int)file_exists(Yii::app()->params['s3directory'].$img);
-    Yii::app()->commoncache->set('s3md5='.md5($img), $i, ($i)?3600*24:120);
-    return $i;
-  }
-
-    public static function gotS3($img) {
-      $img_u=str_replace('%2F', '/', rawurlencode($img)); // url encoded image
-      if (!isset(Yii::app()->params['s3baseurl']) ||
-          !Yii::app()->params['s3baseurl'] ||
-          !isset(Yii::app()->params['s3directory']) ||
-          !Yii::app()->params['s3directory']
-          ) return false;
-      $md5=md5($img);
-      $c=Yii::app()->commoncache->get('s3md5='.$md5);
-      if ($c==1) return Yii::app()->params['s3baseurl']."{$img_u}";
-      else if ($c===false) {
-        $c=Yii::app()->redis->setnx('limit_s3md5='.$md5, time());
-        if ($c) {
-          Yii::app()->redis->expire('limit_s3md5='.$md5, 60);
-          AsyncTasks::queue("normal",  array('Img','s3Check') , $img );
-        }
-      }
-      return false;
-    }
-
     public static function absolutePath($img) {
         return Yii::app()->basePath."/../images/${img}";
     }
@@ -36,30 +10,16 @@ class Img
       $host=isset(Yii::app()->params['static_host'])?Yii::app()->params['static_host']:Yii::app()->params['host'];
       if ($def===false) $def='default-male.png';
       if (!$img) {
-        $s3=Img::gotS3($def);
-        return ($s3)?$s3:"http://$host/images/${def}";
+        return "http://$host/images/${def}";
       }
       $img_u=str_replace('%2F', '/', rawurlencode($img)); // url encoded image
-      // FIXME: try to make this rare case async (the heavy part is file_exits inside "if" cond)
-      if (!file_exists(self::absolutePath($img)) &&
-          isset(Yii::app()->params['s3directory']) &&
-          Yii::app()->params['s3directory'] &&
-          file_exists(Yii::app()->params['s3directory']."/images/${img}")
-      ) {
-        $d=self::absolutePath($img);
-        @mkdir(dirname($d), 0777, true);
-        $r=copy(Yii::app()->params['s3directory']."/images/${img}", $d);
-      }
       if (!is_file(self::absolutePath($img))) {
-          $s3=Img::gotS3($def);
-          return ($s3)?$s3:"http://$host/images/${def}";
+          return "http://$host/images/${def}";
       }
       if (!$w) {
-        $s3=Img::gotS3("/images/${img}");
-        return ($s3)?$s3:"http://$host/images/${img_u}";
+        return "http://$host/images/${img_u}";
       }
-      $s3=Img::gotS3("/images/preview/${w}x${h}/${img}{$format}");
-      return ($s3)?$s3:"http://$host/images/preview/${w}x${h}/${img_u}{$format}";
+      return "http://$host/images/preview/${w}x${h}/${img_u}{$format}";
     }
 
     public static function embed($img, $w=false, $h=false, $def=false, $attr=false, $format='.jpg') {

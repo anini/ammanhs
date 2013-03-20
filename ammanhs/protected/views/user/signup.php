@@ -1,11 +1,12 @@
 <?php 
 if(!isset($model))
-$model = new User('signup');
+	$model = new User('signup');
 $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'user-signup-form',
 		'action'=>'/signup',
 		'htmlOptions'=>array(
 			'class'=>'form-inline popup-form',
+			'style'=>'float: right;',
 			'onsubmit'=>'return connect(this);'
 			)
 		)); ?>
@@ -21,5 +22,5 @@ $form=$this->beginWidget('CActiveForm', array(
 			<?php echo $form->passwordField($model,'password', array('placeholder' => Yii::t('core', 'Strong Password'))); ?>
 			<?php echo $form->error($model,'password', array('class' => 'help-inline error')); ?>
 		</div>
-		<button class="btn btn-block btn-primary" type="submit"><?php echo Yii::t('core','Signup for Free!'); ?></button>
+		<button class="btn btn-primary" type="submit" style="width: 220px;"><?php echo Yii::t('core','Signup for Free!'); ?></button>
 <?php $this->endWidget(); ?>

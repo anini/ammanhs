@@ -14,6 +14,7 @@ $this->menu=array(
 	array('label'=>'Manage Thread','url'=>array('admin')),
 );
 ?>
+
 <div class="row">
 	<div class="span2 text-center user-info-box" style="padding: 5px 0;">
 		<?php echo $model->user->avatar_a(160, 160, array('class'=>'img-rounded')); ?>
@@ -73,7 +74,7 @@ $this->menu=array(
 			'id'=>'thread-reply-vote-form',
 			'action'=>'/threadReply/vote',
 			'htmlOptions'=>array(
-				'onsubmit' => 'return vote(this);'
+				'onsubmit' => 'return vote(this, "reply");'
 			),
 		)); ?>
 		<input type="hidden" id="thread-reply-vote-id" name="Vote[thread_reply_id]" value="0"/>
@@ -88,21 +89,19 @@ $this->menu=array(
 </div>
 
 
-
-<div id="new-thread">
-	<table width="100%">
-		<tr>
-			<td style="padding-right: 50px; padding-left: 20px;">
-				<div class="reply-user">
-					<?php if (Yii::app()->user->isGuest) { ?>
-						<div style="width:96px;height:96px"><img src="/images/default-male.jpg" width="96px" height="96px" title="Test User" alt="Test User"></div>
-					<?php } else { 
-						echo Yii::app()->user->model->avatar(96, 96);
-					}?>
-				</div>
-			</td>
-			<td style="width: 100%;">
-				<div>
+<div class="row">
+	<div class="span8 offset1">
+		<div class="user-info-box" style="padding: 5px; width: 15%; display: inline-table;vertical-align: top; margin-top: 50px;">
+			<?php if (Yii::app()->user->isGuest) { ?>
+				<div><img src="/images/default-male.jpg" width="128px" height="128px" title="Test User" alt="Test User"></div>
+			<?php } else { 
+				echo Yii::app()->user->model->avatar(128, 128);
+			}?>
+			<div class="arrow left-arrow"></div>
+		</div>
+		<div style="width: 80%; display: inline-table;vertical-align: top;">
+			<div style="padding: 1px;margin-right: 15px;">
+				<div style="width: 100%;">
 					<?php
 					$form=$this->beginWidget('zii.widgets.CActiveForm',array(
 						'id'=>'thread-reply-form',
@@ -115,15 +114,18 @@ $this->menu=array(
 					<?php echo $form->errorSummary($thread_reply); ?>
 
 					<div style="float: left;">
-						<button class="btn btn-block btn-primary" type="submit"><?php echo Yii::t('core','Reply'); ?></button>
+						<button class="btn" type="submit"><b><?php echo Yii::t('core','Add your reply'); ?></b></button>
 					</div>
-					<?php //echo $form->markdownEditorRow($thread_reply, 'content', array('height'=>'100px', 'placeholder'=>'Have something to say?!'));?>
+					<?php echo $form->markdownEditor($thread_reply, 'content', array('placeholder'=>'Have something to say?!', 'style'=>'height: 150px;'));?>
 					<?php $this->endWidget(); ?>
 				</div>
-			</td>
-		</tr>
-	</table>
+			</div>
+		</div>
+	</div>
 </div>
+
+
+
 
 <ul class="pager">
 	<li style="float: left;"><a href="#">&larr; Prev Thread</a></li>

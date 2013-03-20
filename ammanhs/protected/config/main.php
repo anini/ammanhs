@@ -4,12 +4,10 @@ setlocale(LC_ALL, 'en_US.UTF-8');
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
-// Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return CMap::mergeArray(
  array(
- 	//'theme'=>'bootstrap',
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Amman Hackerspace',
 	
@@ -26,13 +24,12 @@ return CMap::mergeArray(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-		'application.extensions.*',
+		'application.components.widgets.*',
 		'application.lib.*',
 	),
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'123',
@@ -52,16 +49,16 @@ return CMap::mergeArray(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
-/*		'bootstrap'=>array(
-            'class'=>'ext.bootstrap.components.Bootstrap',
-	    	'responsiveCss'=>false,
-	    	'coreCss'=>false,
-	    	'yiiCss'=>false,
-	    	'jqueryCss'=>false,
-	    	'enableBootboxJS'=>false,
-        ),*/
-		// uncomment the following to enable URLs in path-format
-		
+
+		'clientScript'=>array(
+			'class'=>'application.components.minify.EClientScript',
+			'combineScriptFiles'=>false, // By default this is set to false, set this to true if you'd like to combine the script files
+			'combineCssFiles'=>true, // By default this is set to false, set this to true if you'd like to combine the css files
+			'optimizeCssFiles'=>true,  // @since: 1.1
+			'optimizeScriptFiles'=>true,   // @since: 1.1
+		),
+
+		// uncomment the following to enable URLs in path-format		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
@@ -87,8 +84,8 @@ return CMap::mergeArray(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/ammanhs.db',
 		),
 		*/
+
 		// uncomment the following to use a MySQL database
-		
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=ammanhs',
 			'emulatePrepare' => true,
@@ -102,6 +99,7 @@ return CMap::mergeArray(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
         ),
+
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
@@ -123,7 +121,9 @@ return CMap::mergeArray(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'mohd.anini@gmail.com',
+		'adminEmail'=>'anini@ammanhs.com',
+		'host'=>'ammanhs.com',
+		'static_host'=>'local.ammanhs.com',
 	),
 	),
 	require(dirname(__FILE__).'/local.php')

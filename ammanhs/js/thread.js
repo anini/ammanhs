@@ -8,11 +8,8 @@ $(document).ready(function(){
             case '#top':
                 switch_threads_tab(2);
                 break;
-            /*case '#recent':
-                switch_threads_tab(3);
-                break;*/
         }
-    }else{
+    }else if(typeof type !== 'undefined'){
         switch(type){
             case 'me':
                 $('.nav-tabs .active').removeClass('active');
@@ -92,7 +89,11 @@ function slide_up_threads_container(){
 		$("#threads-container").slideDown();
 }
 
-function vote(e){
+function vote(e, type){
+    if(user_is_guest){
+        $("#connect-modal").modal(); 
+        return false;
+    }
 	form = $(e);
 	$.ajax({
         dataType: 'json',
@@ -110,7 +111,10 @@ function vote(e){
         },
         success:function(data){
             if (data.errno == 0) {
-            	p = form.parent();
+                if(type == 'reply')
+                    p = $('#reply-vote-'+$('#thread-reply-vote-id').val());
+                else
+                    p = form.parent();
             	stat_votes = p.find('.vote-number');
             	stat_votes.html(data.stat_votes);
             	up_arrow = p.find('.vote-up');
