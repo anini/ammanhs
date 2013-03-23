@@ -7,7 +7,7 @@ $form=$this->beginWidget('CActiveForm', array(
 		'htmlOptions'=>array(
 			'class'=>'form-inline popup-form',
 			'style'=>'float: right;',
-			'onsubmit'=>'return connect(this);'
+			'onsubmit'=>'return connect(this'.((isset($callback_func))?',"'.$callback_func.'"':'').((isset($attr))?',"'.$attr.'"':'').');'
 			)
 		)); ?>
 		<div class="control-group">

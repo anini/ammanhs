@@ -27,7 +27,7 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('view','login','signup'),
+				'actions'=>array('view','login','signup','connect'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -168,6 +168,22 @@ class UserController extends Controller
 		));
 	}
 
+	public function actionConnect()
+	{
+		$this->layout=false;
+		if(!Yii::app()->user->isGuest){
+			exit();
+		}
+		$data = array();
+		if(isset($_GET['callback_func']) && $_GET['callback_func']){
+			$data['callback_func'] = $_GET['callback_func'];
+		}
+		if(isset($_GET['attr']) && $_GET['attr']){
+			$data['attr'] = $_GET['attr'];
+		}
+		$this->render('connect',$data);
+	}
+
 	public function actionLogin()
 	{
 		$this->layout=false;
@@ -191,8 +207,15 @@ class UserController extends Controller
 				exit();
 			}
 		}
+		$data = array('login_form'=>$model);
+		if(isset($_POST['callback_func']) && $_POST['callback_func']){
+			$data['callback_func'] = $_POST['callback_func'];
+		}
+		if(isset($_POST['attr']) && $_POST['attr']){
+			$data['attr'] = $_POST['attr'];
+		}
 		// display the login form
-		$this->render('login',array('login_form'=>$model));
+		$this->render('login', $data);
 	}
 
 	/**
@@ -224,6 +247,7 @@ class UserController extends Controller
 	        {
 	        	$login_form = new LoginForm;
 	        	$login_form->attributes = $model->attributes;
+	        	$login_form->password=$_POST['User']['password'];
 	            if($login_form->login()){
 					echo 'logged-in';
 					exit();
@@ -231,7 +255,15 @@ class UserController extends Controller
 	        }
 	        $model->password = null;
 	    }
-	    $this->render('signup',array('model'=>$model));
+	    $data = array('model'=>$model);
+		if(isset($_POST['callback_func']) && $_POST['callback_func']){
+			$data['callback_func'] = $_POST['callback_func'];
+		}
+		if(isset($_POST['attr']) && $_POST['attr']){
+			$data['attr'] = $_POST['attr'];
+		}
+		// display the login form
+	    $this->render('signup', $data);
 	}
 
 	public function actionProfile()

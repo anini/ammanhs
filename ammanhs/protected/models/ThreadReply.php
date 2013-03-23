@@ -150,7 +150,7 @@ class ThreadReply extends CActiveRecord
 	public function getLink($absolute=false){
 		if ($absolute || !(Yii::app() instanceof CWebApplication))
 			return Yii::app()->urlManager->createAbsoluteUrl('thread/show', array('id' => $this->id)).'#thread='.$this->id;
-		return Yii::app()->urlManager->createUrl('thread/show', array('id' => $this->id)).'#thread='.$this->id;
+		return Yii::app()->urlManager->createUrl('thread/show', array('id' => $this->thread->id)).'#reply='.$this->id;
 	}
 
 }

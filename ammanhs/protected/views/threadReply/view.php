@@ -1,15 +1,15 @@
 <div class="row">
 	<div class="span8 offset1">
-		<div class="user-info-box" style="padding: 5px; width: 15%; display: inline-table;vertical-align: top;">
+		<div class="shadow-box" style="padding: 5px; width: 15%; display: inline-table;vertical-align: top;">
 			<?php echo $model->user->avatar_a(128, 128, array('class'=>'img-rounded')); ?>
 			<div class="arrow left-arrow"></div>
 		</div>
 		<div style="width: 80%; display: inline-table;vertical-align: top;">
-			<div class="user-info-box" style="padding: 1px;margin-right: 15px;">
+			<div class="shadow-box" style="padding: 1px;margin-right: 15px;">
 				<table width="100%">
 					<tr>
 						<td colspan="2" class="reply-user-title">
-							<h4 style="margin-right: 10px;"><a href="<?php echo $model->user->profileLink(); ?>"><?php echo $model->user->name; ?></a><span class="muted"><?php echo date('Y-m-d', $model->created_at); ?></span></h4>
+							<h5 style="margin: 5px 0; margin-right: 10px;" class="ge-ss"><a href="<?php echo $model->user->profileLink(); ?>"><?php echo $model->user->name; ?></a><span class="muted"><?php echo Time::deltaInWords($model->created_at); ?></span></h5>
 						</td>
 					</tr>
 					<tr>

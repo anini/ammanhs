@@ -177,7 +177,7 @@ class User extends CActiveRecord
 	{
 		parent::afterSave();
 		if($this->isNewRecord){
-			UserLog::addActivity('Join');
+			UserLog::addActivity('Join', $this);
 		}
 	}
 

@@ -1,11 +1,11 @@
 @font-face {
 	font-family: GE SS Light;
-	src: url('GESSLight.otf');
+	src: url('../fonts/GESSLight.otf');
 }
 
 @font-face {
 	font-family: GE SS Medium;
-	src: url('GESSMedium.otf');
+	src: url('../fonts/GESSMedium.otf');
 }
 
 html {
@@ -28,6 +28,11 @@ body {
 #page {
     padding-top: 60px;
     font-family: Arial, sans-serif;
+}
+#footer div{
+    display: inline-table;
+    width: 50%;
+    float:right;
 }
 #content{
     line-height: 20px;

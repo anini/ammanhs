@@ -8,12 +8,25 @@ function refresh_header(){
 	$('#header').load('/site/refreshHeader', enable_tooltips);
 }
 
-function connect(form, callback_func, r_url){
+function open_login_modal(callback_func, attr){
+	old_uri=$('#connect-link').attr('data-src');
+    $('#connect-link').attr('data-src', old_uri+'?callback_func='+callback_func+'&attr='+attr);
+    $('#connect-link').click();
+    $('#connect-link').attr('data-src', old_uri);
+}
+
+function connect(form, callback_func, attr, r_url){
 	var f = $(form);
+	var data = f.serialize();
+	if(typeof callback_func != 'undefined' && callback_func){
+		if(typeof attr == 'undefined' || !attr)
+			attr='';
+		data=data+'&callback_func='+callback_func+'&attr='+attr;
+	}
 	$.ajax({
 		'type':'post',
 		'url':f.attr('action'),
-		'data':f.serialize(),
+		'data':data,
 		'success':function(data){
 			if(data != 'logged-in'){
 				f.parent().html(data);
@@ -24,8 +37,11 @@ function connect(form, callback_func, r_url){
 				}else{
 					refresh_header();
 					if(typeof callback_func != 'undefined' && callback_func){
-						callback_func;
-					}	
+						$('#close-connect-modal').click()
+						if(typeof attr == 'undefined' || !attr)
+							attr='';
+						window[callback_func](attr);
+					}
 				}
 			}
 		}

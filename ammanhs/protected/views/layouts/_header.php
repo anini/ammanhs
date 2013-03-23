@@ -13,7 +13,7 @@
     </a>
       <form class="navbar-search" action="">
         <input type="text" class="search-query span2" placeholder="<?php echo Yii::t('core','Search'); ?>" id="header-search" 
-        onfocus="$('#main-menu').slideUp(200);$(this).removeClass('span2');$(this).addClass('span4');" onblur="$(this).removeClass('span4');$(this).addClass('span2');setTimeout(function(){$('#main-menu').slideDown(200);}, 500);"><i class='icon-search' style='margin: 2px -23px; opacity: 0.5;'></i>
+        onfocus="$('#main-menu').slideUp(200);$(this).removeClass('span2');$(this).addClass('span4');" onblur="$(this).removeClass('span4');$(this).addClass('span2');setTimeout(function(){$('#main-menu').slideDown(200);}, 500);"><span class='octicon-search' style='margin-right: -22px;opacity: 0.5;position: absolute;margin-top: 7px'></span>
       </form>
     
      </div>

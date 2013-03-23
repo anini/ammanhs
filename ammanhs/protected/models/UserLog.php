@@ -138,7 +138,7 @@ class UserLog extends CActiveRecord
 		$targeted_user_id = null;
 		$uri = '';
 
-		$object_class = (isset($object))?get_class($object):'NewUser';
+		$object_class = get_class($object);
 		switch ($object_class){
 			case 'Thread':
 				$thread_id = $object->id;
@@ -149,8 +149,9 @@ class UserLog extends CActiveRecord
 				$uri = $object->link;
 				break;
 			case 'User':
-				$targeted_user_id = $object->id;
-				$uri = $object->profileLink;
+				if($action!='Join')
+					$targeted_user_id = $object->id;
+				$uri = $object->profileLink();
 				break;
 		}
 
@@ -162,6 +163,8 @@ class UserLog extends CActiveRecord
 		$user_activity->targeted_user_id = $targeted_user_id;
 		$user_activity->points_earned = $points_earned;
 		$user_activity->uri = $uri;
+		if($action=='Join')
+			$user_activity->user_id = $object->id;
 		if(!$user_activity->save()){
 			echo CActiveForm::validate($user_activity);
 			Yii::app()->end();

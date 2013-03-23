@@ -25,7 +25,7 @@ If you have business inquiries or other questions, please fill out the following
 
 <div class="form">
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+<?php $form=$this->beginWidget('zii.widgets.CActiveForm', array(
 	'id'=>'contact-form',
     'type'=>'horizontal',
 	'enableClientValidation'=>true,

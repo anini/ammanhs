@@ -16,18 +16,18 @@ $this->menu=array(
 ?>
 
 <div class="row">
-	<div class="span2 text-center user-info-box" style="padding: 5px 0;">
+	<div class="span2 text-center shadow-box ge-ss" style="padding: 5px 0;">
 		<?php echo $model->user->avatar_a(160, 160, array('class'=>'img-rounded')); ?>
-		<h4><?php echo $model->user->name; ?></h4>
+		<h4><a href="<?php echo $model->user->profileLink(); ?>"><?php echo $model->user->name; ?></a></h4>
 		<div>User Info</div>
 	</div>
 
 	<div class="span7">
 		<div class="row">
-			<div class="span7 user-info-box">
+			<div class="span7 shadow-box">
 				<div class="row">
 					<div class="span5 ">
-						<h4 style="margin-right: 10px;"><?php echo $model->title; ?></h4>
+						<h4 style="margin-right: 10px;" class="ge-ss"><?php echo $model->title; ?></h4>
 					</div>
 					<div class="span2 text-left">
 						<h4 class="muted" style="margin-left: 10px;"><?php echo date('Y-m-d', $model->created_at); ?></h4>
@@ -36,7 +36,7 @@ $this->menu=array(
 			</div>
 		</div>
 		<div class="row">
-			<div class="span7" style="position:relative;">
+			<div class="span7">
 				<table width="100%">
 					<tr>
 						<td><?php echo $model->content; ?></td>
@@ -46,7 +46,7 @@ $this->menu=array(
 								'id'=>'thread-vote-form',
 								'action'=>'/thread/vote',
 								'htmlOptions'=>array(
-									'onsubmit' => 'return vote(this);'
+									'onsubmit' => 'return vote("thread-vote-form");'
 								),
 							)); ?>
 							<input type="hidden" name="Vote[thread_id]" value="<?php echo  $model->id; ?>"/>
@@ -74,7 +74,7 @@ $this->menu=array(
 			'id'=>'thread-reply-vote-form',
 			'action'=>'/threadReply/vote',
 			'htmlOptions'=>array(
-				'onsubmit' => 'return vote(this, "reply");'
+				'onsubmit' => 'return vote("thread-reply-vote-form", "reply");'
 			),
 		)); ?>
 		<input type="hidden" id="thread-reply-vote-id" name="Vote[thread_reply_id]" value="0"/>
@@ -91,7 +91,7 @@ $this->menu=array(
 
 <div class="row">
 	<div class="span8 offset1">
-		<div class="user-info-box" style="padding: 5px; width: 15%; display: inline-table;vertical-align: top; margin-top: 50px;">
+		<div class="shadow-box" style="padding: 5px; width: 15%; display: inline-table;vertical-align: top; margin-top: 50px;">
 			<?php if (Yii::app()->user->isGuest) { ?>
 				<div><img src="/images/default-male.jpg" width="128px" height="128px" title="Test User" alt="Test User"></div>
 			<?php } else { 
@@ -108,7 +108,7 @@ $this->menu=array(
 						'action'=>'/threadReply/create?thread_id='.$model->id,
 						'enableAjaxValidation'=>false,
 						'htmlOptions'=>array(
-							'onsubmit' => 'return add_thread_reply(this);'
+							'onsubmit' => 'return add_thread_reply("thread-reply-form");'
 						),
 					)); ?>
 					<?php echo $form->errorSummary($thread_reply); ?>

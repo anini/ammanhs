@@ -17,7 +17,6 @@ return CMap::mergeArray(
 	// preloading 'log' component
 	'preload'=>array(
 		'log',
-		'bootstrap',
 	),
 
 	// autoloading model and component classes
@@ -35,9 +34,6 @@ return CMap::mergeArray(
 			'password'=>'123',
 		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
-			'generatorPaths'=>array(
-                'bootstrap.gii',
-            ),
 		),
 		
 	),
@@ -53,7 +49,7 @@ return CMap::mergeArray(
 		'clientScript'=>array(
 			'class'=>'application.components.minify.EClientScript',
 			'combineScriptFiles'=>false, // By default this is set to false, set this to true if you'd like to combine the script files
-			'combineCssFiles'=>true, // By default this is set to false, set this to true if you'd like to combine the css files
+			'combineCssFiles'=>false, // By default this is set to false, set this to true if you'd like to combine the css files
 			'optimizeCssFiles'=>true,  // @since: 1.1
 			'optimizeScriptFiles'=>true,   // @since: 1.1
 		),
@@ -68,8 +64,9 @@ return CMap::mergeArray(
 				'login'=>'user/login',
 				'logout'=>'user/logout',
 				'signup'=>'user/signup',
+				'connect'=>'user/connect',
 				'settings'=>'user/profile',
-				'user/<id:\w+>'=>'user/view',
+				//'user/<id:\w+>'=>'user/view',
 				'gii'=>'gii',
 				'<controller:\w+>'=>'<controller>/index',
 				//'<view:[^\/]+>'=>'site/page',

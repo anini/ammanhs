@@ -31,8 +31,12 @@ $(document).ready(function(){
     }
 });
 
-function add_thread_reply(form){
-	f = $(form);
+function add_thread_reply(form_id){
+    if(user_is_guest){
+        open_login_modal('add_thread_reply', form_id);
+        return false;
+    }
+	f = $('#'+form_id);
 	$('.yw0').attr('disabled', 'disabled');
 	$.ajax({
 		'type':'post',
@@ -89,12 +93,12 @@ function slide_up_threads_container(){
 		$("#threads-container").slideDown();
 }
 
-function vote(e, type){
+function vote(form_id){
     if(user_is_guest){
-        $("#connect-modal").modal(); 
+        open_login_modal('vote', form_id);
         return false;
     }
-	form = $(e);
+	form = $('#'+form_id);
 	$.ajax({
         dataType: 'json',
         type: 'post',
@@ -111,7 +115,7 @@ function vote(e, type){
         },
         success:function(data){
             if (data.errno == 0) {
-                if(type == 'reply')
+                if(form_id.indexOf('reply')!=-1)
                     p = $('#reply-vote-'+$('#thread-reply-vote-id').val());
                 else
                     p = form.parent();

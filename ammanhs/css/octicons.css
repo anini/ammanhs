@@ -1,192 +1,63 @@
-@font-face{
-	font-family: Octicons;
-	src: url('Octicons.ttf');
-}
-.octicons{
-	font-family: 'Octicons';
-	display: inline-block;
-	-webkit-font-smoothing: antialiased
-}
-.octicon-lock:before{
-	content:"\f200"
-}
-.octicon-thread:before{
-	content:"\f201"
-}
-.octicon-create:before{
-	content:"\f203"
-}
-.octicon-book:before{
-	content:"\f207"
-}
-.octicon-keyboard:before{
-	content:"\f20d"
-}
-.octicon-article:before{
-	content:"\f211"
-}
-.octicon-tag:before{
-	content:"\f215"
-}
-.octicon-folder:before{
-	content:"\f216"
-}
-.octicon-user:before{
-	content:"\f218"
-}
-.octicon-team:before{
-	content:"\f219"
-}
-.octicon-info:before{
-	content:"\f226"
-}
-.octicon-star:before{
-	content:"\f22a"
-}
-.octicon-discussion:before{
-	content:"\f22b"
-}
-.octicon-question:before{
-	content:"\f22c"
-}
-.octicon-alert:before{
-	content:"\f22d"
-}
-.octicon-search:before{
-	content:"\f22e"
-}
-.octicon-panel:before{
-	content:"\f22f"
-}
-.octicon-wave:before{
-	content:"\f230"
-}
-.octicon-settings:before{
-	content:"\f231"
-}
-.octicon-exit:before{
-	content:"\f232"
-}
-.octicon-rss:before{
-	content:"\f234"
-}
-.octicon-check:before{
-	content:"\f23a"
-}
-.octicon-closed-message:before{
-	content:"\f23b"
-}
-.octicon-open-message:before{
-	content:"\f23c"
-}
-.octicon-up-arrow:before{
-	content:"\f23d"
-}
-.octicon-right-arrow:before{
-	content:"\f23e"
-}
-.octicon-bottom-arrow:before{
-	content:"\f23f"
-}
-.octicon-left-arrow:before{
-	content:"\f240"
-}
-.octicon-checkin:before{
-	content:"\f241"
-}
-.octicon-gift:before{
-	content:"\f242"
-}
-.octicon-stats:before{
-	content:"\f243"
-}
-.octicon-setting:before{
-	content:"\f244"
-}
-.octicon-id:before{
-	content:"\f245"
-}
-.octicon-time:before{
-	content:"\f246"
-}
-.octicon-diamond:before{
-	content:"\f247"
-}
-.octicon-key:before{
-	content:"\f249"
-}
-.octicon-eye:before{
-	content:"\f24e"
-}
-.octicon-discussions:before{
-	content:"\f24f"
-}
-.octicon-close:before{
-	content:"\f250"
-}
-.octicon-circle:before{
-	content:"\f252"
-}
-.octicon-square:before{
-	content:"\f253"
-}
-.octicon-add-tag:before{
-	content:"\f254"
-}
-.octicon-remove-tag:before{
-	content:"\f255"
-}
-.octicon-pencil:before{
-	content:"\f258"
-}
-.octicon-right-rectangle:before{
-	content:"\f25a"
-}
-.octicon-bottom-rectangle:before{
-	content:"\f25b"
-}
-.octicon-url:before{
-	content:"\f25c"
-}
-.octicon-add:before{
-	content:"\f25d"
-}
-.octicon-tags:before{
-	content:"\f25f"
-}
-.octicon-location:before{
-	content:"\f260"
-}
-.octicon-quote:before{
-	content:"\f263"
-}
-.octicon-calender:before{
-	content:"\f268"
-}
-.octicon-cup:before{
-	content:"\f269"
-}
-.octicon-sign:before{
-	content:"\f275"
-}
-.octicon-announcement:before{
-	content:"\f277"
-}
-.octicon-refresh:before{
-	content:"\f287"
-}
-.octicon-home:before{
-	content:"\f28d"
-}
-.octicon-bug:before{
-	content:"\f291"
-}
-.octicon-code:before{
-	content:"\f294"
-}
-.octicon-database:before{
-	content:"\f296"
-}
-.octicon-clock:before{
-	content:"\f29e"
-}
+@font-face{font-family: Octicons;src: url('../fonts/Octicons.ttf')}
+.octicons{font-family: 'Octicons';display: inline-block;font-style: normal;-webkit-font-smoothing: antialiased}
+.octicon-lock:before{content:"\f200"}
+.octicon-thread:before{content:"\f201"}
+.octicon-create:before{content:"\f203"}
+.octicon-book:before{content:"\f207"}
+.octicon-keyboard:before{content:"\f20d"}
+.octicon-article:before{content:"\f211"}
+.octicon-tag:before{content:"\f215"}
+.octicon-folder:before{content:"\f216"}
+.octicon-user:before{content:"\f218"}
+.octicon-team:before{content:"\f219"}
+.octicon-info:before{content:"\f226"}
+.octicon-star:before{content:"\f22a"}
+.octicon-discussion:before{content:"\f22b"}
+.octicon-question:before{content:"\f22c"}
+.octicon-alert:before{content:"\f22d"}
+.octicon-search:before{content:"\f22e"}
+.octicon-panel:before{content:"\f22f"}
+.octicon-wave:before{content:"\f230"}
+.octicon-settings:before{content:"\f231"}
+.octicon-exit:before{content:"\f232"}
+.octicon-rss:before{content:"\f234"}
+.octicon-check:before{content:"\f23a"}
+.octicon-closed-message:before{content:"\f23b"}
+.octicon-open-message:before{content:"\f23c"}
+.octicon-up-arrow:before{content:"\f23d"}
+.octicon-right-arrow:before{content:"\f23e"}
+.octicon-bottom-arrow:before{content:"\f23f"}
+.octicon-left-arrow:before{content:"\f240"}
+.octicon-checkin:before{content:"\f241"}
+.octicon-gift:before{content:"\f242"}
+.octicon-stats:before{content:"\f243"}
+.octicon-setting:before{content:"\f244"}
+.octicon-id:before{content:"\f245"}
+.octicon-time:before{content:"\f246"}
+.octicon-diamond:before{content:"\f247"}
+.octicon-key:before{content:"\f249"}
+.octicon-eye:before{content:"\f24e"}
+.octicon-discussions:before{content:"\f24f"}
+.octicon-close:before{content:"\f250"}
+.octicon-circle:before{content:"\f252"}
+.octicon-square:before{content:"\f253"}
+.octicon-add-tag:before{content:"\f254"}
+.octicon-remove-tag:before{content:"\f255"}
+.octicon-pencil:before{content:"\f258"}
+.octicon-right-rectangle:before{content:"\f25a"}
+.octicon-bottom-rectangle:before{content:"\f25b"}
+.octicon-url:before{content:"\f25c"}
+.octicon-add:before{content:"\f25d"}
+.octicon-code:before{content:"\f25f"}
+.octicon-location:before{content:"\f260"}
+.octicon-bullet-list:before{content:"\f261"}
+.octicon-quote:before{content:"\f263"}
+.octicon-calender:before{content:"\f268"}
+.octicon-cup:before{content:"\f269"}
+.octicon-sign:before{content:"\f275"}
+.octicon-announcement:before{content:"\f277"}
+.octicon-refresh:before{content:"\f287"}
+.octicon-home:before{content:"\f28d"}
+.octicon-bug:before{content:"\f291"}
+.octicon-database:before{content:"\f296"}
+.octicon-clock:before{content:"\f29e"}

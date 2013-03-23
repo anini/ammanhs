@@ -5,7 +5,7 @@ $cs = Yii::app()->clientScript;
 $cs->registerCSSFile("/css/home.css");
 ?>
 
-<div class="hero-unit ge-ss-strong" id="welcome-box">
+<div class="hero-unit ge-ss" id="welcome-box">
   <h1><?php echo Yii::t('core', 'Amman Hackerspace'); ?></h1>
   <h2><?php echo Yii::t('core', 'slogan'); ?></h2>
   <br/>

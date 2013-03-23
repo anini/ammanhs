@@ -47,7 +47,7 @@
 	line-height: 25px;
 	color: #888;
 }
-.user-info-box{
+.shadow-box{
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
@@ -158,10 +158,10 @@
 .reply-user-title{
 	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
-.reply-user-title a{
+.reply-user-title a, .shadow-box a{
 	color: #333;
 }
-.reply-user-title a:hover{
+.reply-user-title a:hover, .shadow-box a:hover{
 	text-decoration: none;
 }
 .muted{
