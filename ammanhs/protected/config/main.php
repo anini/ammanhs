@@ -61,6 +61,7 @@ return CMap::mergeArray(
 			'rules'=>array(
 				''=>'site/index',
 				'contact'=>'site/contact',
+				'about'=>'site/about',
 				'login'=>'user/login',
 				'logout'=>'user/logout',
 				'signup'=>'user/signup',
@@ -69,7 +70,6 @@ return CMap::mergeArray(
 				//'user/<id:\w+>'=>'user/view',
 				'gii'=>'gii',
 				'<controller:\w+>'=>'<controller>/index',
-				//'<view:[^\/]+>'=>'site/page',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

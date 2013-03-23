@@ -13,30 +13,27 @@ class UserIdentity extends CUserIdentity
 	 * Authenticates a user.
 	 * @return boolean whether authentication succeeds.
 	 */
-	public function authenticate()
-	{
+	public function authenticate(){
 		$username = strtolower($this->username);
-		if (strpos($username,'@')) {
+		if(strpos($username, '@')){
 			$user = User::model()->findByAttributes(array('email'=>$username));
-		} else {
+		}else{
 			$user = User::model()->findByAttributes(array('username'=>$username));
 		}
-		if($user === null)
-			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		else if($user->password !== md5($this->password))
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-		else
-		{
-			$this->_id=$user->id;
+		if($user === null){
+			$this->errorCode = self::ERROR_USERNAME_INVALID;
+		}else if($user->password !== md5($this->password)){
+			$this->errorCode = self::ERROR_PASSWORD_INVALID;
+		}else{
+			$this->_id = $user->id;
         	$user->last_login_at = time();
         	$user->save();
-        	$this->errorCode=self::ERROR_NONE;
+        	$this->errorCode = self::ERROR_NONE;
         }
         return !$this->errorCode;
     }
 
-    public function getId() {
+    public function getId(){
     	return $this->_id;
     }
-
 }

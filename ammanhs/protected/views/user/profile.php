@@ -22,56 +22,54 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 <?php echo $form->errorSummary($model, '<button type="button" class="close" data-dismiss="alert">&times;</button>', null, array('class'=>'alert alert-error')); ?>
 
 <div class="control-group">
-<div class="form-inline">
-	<div class="row">
-	<div class="span2">
-	<div class="fileupload fileupload-new" data-provides="fileupload">
-		<div class="fileupload-preview thumbnail" class="span2">
-			<?php echo $model->avatar(160, 160, false); ?>
-		</div>
-		<div>
-			<span class="btn btn-file">
-				<span class="fileupload-new">Select image</span>
-				<span class="fileupload-exists">Change</span>
-				<input name="User[avatar_uri]" id="User_avatar_uri" type="file"/>
-			</span>
-			<span class="help-inline error" id="User_avatar_uri_em_" style="display: none"></span>
+	<div class="form-inline">
+		<div class="row">
+			<div class="span2">
+				<div class="fileupload fileupload-new" data-provides="fileupload">
+					<div class="fileupload-preview thumbnail" class="span2">
+						<?php echo $model->avatar(160, 160, false); ?>
+					</div>
+					<div>
+						<span class="btn btn-file">
+							<span class="fileupload-new">Select image</span>
+							<span class="fileupload-exists">Change</span>
+							<input name="User[avatar_uri]" id="User_avatar_uri" type="file"/>
+						</span>
+						<span class="help-inline error" id="User_avatar_uri_em_" style="display: none"></span>
+					</div>
+				</div>
+			</div>
+			<div class="span7">
+				<div class="control-group">
+					<?php echo $form->textField($model,'first_name', array('style'=>'max-width: 119px;', 'placeholder'=>Yii::t('core', 'First Name'))); ?>
+					<?php echo $form->textField($model,'last_name', array('style'=>'max-width: 119px;', 'placeholder'=>Yii::t('core', 'Last Name'))); ?>
+					
+					<?php echo $form->error($model,'first_name'); ?>
+					<?php echo $form->error($model,'last_name'); ?>
+				</div>
+				<div class="control-group">
+					<?php echo $form->textField($model,'email', array('class'=>'span3', 'placeholder'=>Yii::t('core', 'Email'))); ?>
+					<span class="help-inline"><?php echo $form->error($model,'email'); ?></span>
+				</div>
+				<div class="control-group">
+					<?php echo $form->textField($model,'country', array('class'=>'span3', 'placeholder'=>Yii::t('core', 'Country'))); ?>
+					<?php echo $form->error($model,'country'); ?>
+				</div>
+				<div class="btn-group" data-toggle="buttons-radio">
+					<button type="button" class="btn">Male</button>
+					<button type="button" class="btn">Female</button>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
-<div class="span7">
-		<div class="control-group">
-		<?php echo $form->textField($model,'first_name', array('style'=>'max-width: 119px;', 'placeholder'=>Yii::t('core', 'First Name'))); ?>
-		<?php echo $form->textField($model,'last_name', array('style'=>'max-width: 119px;', 'placeholder'=>Yii::t('core', 'Last Name'))); ?>
-		
-		<?php echo $form->error($model,'first_name'); ?>
-		<?php echo $form->error($model,'last_name'); ?>
-		</div>
-		<div class="control-group">
-		<?php echo $form->textField($model,'email', array('class'=>'span3', 'placeholder'=>Yii::t('core', 'Email'))); ?>
-		<span class="help-inline"><?php echo $form->error($model,'email'); ?></span>
-		</div>
-		<div class="control-group">
-				<?php echo $form->textField($model,'country', array('class'=>'span3', 'placeholder'=>Yii::t('core', 'Country'))); ?>
-				<?php echo $form->error($model,'country'); ?>
-		</div>
-
-		<div class="btn-group" data-toggle="buttons-radio">
-		  <button type="button" class="btn">Male</button>
-		  <button type="button" class="btn">Female</button>
-		</div>
-</div>
-</div>
-</div>
-
 </div>
 
 <div class="control-group">
 	<?php echo $form->labelEx($model,'twitter_uri', array('class'=>'control-label')); ?>
 	<div class="controls">
 		<div class="input-prepend">
-		<span class="add-on">@</span>
-		<?php echo $form->textField($model,'twitter_uri'); ?>
+			<span class="add-on">@</span>
+			<?php echo $form->textField($model,'twitter_uri'); ?>
 		</div>
 		<?php echo $form->error($model,'twitter_uri'); ?>
 	</div>

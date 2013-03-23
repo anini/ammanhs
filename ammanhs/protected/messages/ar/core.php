@@ -6,6 +6,7 @@ return array(
 	'Home'=>'الرئيسية',
 	'Threads'=>'المواضيع',
 	'About'=>'من نحن',
+	'Contact Us'=>'راسلنا',
 	'Search'=>'ابحث',
 	'Signup for Free!'=>'سجل مجانا!',
 	'Login'=>'دخول',
@@ -84,6 +85,14 @@ return array(
 	'Pick a Username'=>'اختر اسم مستخدم (بالإنجليزية)',
 	'Your Email'=>'بريدك الإلكتروني',
 	'Strong Password'=>'كلمة مرور قوية',
+
+	//Contact Form
+	'Name'=>'الاسم',
+	'Subject'=>'الموضوع',
+	'Body'=>'نص الرسالة',
+	'Verification Code'=>'رمز التحقق',
+	//Messages
+	'Thank you for contacting us. We will respond to you as soon as possible.'=>'شكرا لك! سوف يقوم فريقنا بالتواصل معك قريبا.',
 
 
 	);

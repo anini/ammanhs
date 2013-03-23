@@ -52,11 +52,25 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Displays the about page
+	 */
+	public function actionAbout()
+	{
+	    $this->render('about');
+	}
+
+	/**
 	 * Displays the contact page
 	 */
 	public function actionContact()
 	{
+		$this->layout='column2';
 		$model=new ContactForm;
+		if(isset($_POST['ajax']))
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
 		if(isset($_POST['ContactForm']))
 		{
 			$model->attributes=$_POST['ContactForm'];
@@ -64,7 +78,7 @@ class SiteController extends Controller
 			{
 				$headers="From: {$model->email}\r\nReply-To: {$model->email}";
 				mail(Yii::app()->params['adminEmail'],$model->subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
+				Yii::app()->user->setFlash('contact',Yii::t('core' ,'Thank you for contacting us. We will respond to you as soon as possible.'));
 				$this->refresh();
 			}
 		}
