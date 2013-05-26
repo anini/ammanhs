@@ -11,8 +11,8 @@ return CMap::mergeArray(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Amman Hackerspace',
 	
-	'language' => 'ar',
-  	'sourceLanguage' =>'00',
+	'language'=>'ar',
+  	'sourceLanguage'=>'00',
 	
 	// preloading 'log' component
 	'preload'=>array(
@@ -25,6 +25,8 @@ return CMap::mergeArray(
 		'application.components.*',
 		'application.components.widgets.*',
 		'application.lib.*',
+		'application.extensions.solr.*',
+		'application.extensions.redis.*',
 	),
 
 	'modules'=>array(
@@ -67,6 +69,7 @@ return CMap::mergeArray(
 				'signup'=>'user/signup',
 				'connect'=>'user/connect',
 				'settings'=>'user/profile',
+				'search'=>'search/search',
 				//'user/<id:\w+>'=>'user/view',
 				'gii'=>'gii',
 				'<controller:\w+>'=>'<controller>/index',
@@ -74,6 +77,57 @@ return CMap::mergeArray(
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
+		),
+
+		'cache'=>array(
+			//'class'=>'CFileCache',
+			//'class'=>'PerNodeRedisCache',
+			'class'=>'CRedisCache',
+		),
+
+		'commoncache'=>array(
+			//'class'=>'CFileCache',
+			'class'=>'CRedisCache',
+		),
+
+		'redis'=>array(
+			'class'=>'CRedisCache',
+			// if you dont set up the servers options it will use the default values
+			/*
+			'servers'=>array(
+				array('host'=>'127.0.0.1', 'port'=>6379, ),
+			),
+			*/
+		),
+
+		'request'=>array(
+			'enableCsrfValidation'=>true,
+			'csrfTokenName'=>'ammanhs_csrf',
+			'enableCookieValidation'=>true,
+		),
+
+		// store session on Database
+		'session'=>array(
+			'class'=>'SelectiveCacheHttpSession',
+			'cacheID'=>'commoncache',
+			'timeout' => 86400, // one day
+			'sessionName' => 'AmmanHS',
+			//'autoStart'=> false,
+			'cookieParams'=>array('domain'=>'.ammanhs.com'),
+		),
+
+		'authManager'=>array(
+			//'class'=>'CachingDbAuthManager',
+			'class'=>'CDbAuthManager',
+			'connectionID'=>'db',
+			//'cacheID'=>'commoncache',
+		),
+
+		'AmmanHSSearch'=>array(
+			'class'=>'CSolrComponent',
+			'host'=>'localhost',
+			'port'=>8983,
+			'indexPath'=>'/solr/ammanhs'
 		),
 		
 		/*
@@ -84,12 +138,15 @@ return CMap::mergeArray(
 
 		// uncomment the following to use a MySQL database
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=ammanhs',
-			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
-			'charset' => 'utf8',
-			'enableProfiling' => true,
+			'class'=>'CDbConnection',
+			'tablePrefix'=>'tbl_',
+			'connectionString'=>'mysql:host=localhost;dbname=ammanhs',
+			'emulatePrepare'=>true,
+			'username'=>'root',
+			'password'=>'',
+			'charset'=>'utf8',
+			//'schemaCachingDuration'=>3600,
+			'enableProfiling'=>true,
 		),
 		
 		'errorHandler'=>array(

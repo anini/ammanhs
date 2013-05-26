@@ -15,16 +15,6 @@ html {
     direction: rtl;
 }
 
-body {
-	margin: 0;
-	padding: 0;
-	color: #555;
-	font: normal 11pt 'GE SS Medium',Arial;
-	background: #FFFFFF;
-    line-height: 15px;
-    color: #333333;
-}
-
 #page {
     padding-top: 60px;
     font-family: Arial, sans-serif;
@@ -33,16 +23,14 @@ body {
     display: inline-table;
     width: 50%;
     float:right;
+    padding-bottom: 20px;
 }
 #content{
     line-height: 20px;
     font-size: 16px;
 }
-.popup-form{
-	margin: 12px;
-}
-.popup-form .error{
-	font-size: 12px;
+form .help-inline{
+	font-size: 11px;
 }
 #signup-lable{
 	text-shadow: 0px 0px 1px rgba(82, 168, 236, 0.796875);
@@ -82,15 +70,82 @@ body {
     font-weight: bold;
 }
 
-.ge-ss {
+.ge-ss{
     font-family: 'GE SS Medium', Arial;
     font-weight: bold;
+    text-decoration: none !important;
+    font-style: normal;
+}
+
+.ge-ss-light, .btn{
+    font-family: 'GE SS Light', Arial;
+    text-decoration: none !important;
+    font-style: normal;
 }
 
 #user-header .tooltip{
     top: 40px !important;
 }
 
-#connect-modal .modal-body{
-    overflow: hidden !important;
+#login-ammanhs{
+    display: none;
+}
+
+#login-ammanhs-title, #join-ammanhs-title{
+    text-align: center;
+}
+
+#join-ammanhs-title > div{
+    font-size: 12px;
+}
+form{
+    margin: 10px 0;
+}
+#user-header form{
+    margin: 10px;
+}
+#login-ammanhs-title a{
+    font-size: 12px;
+}
+#follow-us{
+    border-top: 1px solid #BBB;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+.social-buttons-title{
+    display: inline-block;
+    line-height: 46px;
+    vertical-align: text-bottom;
+}
+.social-buttons{
+    display: inline-block;
+}
+.facebook-button, .twitter-button, .google-button{
+    background: url('/images/common/social_buttons.png') no-repeat;
+    height: 46px;
+    width: 46px;
+    display: inline-table;
+}
+.facebook-button{
+    background-position: 0 0;
+}
+.twitter-button{
+    background-position: -48px 0;
+}
+.google-button{
+    background-position: -95px 0;
+}
+.add-thread-button{
+    padding: 10px !important;
+}
+.add-thread-button icon{
+    font-weight: normal;
+    font-size: 20px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+#ammahs-sidebar-guide div{
+    font-size: 18px;
+    padding-bottom: 10px;
+    line-height: 24px;
 }

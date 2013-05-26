@@ -4,22 +4,65 @@ $(document).ready(function(){
 	enable_tooltips();
 });
 
+$(window).load(function(){
+	var params=document.location.hash.split('?');
+	if(params[0]=='#connect'){
+		if(typeof params[1]!='undefined'){
+			redirect=params[1].split('=');
+			if(redirect[0]=='redirect' && typeof redirect[1]!='undefined') open_login_modal(false, false, redirect[1]);
+			else open_login_modal();
+		}
+		else open_login_modal();
+	}
+});
+
 function refresh_header(){
 	$('#header').load('/site/refreshHeader', enable_tooltips);
 }
 
-function open_login_modal(callback_func, attr){
-	old_uri=$('#connect-link').attr('data-src');
-    $('#connect-link').attr('data-src', old_uri+'?callback_func='+callback_func+'&attr='+attr);
+function refresh_sidebar(){
+	$('#sidebar').load('/site/refreshSidebar', enable_tooltips);
+}
+
+function open_contact_modal(){
+    $('#contact-link').click();
+    return false;
+}
+
+function submit_ajax(e, parent_selector) {
+	var f=$(e);
+	var data=f.serialize();
+	$.ajax({
+		'type':'post',
+		'url':f.attr('action'),
+		'data':data,
+		'success':function(data){
+			if(typeof parent_selector=='undefined')
+				f.parent().html(data);
+			//$('.modal').html(data);
+			else
+				$(parent_selector).html(data);
+		}
+	});
+	return false;
+}
+
+function open_login_modal(callback_func, attr, redirect){
+	document.location.hash='connect';
+	var old_uri=$('#connect-link').attr('data-src');
+	if(!callback_func) callback_func='';
+	if(!attr) attr='';
+	if(!redirect) redirect='';
+    $('#connect-link').attr('data-src', old_uri+'?callback_func='+callback_func+'&attr='+attr+'&redirect='+redirect);
     $('#connect-link').click();
     $('#connect-link').attr('data-src', old_uri);
 }
 
-function connect(form, callback_func, attr, r_url){
-	var f = $(form);
-	var data = f.serialize();
-	if(typeof callback_func != 'undefined' && callback_func){
-		if(typeof attr == 'undefined' || !attr)
+function connect(form, callback_func, attr, redirect){
+	var f=$(form);
+	var data=f.serialize();
+	if(typeof callback_func!='undefined' && callback_func){
+		if(typeof attr=='undefined' || !attr)
 			attr='';
 		data=data+'&callback_func='+callback_func+'&attr='+attr;
 	}
@@ -28,17 +71,19 @@ function connect(form, callback_func, attr, r_url){
 		'url':f.attr('action'),
 		'data':data,
 		'success':function(data){
-			if(data != 'logged-in'){
+			if(data!='logged-in'){
 				f.parent().html(data);
 			}else{
-				user_is_guest = 0;
-				if(typeof r_url != 'undefined' && r_url){
-					document.location = r_url;
+				user_is_guest=0;
+				document.location.hash='';
+				if(typeof redirect!='undefined' && redirect){
+					document.location=redirect;
 				}else{
 					refresh_header();
-					if(typeof callback_func != 'undefined' && callback_func){
-						$('#close-connect-modal').click()
-						if(typeof attr == 'undefined' || !attr)
+					refresh_sidebar();
+					if($('#close-connect-modal')) $('#close-connect-modal').click();
+					if(typeof callback_func!='undefined' && callback_func){
+						if(typeof attr=='undefined' || !attr)
 							attr='';
 						window[callback_func](attr);
 					}
@@ -52,4 +97,5 @@ function connect(form, callback_func, attr, r_url){
 function enable_tooltips(){
 	$('#header-avatar').tooltip({placement: 'bottom'});
 	$('.octicons').tooltip({placement: 'bottom'});
+	$('.img-circle').tooltip({placement: 'bottom'});
 }

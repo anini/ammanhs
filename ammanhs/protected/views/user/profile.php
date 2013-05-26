@@ -12,10 +12,13 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'user-form',
 	'enableAjaxValidation'=>true,
-	'htmlOptions' => array(
-        'enctype' => 'multipart/form-data',
-        'class' => 'form-horizontal',
+	'htmlOptions'=>array(
+        'enctype'=>'multipart/form-data',
+        'class'=>'form-horizontal',
         'enableClientValidation'=>true
+    ),
+    'clientOptions'=>array(
+    	'validateOnSubmit'=>true,
     ),
 )); ?>
 
@@ -48,7 +51,7 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 					<?php echo $form->error($model,'last_name'); ?>
 				</div>
 				<div class="control-group">
-					<?php echo $form->textField($model,'email', array('class'=>'span3', 'placeholder'=>Yii::t('core', 'Email'))); ?>
+					<?php echo $form->textField($model,'email', array('class'=>'span3 english-field', 'placeholder'=>Yii::t('core', 'Email'))); ?>
 					<span class="help-inline"><?php echo $form->error($model,'email'); ?></span>
 				</div>
 				<div class="control-group">
@@ -56,8 +59,9 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 					<?php echo $form->error($model,'country'); ?>
 				</div>
 				<div class="btn-group" data-toggle="buttons-radio">
-					<button type="button" class="btn">Male</button>
-					<button type="button" class="btn">Female</button>
+					<?php echo CHtml::hiddenField('User[gender]', $model->gender, array('id'=>'gender')); ?>
+					<button type="button" onclick="$('#gender').val(1);" class="btn <?php if($model->gender==1) echo 'active'; ?>"><?php echo Yii::t('core', 'Male'); ?></button>
+					<button type="button" onclick="$('#gender').val(2);" class="btn <?php if($model->gender==2) echo 'active'; ?>"><?php echo Yii::t('core', 'Female'); ?></button>
 				</div>
 			</div>
 		</div>
@@ -65,12 +69,17 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 </div>
 
 <div class="control-group">
+	<?php echo $form->labelEx($model,'website', array('class'=>'control-label')); ?>
+	<div class="controls">
+		<?php echo $form->textField($model, 'website', array('class'=>'english-field', 'value'=>($model->website?$model->website:'http://'))); ?>
+		<?php echo $form->error($model,'website'); ?>
+	</div>
+</div>
+
+<div class="control-group">
 	<?php echo $form->labelEx($model,'twitter_uri', array('class'=>'control-label')); ?>
 	<div class="controls">
-		<div class="input-prepend">
-			<span class="add-on">@</span>
-			<?php echo $form->textField($model,'twitter_uri'); ?>
-		</div>
+		<?php echo $form->textField($model, 'twitter_uri', array('class'=>'english-field', 'value'=>($model->twitter_uri?$model->twitter_uri:'@'))); ?>
 		<?php echo $form->error($model,'twitter_uri'); ?>
 	</div>
 </div>
@@ -78,7 +87,7 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 <div class="control-group">
 	<?php echo $form->labelEx($model,'facebook_uri', array('class'=>'control-label')); ?>
 	<div class="controls">
-		<?php echo $form->textField($model,'facebook_uri'); ?>
+		<?php echo $form->textField($model, 'facebook_uri', array('class'=>'english-field', 'value'=>($model->facebook_uri?$model->facebook_uri:'http://facebook.com/'))); ?>
 		<?php echo $form->error($model,'facebook_uri'); ?>
 	</div>
 </div>
@@ -86,15 +95,15 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 <div class="control-group">
 	<?php echo $form->labelEx($model,'google_uri', array('class'=>'control-label')); ?>
 	<div class="controls">
-		<?php echo $form->textField($model,'google_uri'); ?>
-		<?php echo $form->error($model,'google_uri'); ?>
+		<?php echo $form->textField($model, 'google_uri', array('class'=>'english-field')); ?>
+		<?php echo $form->error($model, 'google_uri'); ?>
 	</div>
 </div>
 
 <div class="control-group">
 	<?php echo $form->labelEx($model,'about', array('class'=>'control-label')); ?>
 	<div class="controls">
-		<?php echo $form->textArea($model,'about',array('rows'=>5)); ?>
+		<?php echo $form->textArea($model,'about', array('rows'=>5, 'class'=>'span4')); ?>
 		<?php echo $form->error($model,'about'); ?>
 	</div>
 </div>

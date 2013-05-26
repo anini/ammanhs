@@ -10,9 +10,7 @@ $cs->registerCSSFile("/css/home.css");
   <h2><?php echo Yii::t('core', 'slogan'); ?></h2>
   <br/>
   <p>
-    <a class="btn btn-primary btn-large">
-      من نحن؟!
-    </a>
+    <a class="btn btn-primary btn-large" href="<?php echo $this->createUrl('site/about'); ?>"><?php echo Yii::t('core', 'About'); ?>؟</a>
   </p>
   <img alt="" class="gear" id="gear-1" src="/images/gears/gear-1.png">
   <img alt="" class="gear" id="gear-2" src="/images/gears/gear-2.png">

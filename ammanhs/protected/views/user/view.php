@@ -30,42 +30,44 @@ $this->menu=array(
 			    		<span class="octicons octicon-discussion" data-original-title="<?php echo Yii::t('core','Stat Replies'); ?>"><?php echo '<br>'.$model->stat_replies; ?></span>
 			    	</h4>
 			    </div>
+			    <div id="user-info">
+				    <?php if($model->country){ ?>
+				    <div>
+				    	<span class="octicons octicon-location muted"></span><span><?php echo $model->country; ?></span>
+					</div>
+				    <?php } ?>
+				    <?php if($model->website){ ?>
+				    <div>
+				    	<span class="octicons octicon-url muted"></span><a href="http://<?php echo $model->website; ?>" target="_blank"><?php echo $model->website; ?></a>
+					</div>
+				    <?php } ?>
+				    <div>
+				    	<span class="octicons octicon-time muted"></span><?php echo Yii::t('core', 'Member since :time', array(':time'=>Date('Y/m/d' ,$model->created_at))); ?>
+				    </div>
+			    </div>
 			</div>
 		</td>
 		<td width="100%">
-			Activities
 			<?php
-			foreach ($user_feed as $feed) {
-				echo $feed->points_earned;
+			foreach($user_feed as $feed){
+				switch ($feed->action) {
+					case 'Add':
+						$view='_added';
+						break;
+					case 'Join':
+						$view='_joint';
+						break;
+				}
+				if($feed->thread_id){
+					$view.='_thread';
+				}elseif($feed->thread_reply_id){
+					$view.='_thread_reply';
+				}elseif($feed->targeted_user_id){
+					$view.='_user';
+				}
+				$this->renderPartial($view, array('feed'=>$feed));
 			}
 			?>
 		</td>
 	</tr>
 </table>
-
-
-
-
-
-
-
-<?php $this->widget('zii.widgets.CDetailView',array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'username',
-		'password',
-		'email',
-		'first_name',
-		'last_name',
-		'type',
-		'gender',
-		'about',
-		'avatar_uri',
-		'created_at',
-		'last_login_at',
-		'twitter_uri',
-		'facebook_uri',
-		'country',
-	),
-)); ?>

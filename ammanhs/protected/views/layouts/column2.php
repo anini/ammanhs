@@ -6,18 +6,9 @@
             <?php echo $content; ?>
         </div><!-- content -->
     </div>
-    <div class="span3">
+    <div class="span3" style="min-height: 200px;">
         <div id="sidebar">
-        <?php
-            $this->beginWidget('zii.widgets.CPortlet', array(
-                'title'=>'Operations',
-            ));
-            $this->widget('zii.widgets.CMenu', array(
-                'items'=>$this->menu,
-                'htmlOptions'=>array('class'=>'operations'),
-            ));
-            $this->endWidget();
-        ?>
+            <?php $this->renderPartial('//layouts/_sidebar'); ?>
         </div><!-- sidebar -->
     </div>
 </div>

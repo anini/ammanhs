@@ -1,6 +1,5 @@
 #user-info-table{
 	width: 100%;
-	border-bottom: 1px solid #E3E3E3;
 }
 #user-info-table td{
 	vertical-align: top;
@@ -26,6 +25,28 @@
 #user-stats{
 	cursor: default;
 }
+#user-info{
+	text-align: right;
+	font-size: 15px;
+}
+#user-info .octicons{
+	margin: 0 3px;
+}
 .user-stat{
 	display: inline-block;
+}
+.user-feed{
+	border-bottom: 1px solid #BBB;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+#user-joint{
+	text-align: center;
+}
+.caption{
+	margin-right: 22px;
+}
+.user-feed .muted{
+	float: left;
+	font-size: 80%;
 }

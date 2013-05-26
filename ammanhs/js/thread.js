@@ -53,6 +53,10 @@ function add_thread_reply(form_id){
 }
 
 function switch_threads_tab(tab){
+    if(tab==1 && user_is_guest){
+        open_login_modal('switch_threads_tab', tab);
+        return false;
+    }
 	$.ajax({
 		'type':'get',
 		'url':'/thread/threads',
@@ -64,19 +68,19 @@ function switch_threads_tab(tab){
             });
             $('.nav-tabs .active').removeClass('active');
             $('.tab-content .active').removeClass('active');
-            switch(tab){
+            switch(parseInt(tab)){
                 case 1:
-                    document.location.hash = 'me';
+                    document.location.hash='me';
                     $('#me-tab').addClass('active');
                     $('#me-tab-label').addClass('active');
                     break;
                 case 2:
-                    document.location.hash = 'top';
+                    document.location.hash='top';
                     $('#top-tab').addClass('active');
                     $('#top-tab-label').addClass('active');
                     break;
                 case 3:
-                    document.location.hash = 'recent';
+                    document.location.hash='recent';
                     $('#recent-tab').addClass('active');
                     $('#recent-tab-label').addClass('active');
                     break;

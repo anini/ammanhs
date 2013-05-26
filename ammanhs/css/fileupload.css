@@ -130,3 +130,6 @@
 .control-group.success .fileupload .thumbnail {
   border-color: #468847;
 }
+.english-field{
+  direction: ltr;
+}

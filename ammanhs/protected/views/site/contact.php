@@ -1,11 +1,14 @@
-<?php
-$this->pageTitle=Yii::app()->name . ' - ' . Yii::t('core', 'Contact Us');
-$this->breadcrumbs=array(
-	Yii::t('core', 'Contact Us'),
-);
-?>
+<div class="row-fluid ge-ss">
+	<div class="modal-header">  
+		<a class="close" data-dismiss="modal" id="close-connect-modal">×</a>  
+		<h4><?php echo Yii::t('core', 'Contact Us') ?></h4> 
+	</div>
+	<div class="modal-body" style="overflow: hidden !important;">
+		<div class="span12"> 
 
-<h1><?php echo Yii::t('core', 'Contact Us') ?></h1>
+
+
+
 
 <?php if(Yii::app()->user->hasFlash('contact')): ?>
 
@@ -15,72 +18,73 @@ $this->breadcrumbs=array(
 
 <?php else: ?>
 
-<p>
-If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
-</p>
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'contact-form',
 	'enableAjaxValidation'=>true,
 	'htmlOptions'=>array(
         'enctype'=>'multipart/form-data',
-        'class'=>'form-horizontal',
-        'enableClientValidation'=>true
+        'class'=>'form-horizontal inline-form',
+        'enableClientValidation'=>true,
+        'onSubmit'=>"submit_ajax(this, '.modal'); return false;",
     ),
 )); ?>
 
-<div class="form-inline">
 	<div class="control-group">
-		<?php echo $form->labelEx($model,'name'); ?>
+		<?php echo $form->labelEx($model,'name', array('class'=>'control-label')); ?>
 		<div class="controls">
-		<?php echo $form->textField($model,'name'); ?>
-		<?php echo $form->error($model,'name'); ?>
+			<?php echo $form->textField($model,'name', array('class'=>'span10')); ?>
+			<?php echo $form->error($model,'name'); ?>
 		</div>
 	</div>
 
 	<div class="control-group">
-		<?php echo $form->labelEx($model,'email'); ?>
+		<?php echo $form->labelEx($model,'email', array('class'=>'control-label')); ?>
 		<div class="controls">
-		<?php echo $form->textField($model,'email'); ?>
-		<?php echo $form->error($model,'email'); ?>
+			<?php echo $form->textField($model,'email', array('class'=>'span10')); ?>
+			<?php echo $form->error($model,'email'); ?>
 		</div>
 	</div>
 
 	<div class="control-group">
-		<?php echo $form->labelEx($model,'subject'); ?>
+		<?php echo $form->labelEx($model,'subject', array('class'=>'control-label')); ?>
 		<div class="controls">
-		<?php echo $form->textField($model,'subject',array('size'=>60,'maxlength'=>128)); ?>
-		<?php echo $form->error($model,'subject'); ?>
+			<?php echo $form->textField($model,'subject',array('maxlength'=>128, 'class'=>'span10')); ?>
+			<?php echo $form->error($model,'subject'); ?>
 		</div>
 	</div>
 
 	<div class="control-group">
-		<?php echo $form->labelEx($model,'body'); ?>
+		<?php echo $form->labelEx($model,'body', array('class'=>'control-label')); ?>
 		<div class="controls">
-		<?php echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'body'); ?>
+			<?php echo $form->textArea($model,'body',array('rows'=>6, 'class'=>'span10')); ?>
+			<?php echo $form->error($model,'body'); ?>
 		</div>
 	</div>
 
 	<?php if(CCaptcha::checkRequirements()): ?>
 	<div class="control-group">
-		<?php echo $form->labelEx($model,'verifyCode'); ?>
-		<div>
-		<?php $this->widget('CCaptcha'); ?>
-		<?php echo $form->textField($model,'verifyCode'); ?>
+		<div class="controls">
+			<?php $this->widget('CCaptcha'); ?>
+		</div>
+		<?php echo $form->labelEx($model,'verifyCode', array('class'=>'control-label')); ?>
+		<div class="controls">
+			<?php echo $form->textField($model,'verifyCode', array('class'=>'span10')); ?>
+			<?php echo $form->error($model,'verifyCode'); ?>
 		</div>
 		<div class="hint">Please enter the letters as they are shown in the image above.
 		<br/>Letters are not case-sensitive.</div>
-		<?php echo $form->error($model,'verifyCode'); ?>
 	</div>
 	<?php endif; ?>
 
 	<div class="form-actions">
 		<button class="btn btn-primary" type="submit"><?php echo Yii::t('core','Submit'); ?></button>
 	</div>
-</div>
 
 <?php $this->endWidget(); ?>
 
-
 <?php endif; ?>
+
+
+		</div>
+	</div>
+</div>

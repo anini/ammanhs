@@ -40,6 +40,12 @@ class MarkdownEditor extends CInputWidget
 			$this->htmlOptions['style'] = "width:{$this->width};height:{$this->height};";
 		}
 		$html = '<div class="wmd-panel"><div id="wmd-button-bar"></div>';
+
+		if (isset($this->htmlOptions['error'])){
+			$html .= $this->htmlOptions['error'];
+			unset($this->htmlOptions['error']);
+		}
+
 		// Do we have a model?
 		if ($this->hasModel())
 		{

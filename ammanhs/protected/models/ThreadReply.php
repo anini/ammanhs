@@ -131,7 +131,7 @@ class ThreadReply extends CActiveRecord
 	{
 		parent::afterSave();
 		if($this->isNewRecord){
-			UserLog::addActivity('Create', $this, 1);
+			UserLog::addActivity('Add', $this, 1);
 			$this->user->stat_points++;
 			$this->user->stat_replies++;
 			$this->user->save();
@@ -149,8 +149,8 @@ class ThreadReply extends CActiveRecord
 
 	public function getLink($absolute=false){
 		if ($absolute || !(Yii::app() instanceof CWebApplication))
-			return Yii::app()->urlManager->createAbsoluteUrl('thread/show', array('id' => $this->id)).'#thread='.$this->id;
-		return Yii::app()->urlManager->createUrl('thread/show', array('id' => $this->thread->id)).'#reply='.$this->id;
+			return Yii::app()->urlManager->createAbsoluteUrl('thread/view', array('id' => $this->id)).'#thread='.$this->id;
+		return Yii::app()->urlManager->createUrl('thread/view', array('id' => $this->thread->id)).'#reply='.$this->id;
 	}
 
 }

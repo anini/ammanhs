@@ -1,26 +1,38 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+<?php
+Yii::app()->clientScript->registerCSSFile('/css/tag.css');
+Yii::app()->clientScript->registerScriptFile('/js/tag.js', CClientScript::POS_END);
+?>
+
+<?php
+$form=$this->beginWidget('CActiveForm',array(
 	'id'=>'thread-form',
 	'enableAjaxValidation'=>true,
+	'htmlOptions'=>array(
+		//'onsubmit'=>'return add_thread_reply("thread-reply-form");'
+	),
 )); ?>
 
-	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
+<div class="control-group">
+	<?php echo $form->labelEx($model,'title', array('class'=>'ge-ss')); ?>
+	<?php echo $form->textField($model,'title',array('class'=>'span5','maxlength'=>256)); ?>
+	<?php echo $form->error($model,'title', array('class'=>'help-inline error ge-ss')); ?>
+</div>
 
-	<?php echo $form->errorSummary($model); ?>
+<?php //echo $form->textField($model,'type',array('class'=>'span5','maxlength'=>12)); ?>
 
-	<?php echo $form->textFieldRow($model,'type',array('class'=>'span5','maxlength'=>12)); ?>
+<div class="control-group">
+	<?php echo $form->labelEx($model,'content', array('class'=>'ge-ss')); ?>
+	<?php echo $form->markdownEditor($model, 'content', array('style'=>'height: 150px;', 'error'=>$form->error($model,'content', array('class'=>'help-inline error ge-ss', 'style'=>'float: left; margin-top:-30px;'))));?>
+</div>
 
-	<?php echo $form->textFieldRow($model,'title',array('class'=>'span5','maxlength'=>256)); ?>
+<div class="control-group">
+	<?php //echo $form->labelEx($model,'tags', array('class'=>'ge-ss')); ?>
+	<?php //echo $form->textField($model,'tags',array('class'=>'span5','maxlength'=>128,'data-provide'=>'tag')); ?>
+	<?php //echo $form->error($model,'tags', array('class'=>'help-inline error ge-ss')); ?>
+</div>
 
-	<?php echo $form->markdownEditorRow($model, 'content', array('height'=>'200px'));?>
-	
-	<?php echo $form->textFieldRow($model,'tags',array('class'=>'span5','maxlength'=>128)); ?>
-
-	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'submit',
-			'type'=>'primary',
-			'label'=>$model->isNewRecord ? 'Create' : 'Save',
-		)); ?>
-	</div>
+<div class="form-actions">
+	<button class="btn btn-primary" type="submit"><?php echo Yii::t('core',($model->isNewRecord ? 'Create' : 'Save')); ?></button>
+</div>
 
 <?php $this->endWidget(); ?>

@@ -22,8 +22,13 @@ class SiteController extends Controller
 	}
 
 	public function actionRefreshHeader(){
-		$this->layout = false;
+		$this->layout=false;
         $this->renderPartial('//layouts/_header');
+	}
+
+	public function actionRefreshSidebar(){
+		$this->layout=false;
+        $this->renderPartial('//layouts/_sidebar');
 	}
 
 	/**
@@ -64,7 +69,7 @@ class SiteController extends Controller
 	 */
 	public function actionContact()
 	{
-		$this->layout='column2';
+		$this->layout=false;
 		$model=new ContactForm;
 		if(isset($_POST['ajax']))
 		{
@@ -78,7 +83,7 @@ class SiteController extends Controller
 			{
 				$headers="From: {$model->email}\r\nReply-To: {$model->email}";
 				mail(Yii::app()->params['adminEmail'],$model->subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact',Yii::t('core' ,'Thank you for contacting us. We will respond to you as soon as possible.'));
+				Yii::app()->user->setFlash('contact', Yii::t('core' ,'Thank you for contacting us. We will respond to you as soon as possible.'));
 				$this->refresh();
 			}
 		}

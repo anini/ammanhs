@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Threads'=>array('index'),
-	'Create',
+	Yii::t('core', 'Threads')=>array('index'),
+	Yii::t('core', 'Adding New Thread'),
 );
 
 $this->menu=array(
@@ -9,7 +9,5 @@ $this->menu=array(
 	array('label'=>'Manage Thread','url'=>array('admin')),
 );
 ?>
-
-<h1>Create Thread</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

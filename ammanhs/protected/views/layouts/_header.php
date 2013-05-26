@@ -11,17 +11,17 @@
 
 		<img class="flash" style="margin: -9px 0 -5px 0;" src="/images/brand_ar.png">
     </a>
-      <form class="navbar-search" action="">
-        <input type="text" class="search-query span2" placeholder="<?php echo Yii::t('core','Search'); ?>" id="header-search" 
-        onfocus="$('#main-menu').slideUp(200);$(this).removeClass('span2');$(this).addClass('span4');" onblur="$(this).removeClass('span4');$(this).addClass('span2');setTimeout(function(){$('#main-menu').slideDown(200);}, 500);"><span class='octicon-search' style='margin-right: -22px;opacity: 0.5;position: absolute;margin-top: 7px'></span>
+      <form class="navbar-search" action="/search">
+        <input name="q" <?php if(isset($_GET['q'])) echo 'value="'.$_GET['q'].'"'; ?> type="text" class="search-query span2" placeholder="<?php echo Yii::t('core','Search'); ?>" id="header-search" 
+        onfocus="$('#main-menu').slideUp(200);$(this).removeClass('span2');$(this).addClass('span4');" onblur="$(this).removeClass('span4');$(this).addClass('span2');setTimeout(function(){$('#main-menu').slideDown(200);}, 500);"><span class='octicons octicon-search' style='margin-right: -22px;opacity: 0.5;position: absolute;margin-top: 7px'></span>
       </form>
     
      </div>
       <div class="nav-collapse collapse">
         <ul class="nav" id="main-menu">
-          <li class="active"><a href="<?php echo Yii::app()->urlManager->createUrl('site/index'); ?>"><?php echo Yii::t('core','Home'); ?></a></li>
-          <li><a href="<?php echo Yii::app()->urlManager->createUrl('/thread/index'); ?>"><?php echo Yii::t('core','Threads'); ?></a></li>
-          <li><a href="<?php echo Yii::app()->urlManager->createUrl('/site/about'); ?>"><?php echo Yii::t('core','About'); ?></a></li>
+          <li <?php if ($this->action->controller->id == 'site' && $this->action->id == 'index') echo 'class="active"'; ?>><a href="<?php echo Yii::app()->urlManager->createUrl('site/index'); ?>"><?php echo Yii::t('core','Home'); ?></a></li>
+          <li <?php if ($this->action->controller->id == 'thread' && $this->action->id == 'index') echo 'class="active"'; ?>><a href="<?php echo Yii::app()->urlManager->createUrl('/thread/index'); ?>"><?php echo Yii::t('core','Threads'); ?></a></li>
+          <li <?php if ($this->action->controller->id == 'site' && $this->action->id == 'about') echo 'class="active"'; ?>><a href="<?php echo Yii::app()->urlManager->createUrl('/site/about'); ?>"><?php echo Yii::t('core','About'); ?></a></li>
         </ul>
         <?php $this->renderPartial('//layouts/_user_header'); ?>
       </div><!--/.nav-collapse -->

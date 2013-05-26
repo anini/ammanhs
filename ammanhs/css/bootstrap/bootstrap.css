@@ -234,6 +234,7 @@ body {
 a {
   color: #0088cc;
   text-decoration: none;
+  cursor: pointer;
 }
 
 a:hover,
@@ -981,15 +982,17 @@ pre {
           border-radius: 3px;
 }
 
-code {
+/*code {
   padding: 2px 4px;
   color: #d14;
   white-space: nowrap;
   background-color: #f7f7f9;
   border: 1px solid #e1e1e8;
-}
+}*/
 
-pre {
+pre, code {
+  text-align: left;
+  direction: ltr;
   display: block;
   padding: 9.5px;
   margin: 0 0 10px;
@@ -1026,7 +1029,7 @@ pre code {
 }
 
 form {
-  margin: 0 0 20px;
+  margin: 10px 0;
 }
 
 fieldset {
@@ -1496,7 +1499,8 @@ input[type="checkbox"][readonly] {
 
 .control-group.error .control-label,
 .control-group.error .help-block,
-.control-group.error .help-inline {
+.control-group.error .help-inline,
+.error.help-inline {
   color: #b94a48;
 }
 
@@ -1508,6 +1512,9 @@ input[type="checkbox"][readonly] {
   color: #b94a48;
 }
 
+input.error,
+textarea.error,
+select.error,
 .control-group.error input,
 .control-group.error select,
 .control-group.error textarea {

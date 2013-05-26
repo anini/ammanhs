@@ -16,6 +16,7 @@
  * @property string $avatar_uri
  * @property integer $created_at
  * @property integer $last_login_at
+ * @property integer $website
  * @property string $twitter_uri
  * @property string $twitter_id
  * @property string $facebook_uri
@@ -73,7 +74,7 @@ class User extends CActiveRecord
 			array('username', 'unique', 'on'=>'signup'),
 			array('gender, created_at, last_login_at, stat_votes, stat_threads, stat_points, twitter_id,facebook_id, google_id', 'numerical', 'integerOnly'=>true),
 			array('username, password, first_name, last_name, country', 'length', 'max'=>64),
-			array('email, twitter_uri, facebook_uri, google_uri', 'length', 'max'=>128),
+			array('email, website, twitter_uri, facebook_uri, google_uri', 'length', 'max'=>128),
 			array('type', 'length', 'max'=>6),
 			array('password', 'length', 'min'=>6, 'on'=>'signup, create, update'),
 			array('avatar_uri', 'length', 'max'=>256),
@@ -88,7 +89,7 @@ class User extends CActiveRecord
 			array('type', 'unsafe', 'on'=>'signup, profile'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, email, first_name, last_name, type, gender, about, avatar_uri, created_at, last_login_at, twitter_id, facebook_id, google_id. twitter_uri, facebook_uri, google_uri, country', 'safe', 'on'=>'search'),
+			array('id, username, email, first_name, last_name, type, gender, about, avatar_uri, created_at, last_login_at, website, twitter_id, facebook_id, google_id. twitter_uri, facebook_uri, google_uri, country', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -123,6 +124,7 @@ class User extends CActiveRecord
 			'avatar_uri' => Yii::t('core', 'Avatar'),
 			'created_at' => 'Created At',
 			'last_login_at' => 'Last Login At',
+			'website' => Yii::t('core', 'Website'),
 			'twitter_uri' => Yii::t('core', 'Twitter Account'),
 			'facebook_uri' => Yii::t('core', 'Facebook Account'),
 			'google_uri' => Yii::t('core', 'Google+ Account'),
@@ -211,17 +213,29 @@ class User extends CActiveRecord
 		return Yii::app()->urlManager->createUrl('user/view', array('id' => $this->id));
 	}
 
-	public function getUserFeed($limit=10, $types=array('thread','thread_reply'), $newer_than=0){
+	public function getUserFeed($limit=10, $types=array('thread','thread_reply'), $actions=array('Add'), $newer_than=0, $with_join=true){
 		$condition = 'user_id='.$this->id;
 		
 		$last_index = count($types) - 1;
-		$condition .= " AND (";
+		$condition .= " AND (((";
 		foreach($types as $key=>$type){
 			$condition .= " {$type}_id IS NOT NULL";
 			if($key < $last_index){
 				$condition .= " OR";
 			}
 		}
+		$condition .= " )";
+		foreach($actions as $key=>$action){
+			$actions[$key]='"'.$action.'"';
+		}
+		$actions=implode(', ', $actions);
+		
+		$condition .= " AND action IN ($actions)";
+		$condition .= " )";
+		if($with_join){
+			$condition .= " OR action = 'Join'";
+		}
+
 		$condition .= " )";
 
 		if($newer_than>0){

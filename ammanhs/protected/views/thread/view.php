@@ -19,7 +19,17 @@ $this->menu=array(
 	<div class="span2 text-center shadow-box ge-ss" style="padding: 5px 0;">
 		<?php echo $model->user->avatar_a(160, 160, array('class'=>'img-rounded')); ?>
 		<h4><a href="<?php echo $model->user->profileLink(); ?>"><?php echo $model->user->name; ?></a></h4>
-		<div>User Info</div>
+		<div id="user-stats">
+	    	<h4 class="user-stat">
+	    		<span class="octicons octicon-star" data-original-title="<?php echo Yii::t('core','Stat Points'); ?>"><?php echo '<br>'.$model->user->stat_points; ?></span>
+	    	</h4>
+	    	<h4 class="user-stat">
+	    		<span class="octicons octicon-thread" data-original-title="<?php echo Yii::t('core','Stat Threads'); ?>"><?php echo '<br>'.$model->user->stat_threads; ?></span>
+	    	</h4>
+	    	<h4 class="user-stat">
+	    		<span class="octicons octicon-discussion" data-original-title="<?php echo Yii::t('core','Stat Replies'); ?>"><?php echo '<br>'.$model->user->stat_replies; ?></span>
+	    	</h4>
+	    </div>
 	</div>
 
 	<div class="span7">
@@ -103,18 +113,18 @@ $this->menu=array(
 			<div style="padding: 1px;margin-right: 15px;">
 				<div style="width: 100%;">
 					<?php
-					$form=$this->beginWidget('zii.widgets.CActiveForm',array(
+					$form=$this->beginWidget('CActiveForm',array(
 						'id'=>'thread-reply-form',
 						'action'=>'/threadReply/create?thread_id='.$model->id,
 						'enableAjaxValidation'=>false,
 						'htmlOptions'=>array(
-							'onsubmit' => 'return add_thread_reply("thread-reply-form");'
+							'onsubmit'=>'return add_thread_reply("thread-reply-form");'
 						),
 					)); ?>
 					<?php echo $form->errorSummary($thread_reply); ?>
 
 					<div style="float: left;">
-						<button class="btn" type="submit"><b><?php echo Yii::t('core','Add your reply'); ?></b></button>
+						<button class="btn" type="submit"><?php echo Yii::t('core', 'Add your reply'); ?></button>
 					</div>
 					<?php echo $form->markdownEditor($thread_reply, 'content', array('placeholder'=>'Have something to say?!', 'style'=>'height: 150px;'));?>
 					<?php $this->endWidget(); ?>

@@ -31,12 +31,12 @@ class ThreadController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','me','vote'),
+				'actions'=>array('create','me','vote'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('@'),
+				'actions'=>array('admin','delete','update'),
+				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -50,7 +50,7 @@ class ThreadController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$thread_reply = new ThreadReply();
+		$thread_reply=new ThreadReply;
 		$model = $this->loadModel($id);
 		$model->stat_views++;
 		$model->save();
@@ -69,6 +69,8 @@ class ThreadController extends Controller
 		$model=new Thread;
 
 		$this->performAjaxValidation($model);
+
+		if(isset($_GET['title'])) $model->title=$_GET['title'];
 
 		if(isset($_POST['Thread']))
 		{

@@ -3,17 +3,13 @@
 	<li class="dropdown">
 		<a class="dropdown-toggle" data-toggle="dropdown" href="#signup"><span id="signup-lable"><?php echo Yii::t('core','Signup for Free!'); ?></span><span class="caret"></span></a>
 		<ul class="dropdown-menu">
-			<li>
-				<?php $this->renderPartial('../user/signup'); ?>
-			</li>
+			<li><?php $this->renderPartial('//user/signup'); ?></li>
 		</ul>
 	</li>
 	<li class="dropdown">
 		<a class="dropdown-toggle" data-toggle="dropdown" href="#login"><?php echo Yii::t('core','Login'); ?><span class="caret"></span></a>
 		<ul class="dropdown-menu">
-			<li>
-				<?php $this->renderPartial('../user/login'); ?>
-			</li>
+			<li><?php $this->renderPartial('//user/login'); ?></li>
 		</ul>
 	</li>
 	<a href="javascript:void(0);" data-src="/user/connect" id="connect-link" data-toggle="ajax-modal"></a>

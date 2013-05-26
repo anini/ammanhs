@@ -69,6 +69,20 @@
 #user-info-table td{
 	vertical-align: top;
 }
+#user-stats{
+	cursor: default;
+}
+#user-stats .octicons{
+	margin: 0 3px;
+}
+#user-stats h4{
+	line-height: 20px;
+	width: 25%;
+	position: relative;
+}
+.user-stat{
+	display: inline-block;
+}
 #thread-title{
 	padding: 9px;
 	border: 1px solid rgba(0, 0, 0, 0.199219);;
@@ -185,11 +199,9 @@
 #new-thread td{
 	vertical-align: top;
 }
-
 .nav-tabs > li{
 	float: left !important;
 }
-
 .summary a:hover{
 	text-decoration: none !important;
 	color: #333333 !important;

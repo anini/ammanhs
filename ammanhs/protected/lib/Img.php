@@ -8,9 +8,9 @@ class Img{
 
 	public static function uri($img, $w=false, $h=false, $def=false, $format='.jpg'){
 		$host=isset(Yii::app()->params['static_host'])?Yii::app()->params['static_host']:Yii::app()->params['host'];
-		if($def===false) $def='default-male.png';
+		if($def===false) $def='default-male.jpg';
 		if(!$img){
-			return "http://$host/images/${def}";
+			return self::uri($def, $w, $h, false, $format);
 		}
 		$img_u=str_replace('%2F', '/', rawurlencode($img)); // url encoded image
 		if(!is_file(self::absolutePath($img))){
@@ -25,7 +25,7 @@ class Img{
 	public static function embed($img, $w=false, $h=false, $def=false, $attr=false, $format='.jpg'){
 		if(!is_array($attr)) $attr=array();
 		if(!isset($attr["alt"]) && isset($attr["title"])) $attr["alt"]=$attr["title"];
-		if(!isset($attr["alt"]) && !isset($attr["title"])){
+		if(!isset($attr["alt"]) && !isset($attr["title"]) && !isset($attr["data-original-title"])){
 			$attr["alt"] = $attr["title"] = Yii::t('core', 'Image');
 		}
 		if(!$w) $size="";

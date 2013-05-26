@@ -8,7 +8,7 @@
 			<div class="thread-tags"></div>
 			<div class="thread-info">
 				<div class="thread-author">
-					<?php echo Yii::t('core', 'By'); ?> <a href="<?php echo Yii::app()->urlManager->createUrl('user/show', array('id' => $thread->user->id)); ?>"><?php echo $thread->user->name; ?></a>
+					<?php echo Yii::t('core', 'By'); ?> <a href="<?php echo Yii::app()->urlManager->createUrl('user/view', array('id' => $thread->user->id)); ?>"><?php echo $thread->user->name; ?></a>
 				</div>
 				<div class="thread-date">
 					<?php echo Time::deltaInWords($thread->created_at); ?>

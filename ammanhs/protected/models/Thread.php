@@ -55,6 +55,7 @@ class Thread extends CActiveRecord
 			array('title', 'length', 'max'=>256),
 			array('tags', 'length', 'max'=>128),
 			array('content', 'safe'),
+			array('content', 'unique'),
 			array('user_id, publish_status', 'unsafe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -85,9 +86,9 @@ class Thread extends CActiveRecord
 			'user_id' => 'User',
 			'type' => 'Type',
 			'status' => 'Status',
-			'title' => 'Title',
-			'content' => 'Content',
-			'tags' => 'Tags',
+			'title' => Yii::t('core', 'Title'),
+			'content' => Yii::t('core', 'Content'),
+			'tags' => Yii::t('core', 'Tags'),
 			'stat_replies' => 'Stat Replies',
 			'stat_votes' => 'Stat Votes',
 			'stat_votes' => 'Stat Views',
@@ -146,7 +147,7 @@ class Thread extends CActiveRecord
 	{
 		parent::afterSave();
 		if($this->isNewRecord){
-			UserLog::addActivity('Create', $this, 3);
+			UserLog::addActivity('Add', $this, 3);
 			$this->user->stat_points+=3;
 			$this->user->stat_threads++;
 			$this->user->save();
@@ -156,13 +157,13 @@ class Thread extends CActiveRecord
 	public function updateStatVotes(){
 		$positive_votes = COUNT(ThreadVote::model()->findByAttributes(array('thread_id'=>$this->id, 'vote_type'=>1)));
 		$negative_votes = COUNT(ThreadVote::model()->findByAttributes(array('thread_id'=>$this->id, 'vote_type'=>-1)));
-		$this->stat_votes = (int)($positive_votes - $negative_votes);
+		$this->stat_votes = (int)($positive_votes-$negative_votes);
 		return $this->save();
 	}
 
 	public function getLink($absolute=false){
 		if ($absolute || !(Yii::app() instanceof CWebApplication))
-			return Yii::app()->urlManager->createAbsoluteUrl('thread/show', array('id' => $this->id));
-		return Yii::app()->urlManager->createUrl('thread/show', array('id' => $this->id));
+			return Yii::app()->urlManager->createAbsoluteUrl('thread/view', array('id' => $this->id));
+		return Yii::app()->urlManager->createUrl('thread/view', array('id' => $this->id));
 	}
 }

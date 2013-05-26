@@ -15,7 +15,6 @@
 		<?php $cs->registerCSSFile("/css/bootstrap/bootstrap.min.css"); ?>
 		<?php $cs->registerCSSFile("/css/bootstrap/bootstrap-responsive.min.css"); ?>
 		<?php $cs->registerCSSFile("/css/bootstrap/bootstrap-modal.min.css"); ?>
-
 		
 		<?php $cs->scriptMap = array(
 			'jquery.js' => false,
@@ -35,6 +34,7 @@
 	</head>
 
 	<body>
+		<a href="javascript:void(0);" data-src="/site/contact" id="contact-link" data-toggle="ajax-modal"></a>
 		<div id="header">
 		<?php $this->renderPartial('//layouts/_header'); ?>
 		</div>

@@ -36,7 +36,7 @@ class UserController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','create','index','update'),
-				'users'=>array('@'),
+				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -50,7 +50,7 @@ class UserController extends Controller
 	 */
 	public function actionShow($id)
 	{
-		$this->layout = null;
+		$this->layout=null;
 		$this->render('show',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -62,8 +62,8 @@ class UserController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model = $this->loadModel($id);
-		$user_feed = $model->getUserFeed();
+		$model=$this->loadModel($id);
+		$user_feed=$model->getUserFeed();
 		$this->render('view',array(
 			'model'=>$model,
 			'user_feed'=>$user_feed,
@@ -87,8 +87,8 @@ class UserController extends Controller
 			if($model->save())
 			{
 				Yii::app()->user->setFlash('flash', array(
-                    'status' => 'success',
-                    'message' => 'User has been created successfuly.'
+                    'status'=>'success',
+                    'message'=>'User has been created successfuly.'
                 ));
 				$this->redirect(array('view','id'=>$model->id));
 			}
@@ -174,28 +174,52 @@ class UserController extends Controller
 		if(!Yii::app()->user->isGuest){
 			exit();
 		}
-		$data = array();
+		$data=array();
 		if(isset($_GET['callback_func']) && $_GET['callback_func']){
-			$data['callback_func'] = $_GET['callback_func'];
+			$data['callback_func']=$_GET['callback_func'];
 		}
 		if(isset($_GET['attr']) && $_GET['attr']){
-			$data['attr'] = $_GET['attr'];
+			$data['attr']=$_GET['attr'];
 		}
-		$this->render('connect',$data);
+		if(isset($_GET['redirect']) && $_GET['redirect']){
+			$data['redirect']=$_GET['redirect'];
+		}
+		$this->render('connect', $data);
 	}
 
 	public function actionLogin()
 	{
 		$this->layout=false;
+
+		$ref=isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
+
 		if(!Yii::app()->user->isGuest){
+			if(!$ref){            
+	            $this->redirect($this->homeLink());
+	        }
 			echo 'logged-in';
 			exit();
 		}
+
+		if(!$ref){
+			$hash='#connect';
+			if(isset($_GET['redirect'])){
+                $hash.='?redirect=';
+                $uri=urldecode($_GET['redirect']);
+                if(strrpos($uri, '/')!==0) $uri='/'.str_replace('_', '/', $uri);
+                $hash.=$uri;
+            }elseif(isset(Yii::app()->user->returnUrl)){
+                $hash.='?redirect=';
+                $uri=urldecode(Yii::app()->user->returnUrl);
+                $hash.=$uri;
+            }
+            $this->redirect('/'.$hash);
+        }
 			
 		if(!isset(Yii::app()->session['login_ref']))
-			Yii::app()->session['login_ref']=isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'/';
+			Yii::app()->session['login_ref']=$ref;
 		
-        $model = new LoginForm;
+        $model=new LoginForm;
 
 	    // collect user input data
 		if(isset($_POST['LoginForm']))
@@ -207,13 +231,17 @@ class UserController extends Controller
 				exit();
 			}
 		}
-		$data = array('login_form'=>$model);
+		$data=array('login_form'=>$model);
 		if(isset($_POST['callback_func']) && $_POST['callback_func']){
-			$data['callback_func'] = $_POST['callback_func'];
+			$data['callback_func']=$_POST['callback_func'];
 		}
 		if(isset($_POST['attr']) && $_POST['attr']){
-			$data['attr'] = $_POST['attr'];
+			$data['attr']=$_POST['attr'];
 		}
+		if(isset($_POST['redirect']) && $_POST['redirect']){
+			$data['redirect']=$_POST['redirect'];
+		}
+		if(isset($_POST['input_class'])) $data['input_class']=$_POST['input_class'];
 		// display the login form
 		$this->render('login', $data);
 	}
@@ -224,7 +252,6 @@ class UserController extends Controller
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->user->returnUrl);
 	}
 
 	public function actionSignup()
@@ -245,23 +272,27 @@ class UserController extends Controller
 	        	$model->password=md5($model->password);
 	        if($model->save())
 	        {
-	        	$login_form = new LoginForm;
-	        	$login_form->attributes = $model->attributes;
+	        	$login_form=new LoginForm;
+	        	$login_form->attributes=$model->attributes;
 	        	$login_form->password=$_POST['User']['password'];
 	            if($login_form->login()){
 					echo 'logged-in';
 					exit();
 				}
 	        }
-	        $model->password = null;
+	        $model->password=null;
 	    }
-	    $data = array('model'=>$model);
+	    $data=array('model'=>$model);
 		if(isset($_POST['callback_func']) && $_POST['callback_func']){
-			$data['callback_func'] = $_POST['callback_func'];
+			$data['callback_func']=$_POST['callback_func'];
 		}
 		if(isset($_POST['attr']) && $_POST['attr']){
-			$data['attr'] = $_POST['attr'];
+			$data['attr']=$_POST['attr'];
 		}
+		if(isset($_POST['redirect']) && $_POST['redirect']){
+			$data['redirect']=$_POST['redirect'];
+		}
+		if(isset($_POST['input_class'])) $data['input_class']=$_POST['input_class'];
 		// display the login form
 	    $this->render('signup', $data);
 	}
@@ -274,25 +305,12 @@ class UserController extends Controller
 
 	    if(isset($_POST['User']))
 	    {
-	    	/*$uploadedFile=CUploadedFile::getInstance($model,'avatar_uri');
-	    	if(!empty($uploadedFile)){
-                $ext = 'jpg'; // pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-                $a=explode('/', $uploadedFile->type);
-                if (count($a)==2 && $a[0]=='image') {
-                	$ext=$a[1];
-	    			$uri="avatars/{$model->username}.$ext";
-	    			$uploadedFile->saveAs(Yii::app()->basePath.'/../images/'.$uri);
-	    			$model->avatar_uri=$uri;
-	    		} else {
-	    			$model->addError('avatar_uri', 'banana');
-	    		}
-	    	}*/
 	        $model->attributes=$_POST['User'];
 	        if($model->save())
 	        {
 	        	Yii::app()->user->setFlash('flash', array(
-                    'status' => 'success',
-                    'message' => 'You profile has been successfuly updated.'
+                    'status'=>'success',
+                    'message'=>Yii::t('core', 'You profile has been successfuly updated.')
                 ));
 	        }
 	    }

@@ -9,5 +9,4 @@
 	Copyright &copy; <?php echo date('Y'); ?> by Amman Hackerspace.<br>
 	All Rights Reserved.
 	</div>
-	<br>
 </div>

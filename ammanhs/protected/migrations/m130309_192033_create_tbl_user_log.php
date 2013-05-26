@@ -10,7 +10,7 @@ class m130309_192033_create_tbl_user_log extends CDbMigration
             $this->createTable('tbl_user_log', array(
 				'id' => 'int(11) NOT NULL AUTO_INCREMENT',
                 'user_id' => 'int(11) NOT NULL',
-                'action' => 'enum("Create","Edit","VoteUp","VoteDown","Follow","Join","Unsubscribe") NOT NULL DEFAULT "Create"',
+                'action' => 'enum("Add","Edit","VoteUp","VoteDown","Follow","Join","Unsubscribe") NOT NULL DEFAULT "Add"',
                 'thread_id' => 'int(11) DEFAULT NULL',
                 'thread_reply_id' => 'int(11) DEFAULT NULL',
                 'targeted_user_id' => 'int(11) DEFAULT NULL',
