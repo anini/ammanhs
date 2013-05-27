@@ -7,7 +7,6 @@
  * @property integer $id
  * @property integer $user_id
  * @property string $type
- * @property integer $status
  * @property string $title
  * @property string $content
  * @property string $tags
@@ -50,7 +49,7 @@ class Thread extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, title, content, type', 'required'),
-			array('user_id, status, stat_replies, stat_votes, stat_views, created_at, updated_at', 'numerical', 'integerOnly'=>true),
+			array('user_id, stat_replies, stat_votes, stat_views, created_at, updated_at, publish_status', 'numerical', 'integerOnly'=>true),
 			array('type', 'length', 'max'=>12),
 			array('title', 'length', 'max'=>256),
 			array('tags', 'length', 'max'=>128),
@@ -59,7 +58,7 @@ class Thread extends CActiveRecord
 			array('user_id, publish_status', 'unsafe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, user_id, type, status, title, content, tags, stat_replies, stat_votes, stat_views, created_at, updated_at, publish_status', 'safe', 'on'=>'search'),
+			array('id, user_id, type, title, content, tags, stat_replies, stat_votes, stat_views, created_at, updated_at, publish_status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,7 +84,6 @@ class Thread extends CActiveRecord
 			'id' => 'ID',
 			'user_id' => 'User',
 			'type' => 'Type',
-			'status' => 'Status',
 			'title' => Yii::t('core', 'Title'),
 			'content' => Yii::t('core', 'Content'),
 			'tags' => Yii::t('core', 'Tags'),
@@ -111,7 +109,6 @@ class Thread extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('type',$this->type,true);
-		$criteria->compare('status',$this->status);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('content',$this->content,true);
 		$criteria->compare('tags',$this->tags,true);
@@ -128,7 +125,7 @@ class Thread extends CActiveRecord
 
 	protected function beforeValidate() {
 		if(!$this->user_id){
-        	$this->user_id = Yii::app()->user->id;
+        	$this->user_id=Yii::app()->user->id;
         }
         return true;
     }
@@ -136,9 +133,9 @@ class Thread extends CActiveRecord
 	public function beforeSave()
 	{
 		if(!$this->created_at){
-			$this->created_at = time();
+			$this->created_at=time();
         }else{
-        	$this->updated_at = time();
+        	$this->updated_at=time();
         }
         return parent::beforeSave();
 	}
@@ -150,7 +147,7 @@ class Thread extends CActiveRecord
 			UserLog::addActivity('Add', $this, 3);
 			$this->user->stat_points+=3;
 			$this->user->stat_threads++;
-			$this->user->save();
+			$this->user->save(false);
 		}
 	}
 

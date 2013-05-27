@@ -61,6 +61,7 @@ class SiteController extends Controller
 	 */
 	public function actionAbout()
 	{
+		$this->layout='column2';
 	    $this->render('about');
 	}
 

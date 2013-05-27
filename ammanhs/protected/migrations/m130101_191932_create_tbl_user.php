@@ -20,6 +20,7 @@ class m130101_191932_create_tbl_user extends CDbMigration
                 'avatar_uri' => 'varchar(256) DEFAULT NULL',
                 'created_at' => 'int(11) DEFAULT NULL',
                 'last_login_at' => 'int(11) DEFAULT NULL',
+                'mobile' => 'varchar(64) DEFAULT NULL',
                 'website' => 'varchar(128) DEFAULT NULL',
                 'twitter_uri' => 'varchar(128) DEFAULT NULL',
                 'twitter_id' => 'int(11) DEFAULT NULL',
@@ -32,6 +33,7 @@ class m130101_191932_create_tbl_user extends CDbMigration
                 'stat_replies' => 'int(11) NOT NULL DEFAULT 0',
                 'stat_votes' => 'int(11) NOT NULL DEFAULT 0',
                 'stat_points' => 'int(11) NOT NULL DEFAULT 0',
+                'stat_views' => 'int(11) NOT NULL DEFAULT 0',
                 'PRIMARY KEY(`id`)'),
                 'ENGINE=InnoDB CHARSET=utf8'
             );

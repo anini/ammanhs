@@ -2,11 +2,9 @@
 <div id="footer">
 	<hr/>
 	<div>
-	حقوق النشر &copy; <?php echo date('Y'); ?> فضاء المتمكنين | عمان.<br>
-	جميع الحقوق محفوظة.
+		جميع حقوق النسخ والطبع والتوزيع ممنوحة ضمن شروط رخصة التشارك الإبداعي مع ذِكرِ المصدر.
 	</div>
 	<div style="direction: ltr">
-	Copyright &copy; <?php echo date('Y'); ?> by Amman Hackerspace.<br>
-	All Rights Reserved.
+		All rights granted under the terms of Creative Commons License.
 	</div>
 </div>

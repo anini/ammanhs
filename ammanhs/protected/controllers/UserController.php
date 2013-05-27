@@ -63,7 +63,11 @@ class UserController extends Controller
 	public function actionView($id)
 	{
 		$model=$this->loadModel($id);
-		$user_feed=$model->getUserFeed();
+		$user_feed=$model->getUserFeed(10, array('thread'));
+		if(Yii::app()->user->isGuest || Yii::app()->user->id!=$model->id){
+			$model->stat_views++;
+			$model->save(false);
+		}
 		$this->render('view',array(
 			'model'=>$model,
 			'user_feed'=>$user_feed,
@@ -306,12 +310,15 @@ class UserController extends Controller
 	    if(isset($_POST['User']))
 	    {
 	        $model->attributes=$_POST['User'];
+	        $model->mobile=trim($model->mobile);
+	        if(trim($model->website)=='http://') unset($model->website);
 	        if($model->save())
 	        {
 	        	Yii::app()->user->setFlash('flash', array(
                     'status'=>'success',
                     'message'=>Yii::t('core', 'You profile has been successfuly updated.')
                 ));
+                $this->redirect(array('view','id'=>$model->id));
 	        }
 	    }
 	    $this->render('profile',array('model'=>$model));

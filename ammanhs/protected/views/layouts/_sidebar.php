@@ -20,6 +20,7 @@
 			<a class="btn btn-primary add-thread-button btn-block" href="<?php echo $this->createUrl('thread/index'); ?>"><icon class="octicons octicon-thread"></icon><?php echo Yii::t('core', 'Browse Threads'); ?></a>
 			<a class="btn btn-success add-thread-button btn-block" href="<?php echo $this->createUrl('thread/create'); ?>"><icon class="octicons octicon-add"></icon><?php echo Yii::t('core', 'Create a New Thread'); ?></a>
 			<a class="btn btn-warning add-thread-button btn-block" href="<?php echo $this->createUrl('user/profile'); ?>"><icon class="octicons octicon-settings"></icon><?php echo Yii::t('core', 'Edit your profile'); ?></a>
+			<a class="btn btn-danger add-thread-button btn-block" href="<?php echo $this->createUrl('membership/index'); ?>"><icon class="octicons octicon-user"></icon><?php echo Yii::t('core', ((Yii::app()->user->model->membership)?'Edit':'Create').' Membership'); ?></a>
 		</div>
 	</div>
 <?php } ?>

@@ -16,6 +16,7 @@
  * @property string $avatar_uri
  * @property integer $created_at
  * @property integer $last_login_at
+ * @property integer $mobile
  * @property integer $website
  * @property string $twitter_uri
  * @property string $twitter_id
@@ -28,6 +29,7 @@
  * @property integer $stat_replies
  * @property integer $stat_votes
  * @property integer $stat_points
+ * @property integer $stat_views
  *
  * The followings are the available model relations:
  * @property Thread[] $threads
@@ -67,13 +69,16 @@ class User extends CActiveRecord
 			array('password', 'required', 'on'=>'signup'),
 			array('username, email', 'required', 'on'=>'update'),
 			// Alphanumeric Validator: Only letters, numbers and underscores are allowed.
-			array('username', 'match', 'pattern'=>'/^\w+$/', 'on'=>'signup','message'=>'Invalid username! Alphanumerics only.'),
+			array('username', 'match', 'pattern'=>'/^\w+$/', 'on'=>'signup','message'=>Yii::t('core','Invalid username! Alphanumerics only.')),
 			// Validator: User name should start with a letter.
-			array('username', 'match', 'pattern'=>'/^[a-zA-Z]/', 'on'=>'signup','message'=>'Username should start with a letter.'),
+			array('username', 'match', 'pattern'=>'/^[a-zA-Z]/', 'on'=>'signup','message'=>Yii::t('core', 'Username should start with a letter.')),
 			array('username', 'length', 'min'=>5, 'on'=>'signup'),
 			array('username', 'unique', 'on'=>'signup'),
-			array('gender, created_at, last_login_at, stat_votes, stat_threads, stat_points, twitter_id,facebook_id, google_id', 'numerical', 'integerOnly'=>true),
-			array('username, password, first_name, last_name, country', 'length', 'max'=>64),
+			array('mobile', 'match', 'pattern'=>'/^[\d\ \(\)\+]+$/', 'message'=>Yii::t('core', '{attribute} is invalid.')),
+			array('mobile', 'length', 'min'=>7),
+			array('mobile', 'required', 'on'=>'membership'),
+			array('gender, created_at, last_login_at, stat_votes, stat_threads, stat_points, stat_views, twitter_id,facebook_id, google_id', 'numerical', 'integerOnly'=>true),
+			array('username, password, first_name, last_name, country, mobile', 'length', 'max'=>64),
 			array('email, website, twitter_uri, facebook_uri, google_uri', 'length', 'max'=>128),
 			array('type', 'length', 'max'=>6),
 			array('password', 'length', 'min'=>6, 'on'=>'signup, create, update'),
@@ -85,11 +90,11 @@ class User extends CActiveRecord
 			array('username, email', 'unique', 'on'=>'signup, create, update'),
 			array('type', 'required', 'on'=>'create, update'),
 			array('email', 'email'),
-			array('avatar_uri, created_at, last_login_at, stat_threads, stat_replies, stat_votes, stat_points, twitter_id, facebook_id, google_id', 'unsafe'),
+			array('avatar_uri, created_at, last_login_at, stat_threads, stat_replies, stat_votes, stat_points, stat_views, twitter_id, facebook_id, google_id', 'unsafe'),
 			array('type', 'unsafe', 'on'=>'signup, profile'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, email, first_name, last_name, type, gender, about, avatar_uri, created_at, last_login_at, website, twitter_id, facebook_id, google_id. twitter_uri, facebook_uri, google_uri, country', 'safe', 'on'=>'search'),
+			array('id, username, email, first_name, last_name, type, gender, about, avatar_uri, created_at, last_login_at, website, mobile, twitter_id, facebook_id, google_id. twitter_uri, facebook_uri, google_uri, country', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -103,6 +108,7 @@ class User extends CActiveRecord
 		return array(
 			'threads' => array(self::HAS_MANY, 'Thread', 'user_id'),
 			'threadReplys' => array(self::HAS_MANY, 'ThreadReply', 'user_id'),
+			'membership' => array(self::HAS_ONE, 'Membership', 'user_id'),
 		);
 	}
 
@@ -124,6 +130,7 @@ class User extends CActiveRecord
 			'avatar_uri' => Yii::t('core', 'Avatar'),
 			'created_at' => 'Created At',
 			'last_login_at' => 'Last Login At',
+			'mobile' => Yii::t('core', 'Mobile'),
 			'website' => Yii::t('core', 'Website'),
 			'twitter_uri' => Yii::t('core', 'Twitter Account'),
 			'facebook_uri' => Yii::t('core', 'Facebook Account'),

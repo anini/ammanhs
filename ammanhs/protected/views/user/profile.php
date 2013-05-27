@@ -58,13 +58,21 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 					<?php echo $form->textField($model,'country', array('class'=>'span3', 'placeholder'=>Yii::t('core', 'Country'))); ?>
 					<?php echo $form->error($model,'country'); ?>
 				</div>
+				<?php echo CHtml::hiddenField('User[gender]', $model->gender, array('id'=>'gender')); ?>
 				<div class="btn-group" data-toggle="buttons-radio">
-					<?php echo CHtml::hiddenField('User[gender]', $model->gender, array('id'=>'gender')); ?>
 					<button type="button" onclick="$('#gender').val(1);" class="btn <?php if($model->gender==1) echo 'active'; ?>"><?php echo Yii::t('core', 'Male'); ?></button>
 					<button type="button" onclick="$('#gender').val(2);" class="btn <?php if($model->gender==2) echo 'active'; ?>"><?php echo Yii::t('core', 'Female'); ?></button>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+
+<div class="control-group">
+	<?php echo $form->labelEx($model,'mobile', array('class'=>'control-label')); ?>
+	<div class="controls">
+		<?php echo $form->textField($model, 'mobile', array('class'=>'english-field')); ?>
+		<?php echo $form->error($model,'mobile'); ?>
 	</div>
 </div>
 

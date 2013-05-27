@@ -149,3 +149,36 @@ form{
     padding-bottom: 10px;
     line-height: 24px;
 }
+.english-field{
+  direction: ltr;
+}
+
+
+#membership-offers{
+    width: 100%;
+}
+#membership-offers td{
+    width: 20%;
+    text-align: center;
+}
+#membership-offers .first-cell{
+    width: 40%;
+}
+#membership-offers td{
+    vertical-align: middle;
+}
+#membership-offers .status{
+    font-size: 24px;
+}
+#membership-offers .price{
+    line-height: 30px;
+}
+#membership-offers .title td{
+    line-height: 22px;
+    font-size: 22px;
+}
+
+#membership-offers .octicon-x{
+    font-size: 18px;
+}
+

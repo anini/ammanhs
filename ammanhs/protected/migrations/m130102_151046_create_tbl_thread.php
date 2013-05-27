@@ -11,7 +11,6 @@ class m130102_151046_create_tbl_thread extends CDbMigration
 				'id' => 'int(11) NOT NULL AUTO_INCREMENT',
                 'user_id' => 'int(11) NOT NULL',
                 'type' => 'enum("Question","Idea","Discussion","Announcement","Article") NOT NULL DEFAULT "Question"',
-                'status' => 'int(11) NOT NULL DEFAULT 0',
                 'title' => 'varchar(256) NOT NULL',
                 'content' => 'text',
                 'tags' => 'varchar(128) NOT NULL DEFAULT ""',
@@ -27,7 +26,6 @@ class m130102_151046_create_tbl_thread extends CDbMigration
 
             $this->createIndex('ix_tbl_thread_user_id', 'tbl_thread', 'user_id', false);
             $this->createIndex('ix_tbl_thread_type', 'tbl_thread', 'type', false);
-            $this->createIndex('ix_tbl_thread_status', 'tbl_thread', 'status', false);
             $this->createIndex('ix_tbl_thread_title', 'tbl_thread', 'title', false);
             $this->createIndex('ix_tbl_thread_tags', 'tbl_thread', 'tags', false);
             $this->createIndex('ix_tbl_thread_stat_replies', 'tbl_thread', 'stat_replies', false);

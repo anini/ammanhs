@@ -24,6 +24,9 @@ return array(
 	'{attribute} is too short (minimum is {min} characters).'=>'{attribute} قصير جدا (أقل حد {min} حروف).',
 	'{attribute} "{value}" has already been taken.'=>'{attribute} "{value}" محجوز.',
 	'Incorrect username or password.'=>'اسم المستخدم أو كلمة المرور غير صحيحة.',
+	'{attribute} is invalid.'=>'{attribute} غير صحيح.',
+	'Invalid username! Alphanumerics only.'=>'استخدم حروف وأرقام فقط.',
+	'Username should start with a letter.'=>'يجب أن يبدأ بحرف.',
 
 	//Time Helper
 	'Less than a minute ago'=>'منذ أقل من دقيقة',
@@ -81,6 +84,7 @@ return array(
 	'Female'=>'أنثى',
 	'About Me'=>'عني',
 	'Avatar'=>'الصورة الشخصية',
+	'Mobile'=>'رقم الهاتف',
 	'Website'=>'الموقع الإلكتروني',
 	'Twitter Account'=>'حساب تويتر',
 	'Facebook Account'=>'حساب فيسبوك',
@@ -123,6 +127,7 @@ return array(
 	'Save'=>'حفظ',
 	'Cancel'=>'إلغاء',
 	'Add your reply'=>'أضف ردك',
+	'Register'=>'سجل',
 
 	//Common
 	'Follow us:'=>'تابعنا:',
@@ -136,6 +141,16 @@ return array(
 	'Browse Threads'=>'تصفح المواضيع',
 	'Create a New Thread'=>'أضف موضوعا جديدا',
 	'Edit your profile'=>'عدل صفحتك الشخصية',
+
+	//Membership
+	'Membership'=>'العضوية',
+	'Memberships'=>'العضويات',
+	'Create Membership'=>'سجل عضويتك',
+	'Edit Membership'=>'عدل عضويتك',
+	'Membership Type'=>'نوع العضوية',
+	'Organization'=>'الشركة / الجامعة',
+	'Job Title'=>'الوظيفة / التخصص',
+
 
 
 	);
