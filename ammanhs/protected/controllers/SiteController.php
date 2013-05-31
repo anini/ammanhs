@@ -70,6 +70,11 @@ class SiteController extends Controller
 	 */
 	public function actionContact()
 	{
+		if(!isset($_GET['modal'])){
+			$hash='#contact';
+            $this->redirect('/'.$hash);
+        }
+
 		$this->layout=false;
 		$model=new ContactForm;
 		if(isset($_POST['ajax']))

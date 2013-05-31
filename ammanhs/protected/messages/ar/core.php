@@ -27,6 +27,7 @@ return array(
 	'{attribute} is invalid.'=>'{attribute} غير صحيح.',
 	'Invalid username! Alphanumerics only.'=>'استخدم حروف وأرقام فقط.',
 	'Username should start with a letter.'=>'يجب أن يبدأ بحرف.',
+	'The verification code is incorrect.'=>'رمز التحقق غير صحيح',
 
 	//Time Helper
 	'Less than a minute ago'=>'منذ أقل من دقيقة',
@@ -70,6 +71,7 @@ return array(
 	'Content'=>'المحتوى',
 	'Tags'=>'الوسوم',
 	'Adding New Thread'=>'إضافة موضوع جديد',
+	'You have no threads!'=>'ليس لديك مواضيع!',
 
 	//User
 	'Username'=>'اسم المستخدم',
@@ -100,20 +102,21 @@ return array(
 	'Your Email'=>'بريدك الإلكتروني',
 	'Strong Password'=>'كلمة مرور قوية',
 
-
-
 	//Contact Form
 	'Name'=>'الاسم',
 	'Subject'=>'الموضوع',
 	'Body'=>'نص الرسالة',
 	'Verification Code'=>'رمز التحقق',
+	'Please enter the letters shown in the image above.'=>'قم بإخال الحروف الظاهرة في الصورة',
+	'Get a new code'=>'غيّر رمز التحقق',
+
 	//Messages
 	'Thank you for contacting us. We will respond to you as soon as possible.'=>'شكرا لك! سوف يقوم فريقنا بالتواصل معك قريبا.',
+	'You profile has been successfuly updated.'=>'تم تعديل معلوماتك بنجاح!',
 
 	//User Feed
 	'User Joint Amman Hackerspace'=>'انضم إلى فضاء المتمكنين | عمّان :time',
 
-	'You profile has been successfuly updated.'=>'تم تعديل معلوماتك بنجاح!',
 
 	'Join Amman Hackerspace'=>'انضم إلى فضاء المتمكنين | عمّان',
 	'Or login to your account'=>"أو <a onclick=':on_click'>سجل دخولك</a>",
@@ -128,6 +131,7 @@ return array(
 	'Cancel'=>'إلغاء',
 	'Add your reply'=>'أضف ردك',
 	'Register'=>'سجل',
+	'Send'=>'إرسال',
 
 	//Common
 	'Follow us:'=>'تابعنا:',

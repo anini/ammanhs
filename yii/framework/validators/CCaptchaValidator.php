@@ -50,7 +50,7 @@ class CCaptchaValidator extends CValidator
 		$captcha=$this->getCaptchaAction();
 		if(!$captcha->validate($value,$this->caseSensitive))
 		{
-			$message=$this->message!==null?$this->message:Yii::t('yii','The verification code is incorrect.');
+			$message=$this->message!==null?$this->message:Yii::t('core','The verification code is incorrect.');
 			$this->addError($object,$attribute,$message);
 		}
 	}

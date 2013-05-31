@@ -117,7 +117,7 @@ class CCaptcha extends CWidget
 		if($this->showRefreshButton)
 		{
 			$cs->registerScript('Yii.CCaptcha#'.$id,'dummy');
-			$label=$this->buttonLabel===null?Yii::t('yii','Get a new code'):$this->buttonLabel;
+			$label=$this->buttonLabel===null?Yii::t('core','Get a new code'):$this->buttonLabel;
 			$options=$this->buttonOptions;
 			if(isset($options['id']))
 				$buttonID=$options['id'];
