@@ -140,7 +140,7 @@ class ThreadController extends Controller
 
 		$this->render('index',array(
 			'threads'=>$threads,
-			'type'=>'recentp',
+			'type'=>'recent',
 		));
 	}
 
@@ -195,17 +195,20 @@ class ThreadController extends Controller
 				$threads = Thread::model()->findAll(array(
 					'order'=>'created_at desc',
 					'condition'=>'user_id='.Yii::app()->user->id));
+				$type = 'me';
 				break;
 			case '2':
 				$threads = Thread::model()->findAll(array(
 					'order'=>'stat_replies desc'));
+				$type = 'top';
 				break;
 			default:
 				$threads = Thread::model()->findAll(array(
 					'order'=>'created_at desc'));
+				$type = 'recent';
 				break;
 		}
-		return $this->renderPartial('_threads', array('threads'=>$threads));
+		return $this->renderPartial('_threads', array('threads'=>$threads, 'type'=>$type));
 	}
 
 	public function actionVote()

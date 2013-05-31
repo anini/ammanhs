@@ -27,5 +27,5 @@ Yii::app()->clientScript->registerCSSFile('/css/thread.css');
 </div>
 
 <div id="threads-container" class="ge-ss">
-    <?php $this->renderPartial('_threads', array('threads'=>$threads)); ?>
+    <?php $this->renderPartial('_threads', array('threads'=>$threads, 'type'=>$type)); ?>
 </div>
