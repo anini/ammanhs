@@ -13,6 +13,8 @@ $(window).load(function(){
 			else open_login_modal();
 		}
 		else open_login_modal();
+	}else if(params[0]=='#contact'){
+		open_contact_modal();
 	}
 });
 
@@ -50,10 +52,11 @@ function submit_ajax(e, parent_selector) {
 function open_login_modal(callback_func, attr, redirect){
 	document.location.hash='connect';
 	var old_uri=$('#connect-link').attr('data-src');
-	if(!callback_func) callback_func='';
-	if(!attr) attr='';
-	if(!redirect) redirect='';
-    $('#connect-link').attr('data-src', old_uri+'?callback_func='+callback_func+'&attr='+attr+'&redirect='+redirect);
+	var uri=old_uri;
+	if(callback_func) uri=uri+'&callback_func='+callback_func;
+	if(attr) uri=uri+'&attr='+attr;;
+	if(redirect) uri=uri+'&redirect='+redirect;;
+    $('#connect-link').attr('data-src', uri);
     $('#connect-link').click();
     $('#connect-link').attr('data-src', old_uri);
 }

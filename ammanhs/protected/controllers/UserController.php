@@ -205,7 +205,7 @@ class UserController extends Controller
 			exit();
 		}
 
-		if(!$ref){
+		if(!$ref || !isset($_GET['modal'])){
 			$hash='#connect';
 			if(isset($_GET['redirect'])){
                 $hash.='?redirect=';

@@ -1,3 +1,5 @@
+<a href="javascript:void(0);" data-src="/user/connect?modal" id="connect-link" data-toggle="ajax-modal"></a>
+<a href="javascript:void(0);" data-src="/site/contact?modal" id="contact-link" data-toggle="ajax-modal"></a>
 <ul class="nav pull-left" id="user-header">
 	<?php if (Yii::app()->user->isGuest) { ?>
 	<li class="dropdown">
@@ -12,7 +14,6 @@
 			<li><?php $this->renderPartial('//user/login'); ?></li>
 		</ul>
 	</li>
-	<a href="javascript:void(0);" data-src="/user/connect" id="connect-link" data-toggle="ajax-modal"></a>
     <?php } else { ?>
 	<?php echo Yii::app()->user->model->avatar_a(32, 32, array('id'=>'header-avatar', 'title'=>''), array(), 'float: right;'); ?>
 	<a href="/settings" class="octicons octicon-settings user-icons" data-original-title="<?php echo Yii::t('core','Settings'); ?>"></a>

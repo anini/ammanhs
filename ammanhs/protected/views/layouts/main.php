@@ -34,7 +34,6 @@
 	</head>
 
 	<body>
-		<a href="javascript:void(0);" data-src="/site/contact" id="contact-link" data-toggle="ajax-modal"></a>
 		<div id="header">
 		<?php $this->renderPartial('//layouts/_header'); ?>
 		</div>
