@@ -141,8 +141,8 @@ class ThreadReply extends CActiveRecord
 	}
 
 	public function updateStatVotes(){
-		$positive_votes = COUNT(ThreadReplyVote::model()->findByAttributes(array('thread_reply_id'=>$this->id, 'vote_type'=>1)));
-		$negative_votes = COUNT(ThreadReplyVote::model()->findByAttributes(array('thread_reply_id'=>$this->id, 'vote_type'=>-1)));
+		$positive_votes = COUNT(ThreadReplyVote::model()->findAllByAttributes(array('thread_reply_id'=>$this->id, 'vote_type'=>1)));
+		$negative_votes = COUNT(ThreadReplyVote::model()->findAllByAttributes(array('thread_reply_id'=>$this->id, 'vote_type'=>-1)));
 		$this->stat_votes = (int)($positive_votes - $negative_votes);
 		return $this->save();
 	}

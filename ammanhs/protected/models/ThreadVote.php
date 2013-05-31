@@ -121,7 +121,13 @@ class ThreadVote extends CActiveRecord
 	public function afterSave()
 	{
 		parent::afterSave();
-		UserLog::addActivity('Vote', $this->thread);
+		$vote_type='';
+		if($this->vote_type==1){
+			$vote_type='VoteUp';
+		}elseif($this->vote_type==-1){
+			$vote_type='VoteDown';
+		}
+		UserLog::addActivity($vote_type, $this->thread);
 		$this->user->stat_votes++;
 		$this->user->save();
 	}

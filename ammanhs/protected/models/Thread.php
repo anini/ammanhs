@@ -152,8 +152,8 @@ class Thread extends CActiveRecord
 	}
 
 	public function updateStatVotes(){
-		$positive_votes = COUNT(ThreadVote::model()->findByAttributes(array('thread_id'=>$this->id, 'vote_type'=>1)));
-		$negative_votes = COUNT(ThreadVote::model()->findByAttributes(array('thread_id'=>$this->id, 'vote_type'=>-1)));
+		$positive_votes = COUNT(ThreadVote::model()->findAllByAttributes(array('thread_id'=>$this->id, 'vote_type'=>1)));
+		$negative_votes = COUNT(ThreadVote::model()->findAllByAttributes(array('thread_id'=>$this->id, 'vote_type'=>-1)));
 		$this->stat_votes = (int)($positive_votes-$negative_votes);
 		return $this->save();
 	}
