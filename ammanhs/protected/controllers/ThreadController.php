@@ -51,9 +51,15 @@ class ThreadController extends Controller
 	public function actionView($id)
 	{
 		$thread_reply=new ThreadReply;
-		$model = $this->loadModel($id);
-		$model->stat_views++;
-		$model->save();
+		$model=$this->loadModel($id);
+		if(!isset(Yii::app()->session['viewed_threads']) || !in_array($model->id, Yii::app()->session['viewed_threads'])){
+			if(!isset(Yii::app()->session['viewed_threads'])) Yii::app()->session['viewed_threads']=array();
+			$viewed_threads=Yii::app()->session['viewed_threads'];
+			$viewed_threads[]=$model->id;
+			Yii::app()->session['viewed_threads']=$viewed_threads;
+			$model->stat_views++;
+			$model->save(false);
+		}
 		$this->render('view',array(
 			'model'=>$model,
 			'thread_reply'=>$thread_reply,
