@@ -64,10 +64,10 @@ class Mailer
         return $r;
     }
 
-    static public function sendTemplatedEmail($to, $subject, $partial, $data=array(), $from=null, $headers=array(), $utms='?utm_source=AmmanHSEmail&utm_medium=Email&utm_campaign=AmmanHSEmail')
+    static public function sendTemplatedEmail($to, $subject, $view, $data=array(), $from=null, $headers=array(), $utms='?utm_source=AmmanHSEmail&utm_medium=Email&utm_campaign=AmmanHSEmail')
     {
         if(!array_key_exists('utms', $data)) $data['utms']=$utms;
-        $body=Yii::app()->getController()->renderPartial("/emailTemplates/_$partial", $data, true);
+        $body=Yii::app()->getController()->renderPartial("/emailTemplates/$view", $data, true);
         Mailer::send($to, $subject, $body, $from, $headers);
     }
 
