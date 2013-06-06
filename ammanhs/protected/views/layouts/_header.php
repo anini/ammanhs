@@ -19,10 +19,10 @@
      </div>
       <div class="nav-collapse collapse">
         <ul class="nav" id="main-menu">
-          <li <?php if ($this->action->controller->id == 'site' && $this->action->id == 'index') echo 'class="active"'; ?>><a href="<?php echo Yii::app()->urlManager->createUrl('site/index'); ?>"><?php echo Yii::t('core','Home'); ?></a></li>
-          <li <?php if ($this->action->controller->id == 'thread' && $this->action->id == 'index') echo 'class="active"'; ?>><a href="<?php echo Yii::app()->urlManager->createUrl('/thread/index'); ?>"><?php echo Yii::t('core','Threads'); ?></a></li>
-          <li <?php if ($this->action->controller->id == 'membership') echo 'class="active"'; ?>><a href="<?php echo Yii::app()->urlManager->createUrl('/membership/index'); ?>" <?php if(Yii::app()->user->isGuest) echo 'onclick="open_login_modal(false, false, this.href); return false;"' ?>><?php echo Yii::t('core','Memberships'); ?></a></li>
-          <li <?php if ($this->action->controller->id == 'site' && $this->action->id == 'about') echo 'class="active"'; ?>><a href="<?php echo Yii::app()->urlManager->createUrl('/site/about'); ?>"><?php echo Yii::t('core','About'); ?></a></li>
+          <li <?php if($this->action->controller->id=='site' && $this->action->id=='index') echo 'class="active"'; ?>><a href="<?php echo Yii::app()->urlManager->createUrl('site/index'); ?>"><?php echo Yii::t('core','Home'); ?></a></li>
+          <li <?php if($this->action->controller->id=='thread' && $this->action->id=='index') echo 'class="active"'; ?>><a href="<?php echo Yii::app()->urlManager->createUrl('/thread/index'); ?>"><?php echo Yii::t('core','Threads'); ?></a></li>
+          <li <?php if($this->action->controller->id=='membership') echo 'class="active"'; ?>><a href="<?php echo Yii::app()->urlManager->createUrl('/membership/index'); ?>"><?php echo Yii::t('core','Memberships'); ?></a></li>
+          <li <?php if($this->action->controller->id=='site' && $this->action->id=='about') echo 'class="active"'; ?>><a href="<?php echo Yii::app()->urlManager->createUrl('/site/about'); ?>"><?php echo Yii::t('core','About'); ?></a></li>
         </ul>
         <?php $this->renderPartial('//layouts/_user_header'); ?>
       </div><!--/.nav-collapse -->

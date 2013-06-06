@@ -1,17 +1,13 @@
 <?php
 $this->breadcrumbs=array(
-	'Memberships',
+	Yii::t('core', 'Memberships'),
 );
+Yii::app()->clientScript->registerScriptFile('/js/membership.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerCSSFile('/css/membership.css');
 
-$this->menu=array(
-	array('label'=>'Create Membership', 'url'=>array('create')),
-	array('label'=>'Manage Membership', 'url'=>array('admin')),
-);
+if(!Yii::app()->user->isGuest && $membership=Yii::app()->user->model->membership){
+	$this->renderPartial('_view', array('model'=>$membership, 'user'=>$membership->user));
+}else{
+	$this->renderPartial('_offers');
+}
 ?>
-
-<h1>Memberships</h1>
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>

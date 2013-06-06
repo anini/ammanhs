@@ -1,6 +1,6 @@
 <div class="row-fluid ge-ss">
 	<div class="modal-header">
-		<a class="close" data-dismiss="modal" id="close-connect-modal" onclick="document.location.hash='';">×</a>
+		<a class="close" data-dismiss="modal" onclick="document.location.hash='';">×</a>
 		<h4><?php echo Yii::t('core', 'Contact Us'); ?></h4> 
 	</div>
 	<div class="modal-body" style="overflow: hidden !important;">

@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Memberships'=>array('index'),
-	$model->title,
+	Yii::t('core', 'Memberships')=>array('index'),
+	$model->user->name,
 );
 
 $this->menu=array(

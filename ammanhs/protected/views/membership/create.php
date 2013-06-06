@@ -5,6 +5,4 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1><?php echo Yii::t('core', 'Create Membership'); ?></h1>
-
 <?php echo $this->renderPartial('_form', array('model'=>$model, 'user'=>$user)); ?>

@@ -6,20 +6,21 @@
 		<meta name="language" content="ar" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="author" content="ammanhs.com">
+		<link rel="shortcut icon" href="http://ammanhs.com/ammanhs.ico" />
 
 		<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 
-		<?php $cs = Yii::app()->clientScript; ?>
+		<?php $cs=Yii::app()->clientScript; ?>
 		<?php $cs->registerCSSFile("/css/main.css"); ?>
 		<?php $cs->registerCSSFile("/css/octicons.css"); ?>
 		<?php $cs->registerCSSFile("/css/bootstrap/bootstrap.min.css"); ?>
 		<?php $cs->registerCSSFile("/css/bootstrap/bootstrap-responsive.min.css"); ?>
 		<?php $cs->registerCSSFile("/css/bootstrap/bootstrap-modal.min.css"); ?>
 		
-		<?php $cs->scriptMap = array(
-			'jquery.js' => false,
-			'jquery.min.js' => false,
-			'jquery.yiilistview.js' => '/js/jquery.yiilistview.min.js',
+		<?php $cs->scriptMap=array(
+			'jquery.js'=>false,
+			'jquery.min.js'=>false,
+			'jquery.yiilistview.js'=>'/js/jquery.yiilistview.min.js',
 			); ?>
 		<?php $cs->registerScriptFile('/js/1.1.js', CClientScript::POS_END); ?>
 		<?php $cs->registerScriptFile('/js/bootstrap/bootstrap.min.js', CClientScript::POS_END); ?>

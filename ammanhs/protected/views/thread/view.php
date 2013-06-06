@@ -49,7 +49,7 @@ $this->menu=array(
 			<div class="span7">
 				<table width="100%">
 					<tr>
-						<td><?php echo $model->content; ?></td>
+						<td id="thread-content"><?php echo $model->content; ?></td>
 						<td id="thread-vote">
 							<?php
 							$form=$this->beginWidget('CActiveForm',array(
