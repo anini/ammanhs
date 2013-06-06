@@ -151,17 +151,23 @@
 	font-weight: bold;
 	line-height: 30px;
 }
-.reply-content, #thread-content{
+.reply-content{
 	width: 100%;
 	margin-right: -30px;
 	vertical-align: top;
 	padding: 10px;
+}
+#thread-content{
+	width: 100%;
+	vertical-align: top;
+	padding-top: 20px;
 }
 .reply-vote, #thread-vote{
 	width: 40px;
 }
 #thread-vote{
 	padding-top: 20px;
+	vertical-align: top;
 }
 #new-thread{
 	padding-top: 10px;
