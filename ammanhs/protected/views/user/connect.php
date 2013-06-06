@@ -24,3 +24,11 @@ if(isset($redirect)) $data['redirect']=$redirect;
 		</a>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+	document.location.hash='connect';
+	$('.modal').on('hidden', function(){
+		document.location.hash='';
+	});
+});
+</script>

@@ -80,3 +80,12 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	document.location.hash='contact';
+	$('.modal').on('hidden', function(){
+		document.location.hash='';
+	});
+});
+</script>

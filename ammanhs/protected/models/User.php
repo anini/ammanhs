@@ -106,9 +106,9 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'threads' => array(self::HAS_MANY, 'Thread', 'user_id'),
-			'threadReplys' => array(self::HAS_MANY, 'ThreadReply', 'user_id'),
-			'membership' => array(self::HAS_ONE, 'Membership', 'user_id'),
+			'threads'=>array(self::HAS_MANY, 'Thread', 'user_id'),
+			'threadReplys'=>array(self::HAS_MANY, 'ThreadReply', 'user_id'),
+			'membership'=>array(self::HAS_ONE, 'Membership', 'user_id')//, 'on'=>'membership.status='.Constants::MEMBERSHIP_STATUS_APPROVED),
 		);
 	}
 
@@ -136,6 +136,7 @@ class User extends CActiveRecord
 			'facebook_uri' => Yii::t('core', 'Facebook Account'),
 			'google_uri' => Yii::t('core', 'Google+ Account'),
 			'country' => Yii::t('core', 'Country'),
+			'name' => Yii::t('core', 'Name'),
 		);
 	}
 

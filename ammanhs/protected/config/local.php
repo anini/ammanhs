@@ -12,8 +12,11 @@ return array(
 			//'schemaCachingDuration'=>3600,
 			'enableProfiling'=>true,
 		),
-		/*'cache'=>array(
-			'class'=>'CFileCache',
-		),*/
+		'params'=>array(
+		// this is used in contact page
+		'admin_email'=>'anini@ammanhs.com',
+		'host'=>'ammanhs.com',
+		'static_host'=>'local.ammanhs.com',
+	),
 	),
 );

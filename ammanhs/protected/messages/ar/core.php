@@ -80,6 +80,7 @@ return array(
 	'Email'=>'البريد الإلكتروني',
 	'First Name'=>'الاسم الأول',
 	'Last Name'=>'الاسم الأخير',
+	'Name'=>'الاسم',
 	'Type'=>'نوع المستخدم',
 	'Gender'=>'الجنس',
 	'Male'=>'ذكر',
@@ -113,6 +114,8 @@ return array(
 	//Messages
 	'Thank you for contacting us. We will respond to you as soon as possible.'=>'شكرا لك! سوف يقوم فريقنا بالتواصل معك قريبا.',
 	'You profile has been successfuly updated.'=>'تم تعديل معلوماتك بنجاح!',
+	'Thank you! Your membership request has been received, we will contact you as soon as possible.'=>'شكرا لك! لقد تم استلام طلب عضويتك، سوف يقوم فريقنا بالتواصل معك قريبا.',
+	'Your membership request is pending, we will contact you as soon as possible.'=>'إن طلب عضويتك قيد التدقيق، سوف يقوم فريقنا بالتواصل معك قريبا.',
 
 	//User Feed
 	'User Joint Amman Hackerspace'=>'انضم إلى فضاء المتمكنين | عمّان :time',
@@ -152,9 +155,16 @@ return array(
 	'Create Membership'=>'سجل عضويتك',
 	'Edit Membership'=>'عدل عضويتك',
 	'Membership Type'=>'نوع العضوية',
+	'Status'=>'الحالة',
+	'Issue Date'=>'تاريخ الإصدار',
+	'Expiry Date'=>'تاريخ الانتهاء',
 	'Organization'=>'الشركة / الجامعة',
 	'Job Title'=>'الوظيفة / التخصص',
-
-
-
+	'Chose the membership type you want to register'=>'اختر نوع العضوية الذي تريد تسجيله',
+	'You would be able to edit your membership later'=>'يمكنك تعديل عضويتك لاحقا',
+	'Pending'=>'قيد التدقيق',
+	'Approved'=>'مصةقة',
+	'Rejected'=>'مرفوض',
+	'Amman Hackerspace Memebership'=>'بطاقة عضوية فضاء المتمكنين | عمّان',
+	
 	);

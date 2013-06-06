@@ -41,7 +41,6 @@ function submit_ajax(e, parent_selector) {
 		'success':function(data){
 			if(typeof parent_selector=='undefined')
 				f.parent().html(data);
-			//$('.modal').html(data);
 			else
 				$(parent_selector).html(data);
 		}

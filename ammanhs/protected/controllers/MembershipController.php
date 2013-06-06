@@ -27,11 +27,15 @@ class MembershipController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create', 'update' and 'index' actions
-				'actions'=>array('create','update','index'),
+				'actions'=>array('index'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create', 'update' and 'index' actions
+				'actions'=>array('membershipForm'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin', 'view' and 'delete' actions
-				'actions'=>array('admin','delete','view'),
+				'actions'=>array('create', 'update', 'admin', 'delete', 'view'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -95,6 +99,7 @@ class MembershipController extends Controller
 	 */
 	public function actionUpdate()
 	{
+		$this->layout=false;
 		$model=Yii::app()->user->model->membership;
 		if(!$model)
 			$this->redirect(array('create'));
@@ -150,12 +155,53 @@ class MembershipController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$user=Yii::app()->user->model;
+		$this->render('index');
+	}
+
+	public function actionMembershipForm(){
+		$this->layout=false;
 		$model=Yii::app()->user->model->membership;
-		if($model)
-			$this->render('view', array('model'=>$model));
-		else
-			$this->redirect(array('create'));
+		if(!$model){
+			$model=new Membership();
+			$model->setScenario('create');
+		}else{
+			$model->setScenario('update');
+		}
+		if(!isset($_GET['modal'])){
+			$this->redirect($this->createUrl('membership/index').'#'.$model->scenario);
+		}
+
+		if(isset($_GET['type']) && in_array($_GET['type'], Constants::membershipTypes())){
+			$model->type=$_GET['type'];
+		}
+
+		$saved=false;
+
+		$user=Yii::app()->user->model;
+		$user->setScenario('membership');
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Membership']))
+		{
+			if(isset($_POST['User']['mobile']))
+			{
+				$user->mobile=$_POST['User']['mobile'];
+			}
+			$model->attributes=$_POST['Membership'];
+			if($user->validate() && $model->validate()){
+				$model->save(false);
+				$user->save(false);
+				$saved=true;
+			}
+		}
+
+		$this->render('modal',array(
+			'model'=>$model,
+			'user'=>$user,
+			'saved'=>$saved,
+		));
 	}
 
 	/**

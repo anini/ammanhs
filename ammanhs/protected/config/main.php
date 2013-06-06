@@ -25,8 +25,8 @@ return CMap::mergeArray(
 		'application.components.*',
 		'application.components.widgets.*',
 		'application.lib.*',
-		'application.extensions.solr.*',
-		'application.extensions.redis.*',
+		//'application.extensions.solr.*',
+		//'application.extensions.redis.*',
 	),
 
 	'modules'=>array(
@@ -80,25 +80,25 @@ return CMap::mergeArray(
 		),
 
 		'cache'=>array(
-			//'class'=>'CFileCache',
+			'class'=>'CFileCache',
 			//'class'=>'PerNodeRedisCache',
-			'class'=>'CRedisCache',
+			//'class'=>'CRedisCache',
 		),
 
 		'commoncache'=>array(
-			//'class'=>'CFileCache',
-			'class'=>'CRedisCache',
+			'class'=>'CFileCache',
+			//'class'=>'CRedisCache',
 		),
 
-		'redis'=>array(
-			'class'=>'CRedisCache',
+		//'redis'=>array(
+		//	'class'=>'CRedisCache',
 			// if you dont set up the servers options it will use the default values
 			/*
 			'servers'=>array(
 				array('host'=>'127.0.0.1', 'port'=>6379, ),
 			),
 			*/
-		),
+		//),
 
 		'request'=>array(
 			'enableCsrfValidation'=>true,
@@ -175,9 +175,9 @@ return CMap::mergeArray(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'anini@ammanhs.com',
+		'admin_email'=>'anini@ammanhs.com',
 		'host'=>'ammanhs.com',
-		'static_host'=>'local.ammanhs.com',
+		'static_host'=>'ammanhs.com',
 	),
 	),
 	require(dirname(__FILE__).'/local.php')

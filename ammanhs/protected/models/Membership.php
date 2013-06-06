@@ -12,6 +12,7 @@
  * @property string $title
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $approved_at
  *
  * The followings are the available model relations:
  * @property User $user
@@ -44,14 +45,14 @@ class Membership extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, type, organization, title', 'required'),
-			array('user_id, status, created_at, updated_at', 'numerical', 'integerOnly'=>true),
-			array('type', 'length', 'max'=>6),
+			array('user_id, status, created_at, updated_at, approved_at', 'numerical', 'integerOnly'=>true),
+			array('type', 'length', 'max'=>7),
 			array('organization', 'length', 'max'=>256),
 			array('title', 'length', 'max'=>128),
-			array('id, user_id, status, created_at, updated_at', 'unsafe'),
+			array('id, user_id, status, created_at, updated_at, approved_at', 'unsafe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, user_id, type, status, organization, title, created_at, updated_at', 'safe', 'on'=>'search'),
+			array('id, user_id, type, status, organization, title, created_at, updated_at, approved_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,7 +64,7 @@ class Membership extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'user'=>array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -73,14 +74,17 @@ class Membership extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'user_id' => 'User',
-			'type' => Yii::t('core', 'Membership Type'),
-			'status' => 'Status',
-			'organization' => Yii::t('core', 'Organization'),
-			'title' => Yii::t('core', 'Job Title'),
-			'created_at' => 'Created At',
-			'updated_at' => 'Updated At',
+			'id'=>'ID',
+			'user_id'=>'User',
+			'type'=>Yii::t('core', 'Membership Type'),
+			'status'=>Yii::t('core', 'Status'),
+			'organization'=>Yii::t('core', 'Organization'),
+			'title'=>Yii::t('core', 'Job Title'),
+			'created_at'=>'Created At',
+			'updated_at'=>'Updated At',
+			'approved_at'=>Yii::t('core', 'Issue Date'),
+			'issue_date'=>Yii::t('core', 'Issue Date'),
+			'expiry_date'=>Yii::t('core', 'Expiry Date'),
 		);
 	}
 
@@ -103,6 +107,7 @@ class Membership extends CActiveRecord
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('created_at',$this->created_at);
 		$criteria->compare('updated_at',$this->updated_at);
+		$criteria->compare('approved_at',$this->approved_at);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -123,8 +128,8 @@ class Membership extends CActiveRecord
         }else{
         	$this->updated_at=time();
         }
-        if($this->type=='Free')
-        	$this->status=10;
+        if($this->scenario!='admin')
+        	$this->status=Constants::MEMBERSHIP_STATUS_PENDING;
         return parent::beforeSave();
 	}
 
@@ -134,6 +139,15 @@ class Membership extends CActiveRecord
 		if($this->isNewRecord){
 			$this->user->stat_points+=3;
 			$this->user->save(false);
-		}
+			Mailer::sendTemplatedEmail(Yii::app()->params['admin_email'], 'New Membership Request'.date('Y/m/d', time()), 'new_membership_request', array('user'=>$this->user, 'membership'=>$this));
+		}		
+	}
+
+	public function getExpiryDate(){
+		return strtotime('+6 month', date('Y/m/d', $this->approved_at));
+	}
+
+	public function getIssueDate(){
+		return $this->approved_at;
 	}
 }

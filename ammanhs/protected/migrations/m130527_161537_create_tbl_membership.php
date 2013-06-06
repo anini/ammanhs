@@ -16,6 +16,7 @@ class m130527_161537_create_tbl_membership extends CDbMigration
                 'title' => 'varchar(128)',
                 'created_at' => 'int(11) DEFAULT NULL',
                 'updated_at' => 'int(11) DEFAULT NULL',
+                'approved_at' => 'int(11) DEFAULT NULL',
                 'PRIMARY KEY(`id`)'),
                 'ENGINE=InnoDB CHARSET=utf8'
             );
