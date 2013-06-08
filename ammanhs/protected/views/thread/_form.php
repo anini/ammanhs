@@ -22,7 +22,7 @@ $form=$this->beginWidget('CActiveForm',array(
 
 <div class="control-group">
 	<?php echo $form->labelEx($model,'content', array('class'=>'ge-ss')); ?>
-	<?php echo $form->markdownEditor($model, 'content', array('style'=>'height: 150px;', 'error'=>$form->error($model,'content', array('class'=>'help-inline error ge-ss', 'style'=>'float: left; margin-top:-30px;'))));?>
+	<?php echo $form->markdownEditor($model, 'content', array('error'=>$form->error($model,'content', array('class'=>'help-inline error ge-ss', 'style'=>'float: left; margin-top:-30px;'))));?>
 </div>
 
 <div class="control-group">

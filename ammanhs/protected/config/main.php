@@ -9,7 +9,7 @@ setlocale(LC_ALL, 'en_US.UTF-8');
 return CMap::mergeArray(
  array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Amman Hackerspace',
+	'name'=>'Amman Hackerspace | فضاء المتمكنين - عمّان',
 	
 	'language'=>'ar',
   	'sourceLanguage'=>'00',
@@ -177,7 +177,7 @@ return CMap::mergeArray(
 		// this is used in contact page
 		'admin_email'=>'anini@ammanhs.com',
 		'host'=>'ammanhs.com',
-		'static_host'=>'ammanhs.com',
+		'static_host'=>'local.ammanhs.com',
 	),
 	),
 	require(dirname(__FILE__).'/local.php')
