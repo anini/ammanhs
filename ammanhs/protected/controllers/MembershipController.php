@@ -36,7 +36,7 @@ class MembershipController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin', 'view' and 'delete' actions
 				'actions'=>array('create', 'update', 'admin', 'delete', 'view'),
-				'users'=>array('admin'),
+				'roles'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
