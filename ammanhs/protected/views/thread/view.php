@@ -1,20 +1,18 @@
 <?php
-
-Yii::app()->clientScript->registerMetaTag(  $model->title  , 'twitter:title');
-Yii::app()->clientScript->registerMetaTag(  $model->title  , 'og:title');
-
-Yii::app()->clientScript->registerMetaTag(  $model->content  , 'description', null, array(),'metadescription');
-Yii::app()->clientScript->registerMetaTag( $model->content , 'twitter:description');
-Yii::app()->clientScript->registerMetaTag( $model->content  , 'og:description');
-
-
 $this->pageTitle = $model->title;
 $this->breadcrumbs=array(
 	Yii::t('core','Threads')=>array('index'),
 	$model->title,
 );
-Yii::app()->clientScript->registerCSSFile('/css/thread.css');
-Yii::app()->clientScript->registerScriptFile('/js/thread.js', CClientScript::POS_END);
+
+$cs=Yii::app()->clientScript;
+$cs->registerMetaTag($model->title, 'twitter:title');
+$cs->registerMetaTag($model->title , 'og:title');
+$cs->registerMetaTag($model->content, 'description', null, array(), 'metadescription');
+$cs->registerMetaTag($model->content, 'twitter:description');
+$cs->registerMetaTag($model->content, 'og:description');
+$cs->registerCSSFile('/css/thread.css');
+$cs->registerScriptFile('/js/thread.js', CClientScript::POS_END);
 
 $this->menu=array(
 	array('label'=>'List Thread','url'=>array('index')),

@@ -6,7 +6,7 @@
 		<meta name="language" content="ar" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="author" content="ammanhs.com">
-		<meta name="description" id="metadescription" content="مجتمع مفتوح المصدر ومركز أبحاث يوفر المكان والبيئة والأدوات المناسبة لعمل وتطبيق أي مشروع متعلق بالهندسة والإلكترونيات والروبوت." />
+		<meta name="description" id="metadescription" content="مجتمع مفتوح المصدر ومركز أبحاث يوفر المكان والبيئة والأدوات المناسبة لعمل وتطبيق أي مشروع متعلق بالهندسة والإلكترونيات والروبوت."/>
 		<meta name="keywords" content="robot,روبوت,arduino,أردوينو,electronics,إلكترونيات,hacker,هاكر,hackerspace,amman,عمان,lab,مختبر,fablab,برمجة,تكنولوجيا,technology,programming">
 		<meta name="thumbnail" content="http://ammanhs.com/images/ammanhs_logo.png" />
 		<meta property="og:image" content="http://ammanhs.com/images/ammanhs_logo.png" />
