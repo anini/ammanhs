@@ -7,7 +7,7 @@ class Conf
 	public static $copy_to=false; // used to copy images to CDN
 	public static $max_width=640;
 	public static $max_height=480;
-	public static $aspect_handling=1; // 0 stretch, 1 pad, 2 crop
+	public static $aspect_handling=2; // 0 stretch, 1 pad, 2 crop
 	public static $bucketName='';
 
 	public static $sizes=array(

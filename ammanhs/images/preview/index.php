@@ -40,7 +40,7 @@ function save_image_file($file_type, $src, $dst, $preset, $w, $h){
 	list($w_src, $h_src, $type, $img_src)=load_image($src);
 	$img_dst=imagecreatetruecolor($w, $h);  //  resample
 	$bgcolor=imagecolorallocate($img_dst, 255, 255, 255);
-	imagefilledrectangle ($img_dst, 0, 0, $w-1, $h-1, $bgcolor);
+	imagefilledrectangle($img_dst, 0, 0, $w-1, $h-1, $bgcolor);
 	$w0=$w; $h0=$h; // keep original width and height before scalling
 	$w0_src=$w_src; $h0_src=$h_src; // keep original source width and height before cropping
 	switch(Conf::$aspect_handling){
