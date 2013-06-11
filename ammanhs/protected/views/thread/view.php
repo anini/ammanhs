@@ -8,9 +8,9 @@ $this->breadcrumbs=array(
 $cs=Yii::app()->clientScript;
 $cs->registerMetaTag($model->title, 'twitter:title');
 $cs->registerMetaTag($model->title , 'og:title');
-$cs->registerMetaTag($model->content, 'description', null, array(), 'metadescription');
-$cs->registerMetaTag($model->content, 'twitter:description');
-$cs->registerMetaTag($model->content, 'og:description');
+$cs->registerMetaTag(strip_tags($model->content), 'description', null, array(), 'metadescription');
+$cs->registerMetaTag(strip_tags($model->content), 'twitter:description');
+$cs->registerMetaTag(strip_tags($model->content), 'og:description');
 $cs->registerCSSFile('/css/thread.css');
 $cs->registerScriptFile('/js/thread.js', CClientScript::POS_END);
 
@@ -26,7 +26,7 @@ $this->menu=array(
 <div class="row" itemscope itemtype="http://schema.org/Article"  >
 	<div class="span2 text-center shadow-box ge-ss" style="padding: 5px 0;">
 		<?php echo $model->user->avatar_a(160, 160, array('class'=>'img-rounded')); ?>
-		<h4><a href="<?php echo $model->user->profileLink(); ?>"><span itemprop='author'  ><?php echo $model->user->name; ?></span> </a></h4>
+		<h4><a href="<?php echo $model->user->profileLink(); ?>"><span itemprop="author"><?php echo $model->user->name; ?></span></a></h4>
 		<div id="user-stats">
 	    	<h4 class="user-stat">
 	    		<span class="octicons octicon-star" data-original-title="<?php echo Yii::t('core','Stat Points'); ?>"><?php echo '<br>'.$model->user->stat_points; ?></span>
@@ -40,15 +40,15 @@ $this->menu=array(
 	    </div>
 	</div>
 
-	<div class="span7"   >
+	<div class="span7">
 		<div class="row">
 			<div class="span7 shadow-box">
 				<div class="row">
 					<div class="span5 ">
-						<h4 style="margin-right: 10px;" itemprop="name"  class="ge-ss"><?php echo $model->title; ?></h4>
+						<h4 style="margin-right: 10px;" itemprop="name" class="ge-ss"><?php echo $model->title; ?></h4>
 					</div>
 					<div class="span2 text-left">
-						<h4 class="muted" itemprop='dateCreated' style="margin-left: 10px;"  ><?php echo date('Y-m-d', $model->created_at); ?></h4>
+						<h4 class="muted" itemprop="dateCreated" style="margin-left: 10px;"><?php echo date('Y-m-d', $model->created_at); ?></h4>
 					</div>
 				</div>
 			</div>
@@ -57,7 +57,7 @@ $this->menu=array(
 			<div class="span7">
 				<table width="100%">
 					<tr>
-						<td id="thread-content"><span itemprop='articleBody' > <?php echo $model->content; ?> </span>  </td>
+						<td id="thread-content" class="row"><span class="span7" itemprop="articleBody"><?php echo $model->content; ?></span></td>
 						<td id="thread-vote">
 							<?php
 							$form=$this->beginWidget('CActiveForm',array(
@@ -70,7 +70,7 @@ $this->menu=array(
 							<input type="hidden" name="Vote[thread_id]" value="<?php echo  $model->id; ?>"/>
 							<input type="hidden" id="thread-vote-type" name="Vote[type]" value="0"/>
 							<div class="arrow vote-up vote-up-off" title="Vote this <?php echo $model->type; ?> up!" onclick="$('#thread-vote-type').val(1); $('#thread-vote-form').submit();"></div>
-							<div class="vote-number" itemprop="interactionCount" content="UserLikes:<?php echo $model->stat_votes; ?>" ><?php echo $model->stat_votes; ?></div>
+							<div class="vote-number" itemprop="interactionCount" content="UserLikes:<?php echo $model->stat_votes; ?>"><?php echo $model->stat_votes; ?></div>
 							<div class="arrow vote-down vote-down-off" title="Vote this <?php echo $model->type; ?> down!" onclick="$('#thread-vote-type').val(-1); $('#thread-vote-form').submit();"></div>
 							<?php $this->endWidget(); ?>
 						</td>
@@ -144,8 +144,9 @@ $this->menu=array(
 
 
 
-
+<!--
 <ul class="pager">
 	<li style="float: left;"><a href="#">&larr; Prev Thread</a></li>
 	<li style="float: right;"><a href="#">Next Thread &rarr;</a></li>
 </ul>
+-->
