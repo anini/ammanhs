@@ -2,10 +2,33 @@
     from { -webkit-transform: rotate(0deg); }
     to { -webkit-transform: rotate(360deg); }
 }
-
 @-webkit-keyframes rotating-right {
     from { -webkit-transform: rotate(360deg); }
     to { -webkit-transform: rotate(0deg); }
+}
+@-moz-keyframes rotating-left {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-moz-keyframes rotating-right {
+    from { -moz-transform: rotate(360deg); }
+    to { -moz-transform: rotate(0deg); }
+}
+@-o-keyframes rotating-left {
+    from { -o-transform: rotate(0deg); }
+    to { -o-transform: rotate(360deg); }
+}
+@-o-keyframes rotating-right {
+    from { -o-transform: rotate(360deg); }
+    to { -o-transform: rotate(0deg); }
+}
+@keyframes rotating-left {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+@keyframes rotating-right {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
 }
 
 #welcome-box {

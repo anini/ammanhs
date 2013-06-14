@@ -55,27 +55,23 @@ $this->menu=array(
 		</div>
 		<div class="row">
 			<div class="span7">
-				<table width="100%">
-					<tr>
-						<td id="thread-content"><span itemprop="articleBody"><?php echo $model->content; ?></span></td>
-						<td id="thread-vote">
-							<?php
-							$form=$this->beginWidget('CActiveForm',array(
-								'id'=>'thread-vote-form',
-								'action'=>'/thread/vote',
-								'htmlOptions'=>array(
-									'onsubmit' => 'return vote("thread-vote-form");'
-								),
-							)); ?>
-							<input type="hidden" name="Vote[thread_id]" value="<?php echo  $model->id; ?>"/>
-							<input type="hidden" id="thread-vote-type" name="Vote[type]" value="0"/>
-							<div class="arrow vote-up vote-up-off" title="Vote this <?php echo $model->type; ?> up!" onclick="$('#thread-vote-type').val(1); $('#thread-vote-form').submit();"></div>
-							<div class="vote-number" itemprop="interactionCount" content="UserLikes:<?php echo $model->stat_votes; ?>"><?php echo $model->stat_votes; ?></div>
-							<div class="arrow vote-down vote-down-off" title="Vote this <?php echo $model->type; ?> down!" onclick="$('#thread-vote-type').val(-1); $('#thread-vote-form').submit();"></div>
-							<?php $this->endWidget(); ?>
-						</td>
-					</tr>
-				</table>
+				<div id="thread-content"><span itemprop="articleBody"><?php echo $model->content; ?></span></div>
+				<div id="thread-vote">
+					<?php
+					$form=$this->beginWidget('CActiveForm',array(
+						'id'=>'thread-vote-form',
+						'action'=>'/thread/vote',
+						'htmlOptions'=>array(
+							'onsubmit' => 'return vote("thread-vote-form");'
+						),
+					)); ?>
+					<input type="hidden" name="Vote[thread_id]" value="<?php echo  $model->id; ?>"/>
+					<input type="hidden" id="thread-vote-type" name="Vote[type]" value="0"/>
+					<div class="arrow vote-up vote-up-off" title="Vote this <?php echo $model->type; ?> up!" onclick="$('#thread-vote-type').val(1); $('#thread-vote-form').submit();"></div>
+					<div class="vote-number" itemprop="interactionCount" content="UserLikes:<?php echo $model->stat_votes; ?>"><?php echo $model->stat_votes; ?></div>
+					<div class="arrow vote-down vote-down-off" title="Vote this <?php echo $model->type; ?> down!" onclick="$('#thread-vote-type').val(-1); $('#thread-vote-form').submit();"></div>
+					<?php $this->endWidget(); ?>
+				</div>
 			</div>
 		</div>
 	</div>

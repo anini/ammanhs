@@ -45,14 +45,38 @@ form .help-inline{
 }
 
 @-webkit-keyframes wipe{
-	0% { -webkit-mask-position: -90px 0; }
-	100% { -webkit-mask-position: 230px 0; }
+    0% { -webkit-mask-position: -90px 0; }
+    100% { -webkit-mask-position: 230px 0; }
+}
+@-moz-keyframes wipe{
+    0% { -moz-mask-position: -90px 0; }
+    100% { -moz-mask-position: 230px 0; }
+}
+@-o-keyframes wipe{
+    0% { -o-mask-position: -90px 0; }
+    100% { -o-mask-position: 230px 0; }
+}
+@keyframes wipe{
+    0% { mask-position: -90px 0; }
+    100% { mask-position: 230px 0; }
 }
 .flash:hover{
 	-webkit-animation: wipe 1s;
-	-webkit-mask-position: -90px 0px;
-	-webkit-mask-size: 320px 200px;
-	-webkit-mask-image: -webkit-gradient(linear, 61 47, 15 15, from(rgb(0, 0, 0)), color-stop(0.1, rgba(0, 0, 0, 0)), to(rgb(0, 0, 0)));
+    -webkit-mask-position: -90px 0px;
+    -webkit-mask-size: 320px 200px;
+    -webkit-mask-image: -webkit-gradient(linear, 61 47, 15 15, from(rgb(0, 0, 0)), color-stop(0.1, rgba(0, 0, 0, 0)), to(rgb(0, 0, 0)));
+    -moz-animation: wipe 1s;
+    -moz-mask-position: -90px 0px;
+    -moz-mask-size: 320px 200px;
+    -moz-mask-image: -moz-gradient(linear, 61 47, 15 15, from(rgb(0, 0, 0)), color-stop(0.1, rgba(0, 0, 0, 0)), to(rgb(0, 0, 0)));
+    -o-animation: wipe 1s;
+    -o-mask-position: -90px 0px;
+    -o-mask-size: 320px 200px;
+    -o-mask-image: -o-gradient(linear, 61 47, 15 15, from(rgb(0, 0, 0)), color-stop(0.1, rgba(0, 0, 0, 0)), to(rgb(0, 0, 0)));
+    animation: wipe 1s;
+    mask-position: -90px 0px;
+    mask-size: 320px 200px;
+    mask-image: gradient(linear, 61 47, 15 15, from(rgb(0, 0, 0)), color-stop(0.1, rgba(0, 0, 0, 0)), to(rgb(0, 0, 0)));
 }
 .navbar-search{
     padding-left: 20px;
