@@ -27,8 +27,8 @@
 
     // The text that appears on the upper part of the dialog box when
     // entering links.
-    var linkDialogText = "<p>http://example.com/ \"optional title\"</p>";
-    var imageDialogText = "<p>http://example.com/images/diagram.jpg \"optional title\"</p>";
+    var linkDialogText = "<p>http://example.com/ \"عنوان اختياري\"</p>";
+    var imageDialogText = "<p>http://example.com/images/diagram.jpg \"عنوان اختياري\"</p>";
 
     // The default text that appears in the dialog input box when entering
     // links.
@@ -1105,14 +1105,14 @@
             okButton.className = "btn btn-primary";
             okButton.type = "button";
             okButton.onclick = function () { return close(false); };
-            okButton.innerHTML = "OK";
+            okButton.innerHTML = "أضف";
 
             // The cancel button
             var cancelButton = doc.createElement("button");
             cancelButton.className = "btn btn-primary";
             cancelButton.type = "button";
             cancelButton.onclick = function () { return close(true); };
-            cancelButton.innerHTML = "Cancel";
+            cancelButton.innerHTML = "إلغاء";
 
             footer.appendChild(okButton);
             footer.appendChild(cancelButton);
@@ -1497,11 +1497,11 @@
     };
 
     commandProto.doBold = function (chunk, postProcessing) {
-        return this.doBorI(chunk, postProcessing, 2, "strong text");
+        return this.doBorI(chunk, postProcessing, 2, "نص عريض");
     };
 
     commandProto.doItalic = function (chunk, postProcessing) {
-        return this.doBorI(chunk, postProcessing, 1, "emphasized text");
+        return this.doBorI(chunk, postProcessing, 1, "نص مائل");
     };
 
     // chunk: The selected region that will be enclosed with */**
@@ -1702,10 +1702,10 @@
 
                     if (!chunk.selection) {
                         if (isImage) {
-                            chunk.selection = "enter image description here";
+                            chunk.selection = "اضف وصف الصورة هنا";
                         }
                         else {
-                            chunk.selection = "enter link description here";
+                            chunk.selection = "اضف وصف الرابط هنا";
                         }
                     }
                 }
@@ -1715,10 +1715,10 @@
 
             if (isImage) {
                 if (!this.hooks.insertImageDialog(linkEnteredCallback))
-                    ui.prompt('Insert Image', imageDialogText, imageDefaultText, linkEnteredCallback);
+                    ui.prompt('اضف صورة', imageDialogText, imageDefaultText, linkEnteredCallback);
             }
             else {
-                ui.prompt('Insert Link', linkDialogText, linkDefaultText, linkEnteredCallback);
+                ui.prompt('أضف رابط', linkDialogText, linkDefaultText, linkEnteredCallback);
             }
             return true;
         }
@@ -1942,7 +1942,7 @@
 
             if (!chunk.selection) {
                 chunk.startTag = "    ";
-                chunk.selection = "enter code here";
+                chunk.selection = "ضع الكود هنا";
             }
             else {
                 if (/^[ ]{0,3}\S/m.test(chunk.selection)) {
@@ -2059,7 +2059,7 @@
             });
 
         if (!chunk.selection) {
-            chunk.selection = "List item";
+            chunk.selection = "قائمة عناصر";
         }
 
         var prefix = getItemPrefix();
@@ -2091,7 +2091,7 @@
         // make a level 2 hash header around some default text.
         if (!chunk.selection) {
             chunk.startTag = "## ";
-            chunk.selection = "Heading";
+            chunk.selection = "ترويسة";
             chunk.endTag = " ##";
             return;
         }
