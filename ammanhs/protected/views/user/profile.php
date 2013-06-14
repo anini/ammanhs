@@ -118,7 +118,7 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 
 <div class="form-actions">
 	<button class="btn btn-primary" type="submit"><?php echo Yii::t('core','Save'); ?></button>
-	<button type="button" class="btn"><?php echo Yii::t('core','Cancel'); ?></button>
+	<a href="<?php echo $model->profileLink(); ?>"><button type="button" class="btn"><?php echo Yii::t('core','Cancel'); ?></button></a>
 </div>
 
 <?php $this->endWidget(); ?>
