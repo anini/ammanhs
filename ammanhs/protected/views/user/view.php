@@ -37,13 +37,18 @@ $this->menu=array(
 					</div>
 				    <?php } ?>
 				    <?php if($model->website){ ?>
-				    <div>
-				    	<span class="octicons octicon-url muted"></span><a href="http://<?php echo $model->website; ?>" target="_blank"><?php echo $model->website; ?></a>
+				    <div class="english-field">
+				    	<a href="http://<?php echo $model->website; ?>" target="_blank" title="<?php echo $model->website; ?>"><?php echo Text::teaser($model->website, 15); ?></a><span class="octicons octicon-url muted"></span>
 					</div>
 				    <?php } ?>
 				    <div>
-				    	<span class="octicons octicon-time muted"></span><?php echo Yii::t('core', 'Member since :time', array(':time'=>Date('Y/m/d' ,$model->created_at))); ?>
+				    	<span class="octicons octicon-time muted"></span><?php echo Yii::t('core', 'Member since :time', array(':time'=>Date('Y/m/d', $model->created_at))); ?>
 				    </div>
+				    <?php if($model->about){ ?>
+				    <div>
+				    	<div id="about" <?php if(!Text::isArabic($model->about)) echo ' style="text-align: left;" class="english-field"'; ?>><?php echo $model->about; ?></div>
+					</div>
+				    <?php } ?>
 			    </div>
 			</div>
 		</td>
