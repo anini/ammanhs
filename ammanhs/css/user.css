@@ -50,3 +50,9 @@
 	float: left;
 	font-size: 80%;
 }
+#about{
+	font-size: 12px;
+	border-top: 1px solid #BBB;
+	padding: 5px;
+	margin-top: 5px;
+}

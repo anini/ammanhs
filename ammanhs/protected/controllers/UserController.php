@@ -312,6 +312,8 @@ class UserController extends Controller
 	        $model->attributes=$_POST['User'];
 	        $model->mobile=trim($model->mobile);
 	        if(trim($model->website)=='http://') unset($model->website);
+	        if(trim($model->facebook_uri)=='http://facebook.com/') unset($model->facebook_uri);
+	        if(trim($model->twitter_uri)=='@') unset($model->twitter_uri);
 	        if($model->save())
 	        {
 	        	Yii::app()->user->setFlash('flash', array(
