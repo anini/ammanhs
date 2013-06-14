@@ -72,6 +72,7 @@ return array(
 	'Tags'=>'الوسوم',
 	'Adding New Thread'=>'إضافة موضوع جديد',
 	'You have no threads!'=>'ليس لديك مواضيع!',
+	'Have something to say?!'=>'لديك سؤال.. تعليق.. استفسار.. توضيح.. شكر.. اضافة؟!',
 
 	//User
 	'Username'=>'اسم المستخدم',
@@ -116,6 +117,8 @@ return array(
 	'You profile has been successfuly updated.'=>'تم تعديل معلوماتك بنجاح!',
 	'Thank you! Your membership request has been received, we will contact you as soon as possible.'=>'شكرا لك! لقد تم استلام طلب عضويتك، سوف يقوم فريقنا بالتواصل معك قريبا.',
 	'Your membership request is pending, we will contact you as soon as possible.'=>'إن طلب عضويتك قيد التدقيق، سوف يقوم فريقنا بالتواصل معك قريبا.',
+	'Congrates! Your membership in Amman Hackerspace has been approved!'=>'تهانينا! لقد تم قبول طلب عضويتك في فضاء المتمكنين | عمّان',
+	'Welcome to Amman Hackerspace'=>'أهلا بك في فضاء المتمكنين | عمّان',
 
 	//User Feed
 	'User Joint Amman Hackerspace'=>'انضم إلى فضاء المتمكنين | عمّان :time',
@@ -166,5 +169,5 @@ return array(
 	'Approved'=>'مصةقة',
 	'Rejected'=>'مرفوض',
 	'Amman Hackerspace Memebership'=>'بطاقة عضوية فضاء المتمكنين | عمّان',
-	
+
 	);

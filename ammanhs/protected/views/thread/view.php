@@ -57,7 +57,7 @@ $this->menu=array(
 			<div class="span7">
 				<table width="100%">
 					<tr>
-						<td id="thread-content" class="row"><span class="span7" itemprop="articleBody"><?php echo $model->content; ?></span></td>
+						<td id="thread-content"><span itemprop="articleBody"><?php echo $model->content; ?></span></td>
 						<td id="thread-vote">
 							<?php
 							$form=$this->beginWidget('CActiveForm',array(
@@ -134,7 +134,7 @@ $this->menu=array(
 					<div style="float: left;">
 						<button class="btn" type="submit"><?php echo Yii::t('core', 'Add your reply'); ?></button>
 					</div>
-					<?php echo $form->markdownEditor($thread_reply, 'content', array('placeholder'=>'Have something to say?!', 'style'=>'height: 150px;'));?>
+					<?php echo $form->markdownEditor($thread_reply, 'content', array('placeholder'=>Yii::t('core' ,'Have something to say?!'), 'style'=>'height: 150px;'));?>
 					<?php $this->endWidget(); ?>
 				</div>
 			</div>
