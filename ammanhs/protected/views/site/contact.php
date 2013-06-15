@@ -3,7 +3,7 @@
 		<a class="close" data-dismiss="modal" onclick="document.location.hash='';">×</a>
 		<h4><?php echo Yii::t('core', 'Contact Us'); ?></h4> 
 	</div>
-	<div class="modal-body" style="overflow: hidden !important;">
+	<div class="modal-body">
 		<div class="span12"> 
 
 			<?php if(Yii::app()->user->hasFlash('contact')): ?>

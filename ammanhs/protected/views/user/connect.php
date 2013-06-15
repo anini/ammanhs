@@ -10,7 +10,7 @@ if(isset($redirect)) $data['redirect']=$redirect;
 		<a class="close" data-dismiss="modal" id="close-connect-modal" onclick="document.location.hash='';">×</a>
 		<h4><?php echo Yii::t('core', 'Login or Join Amman Hackerspace'); ?></h4> 
 	</div>
-	<div class="modal-body" style="overflow: hidden !important;">
+	<div class="modal-body">
 		<div class="span6"> 
 			<?php $this->renderPartial('//user/login', $data); ?>
 		</div>
