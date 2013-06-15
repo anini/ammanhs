@@ -196,6 +196,9 @@
 	width: 15%;
 	display: inline-table;
 }
+.span8.offset1 > .reply-user{
+	margin-top: 12px;
+}
 .thread-reply{
 	width: 80%;
 	float: left;
@@ -203,6 +206,12 @@
 .thread-reply .shadow-box{
 	padding: 1px;
 	margin-right: 15px;
+}
+.thread-reply > div{
+	width: 100%;
+}
+.thread-reply #wmd-button-row{
+	padding-top: 0;
 }
 #new-thread td{
 	vertical-align: top;

@@ -23,7 +23,7 @@ $this->menu=array(
 );
 ?>
 
-<div class="row" itemscope itemtype="http://schema.org/Article"  >
+<div class="row" itemscope itemtype="http://schema.org/Article">
 	<div class="span2 text-center shadow-box ge-ss" style="padding: 5px 0;">
 		<?php echo $model->user->avatar_a(160, 160, array('class'=>'img-rounded')); ?>
 		<h4><a href="<?php echo $model->user->profileLink(); ?>"><span itemprop="author"><?php echo $model->user->name; ?></span></a></h4>
@@ -78,9 +78,6 @@ $this->menu=array(
 </div>
 <hr/>
 
-
-
-
 <div id="thread-replies">
 	<?php if($model->stat_replies) { ?>
 		<?php
@@ -102,37 +99,34 @@ $this->menu=array(
 	<?php } ?>
 </div>
 
-
 <div class="row">
 	<div class="span8 offset1">
-		<div class="shadow-box" style="padding: 5px; width: 15%; display: inline-table;vertical-align: top; margin-top: 50px;">
-			<?php if (Yii::app()->user->isGuest) { ?>
+		<div class="shadow-box reply-user">
+			<?php if(Yii::app()->user->isGuest){ ?>
 				<div><img src="/images/default-male.jpg" width="128px" height="128px" title="Test User" alt="Test User"></div>
-			<?php } else { 
+			<?php }else{
 				echo Yii::app()->user->model->avatar(128, 128);
-			}?>
+			} ?>
 			<div class="arrow left-arrow"></div>
 		</div>
-		<div style="width: 80%; display: inline-table;vertical-align: top;">
-			<div style="padding: 1px;margin-right: 15px;">
-				<div style="width: 100%;">
-					<?php
-					$form=$this->beginWidget('CActiveForm',array(
-						'id'=>'thread-reply-form',
-						'action'=>'/threadReply/create?thread_id='.$model->id,
-						'enableAjaxValidation'=>false,
-						'htmlOptions'=>array(
-							'onsubmit'=>'return add_thread_reply("thread-reply-form");'
-						),
-					)); ?>
-					<?php echo $form->errorSummary($thread_reply); ?>
+		<div class="thread-reply">
+			<div>
+				<?php
+				$form=$this->beginWidget('CActiveForm',array(
+					'id'=>'thread-reply-form',
+					'action'=>'/threadReply/create?thread_id='.$model->id,
+					'enableAjaxValidation'=>false,
+					'htmlOptions'=>array(
+						'onsubmit'=>'return add_thread_reply("thread-reply-form");'
+					),
+				)); ?>
+				<?php echo $form->errorSummary($thread_reply); ?>
 
-					<div style="float: left;">
-						<button class="btn" type="submit"><?php echo Yii::t('core', 'Add your reply'); ?></button>
-					</div>
-					<?php echo $form->markdownEditor($thread_reply, 'content', array('placeholder'=>Yii::t('core' ,'Have something to say?!'), 'style'=>'height: 150px;'));?>
-					<?php $this->endWidget(); ?>
+				<div style="float: left;">
+					<button class="btn" type="submit"><?php echo Yii::t('core', 'Add your reply'); ?></button>
 				</div>
+				<?php echo $form->markdownEditor($thread_reply, 'content', array('placeholder'=>Yii::t('core' ,'Have something to say?!'), 'style'=>'height: 150px;'));?>
+				<?php $this->endWidget(); ?>
 			</div>
 		</div>
 	</div>

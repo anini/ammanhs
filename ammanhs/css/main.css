@@ -1,21 +1,15 @@
-@font-face {
+@font-face{
 	font-family: GE SS Light;
 	src: url('../fonts/GESSLight.otf');
 }
-
-@font-face {
+@font-face{
 	font-family: GE SS Medium;
 	src: url('../fonts/GESSMedium.otf');
 }
-
-html {
-    font-size: 100%;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
+html{
     direction: rtl;
 }
-
-#page {
+#page{
     padding-top: 60px;
     font-family: Arial, sans-serif;
 }
@@ -43,7 +37,6 @@ form .help-inline{
     padding: 10px !important;
     font-size: 18px;
 }
-
 @-webkit-keyframes wipe{
     0% { -webkit-mask-position: -90px 0; }
     100% { -webkit-mask-position: 230px 0; }
@@ -93,37 +86,28 @@ form .help-inline{
     font-family: 'GE SS Medium', Arial;
     font-weight: bold;
 }
-
 .ge-ss{
     font-family: 'GE SS Medium', Arial;
     font-weight: bold;
     text-decoration: none !important;
     font-style: normal;
 }
-
 .ge-ss-light, .btn{
     font-family: 'GE SS Light', Arial;
     text-decoration: none !important;
     font-style: normal;
 }
-
 #user-header .tooltip{
     top: 40px !important;
 }
-
 #login-ammanhs{
     display: none;
 }
-
 #login-ammanhs-title, #join-ammanhs-title{
     text-align: center;
 }
-
 #join-ammanhs-title > div{
     font-size: 12px;
-}
-form{
-    margin: 10px 0;
 }
 #user-header form{
     margin: 10px;
