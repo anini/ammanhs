@@ -7,12 +7,12 @@ $cs->registerCSSFile("/css/search.css");
 ?>
 <div class="row">
 	<div class="span9">
-<form class="navbar-search" action="/search">
-        <input name="q" <?php if(isset($_GET['q'])) echo 'value="'.$_GET['q'].'"'; ?> type="text" class="search-query span4" placeholder="<?php echo Yii::t('core','Search'); ?>"
-        ><span class='octicons octicon-search' style='margin-right: -22px;opacity: 0.5;position: absolute;margin-top: 7px'></span>
-      </form>
-  </div>
-  </div>
+		<form class="navbar-search" action="/search">
+			<input name="q" <?php if(isset($_GET['q'])) echo 'value="'.$_GET['q'].'"'; ?> type="text" class="search-query span4" placeholder="<?php echo Yii::t('core','Search'); ?>"
+			><span class="octicons octicon-search search-icon"></span>
+		</form>
+	</div>
+</div>
 <?php
 if($num_of_results){
 	echo '<h5 class="muted bold">'.$num_of_results.' نتائج من '.$num_of_results.' نتيجة '."(عدد الثواني: $time)</h5>";

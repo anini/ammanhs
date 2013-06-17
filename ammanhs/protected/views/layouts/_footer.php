@@ -2,9 +2,9 @@
 <div id="footer">
 	<hr/>
 	<div>
-		جميع حقوق النسخ والطبع والتوزيع ممنوحة ضمن شروط رخصة التشارك الإبداعي مع ذِكرِ المصدر.
+		<?php echo Yii::t('core', 'Copy Rights - Arabic'); ?>.
 	</div>
-	<div style="direction: ltr">
-		All rights granted under the terms of Creative Commons License.
+	<div class="english-field">
+		<?php echo Yii::t('core', 'Copy Rights - English'); ?>.
 	</div>
 </div>
