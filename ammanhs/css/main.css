@@ -167,3 +167,20 @@ form .help-inline{
 #about-us a{
     text-decoration: none;
 }
+#error-404 icon{
+    font-size: 60px;
+    line-height: 20px;
+    margin-left: 10px;
+}
+.search-icon{
+    margin-right: -25px;
+    opacity: 0.5;
+    position: absolute;
+    margin-top: 5px;
+}
+#error-404 h2{
+    margin-bottom: 60px;
+}
+#error-404 form{
+    padding-top: 20px;
+}

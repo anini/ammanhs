@@ -2,6 +2,8 @@
 return array(
 	'Amman Hackerspace'=>'فضاء المتمكنين | عمّان',
 	'slogan'=>'بوابة المعرفة العربية',
+	'Copy Rights - Arabic'=>'جميع حقوق النسخ والطبع والتوزيع ممنوحة ضمن شروط رخصة التشارك الإبداعي مع ذِكرِ المصدر',
+	'Copy Rights - English'=>'All rights granted under the terms of Creative Commons License',
 	// Header
 	'Home'=>'الرئيسية',
 	'Threads'=>'المواضيع',
@@ -169,5 +171,10 @@ return array(
 	'Approved'=>'مصةقة',
 	'Rejected'=>'مرفوض',
 	'Amman Hackerspace Memebership'=>'بطاقة عضوية فضاء المتمكنين | عمّان',
+
+	//404 Page
+	'The page you requested is not available'=>'الصفحة التي طلبتها غير موجودة',
+	'Non-existent Page'=>'صفحة غير موجودة',
+	'You can get back to the main page, or you can search threads:'=>'يمكنك العودة إلى <a href="/">الصفحة الرئيسية</a>، أو يمكنك البحث في المواضيع:'
 
 	);

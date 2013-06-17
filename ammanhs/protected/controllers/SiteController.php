@@ -21,6 +21,13 @@ class SiteController extends Controller
 		);
 	}
 
+	public function actionTest(){
+		$this->layout=false;
+		$user=User::model()->findByPk(1);
+		$body=$this->renderPartial("/emailTemplates/user/welcome_email", array('user'=>$user), true);
+		echo $this->renderPartial("/emailTemplates/layout", array('content'=>$body), true);
+	}
+
 	public function actionRefreshHeader(){
 		$this->layout=false;
         $this->renderPartial('//layouts/_header');
@@ -52,7 +59,7 @@ class SiteController extends Controller
 	    	if(Yii::app()->request->isAjaxRequest)
 	    		echo $error['message'];
 	    	else
-	        	$this->render('error', $error);
+	        	$this->render('404', $error);
 	    }
 	}
 
