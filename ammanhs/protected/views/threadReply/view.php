@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="span8 offset1">
-		<div class="shadow-box reply-user">
+		<div class="shadow-box reply-user new-reply-user">
 			<?php echo $model->user->avatar_a(128, 128, array('class'=>'img-rounded')); ?>
 			<div class="arrow left-arrow"></div>
 		</div>

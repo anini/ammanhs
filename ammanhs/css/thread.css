@@ -196,7 +196,7 @@
 	width: 15%;
 	display: inline-table;
 }
-.span8.offset1 > .reply-user{
+.span8.offset1 > .new-reply-user{
 	margin-top: 12px;
 }
 .thread-reply{
