@@ -17,6 +17,7 @@
  */
 class ThreadReplyVote extends CActiveRecord
 {
+	public $old_vote_type;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return ThreadReplyVote the static model class
@@ -58,8 +59,8 @@ class ThreadReplyVote extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'threadReply' => array(self::BELONGS_TO, 'ThreadReply', 'thread_reply_id'),
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'threadReply'=>array(self::BELONGS_TO, 'ThreadReply', 'thread_reply_id'),
+			'user'=>array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -69,12 +70,12 @@ class ThreadReplyVote extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'user_id' => 'User',
-			'thread_reply_id' => 'Thread Reply',
-			'vote_type' => 'Vote Type',
-			'created_at' => 'Created At',
-			'updated_at' => 'Updated At',
+			'id'=>'ID',
+			'user_id'=>'User',
+			'thread_reply_id'=>'Thread Reply',
+			'vote_type'=>'Vote Type',
+			'created_at'=>'Created At',
+			'updated_at'=>'Updated At',
 		);
 	}
 
@@ -101,9 +102,14 @@ class ThreadReplyVote extends CActiveRecord
 		));
 	}
 
+	public function setAttribute($n, $v){
+		if($n=='vote_type') $this->old_vote_type=$this->vote_type;
+		return parent::setAttribute($n, $v);
+	}
+
 	protected function beforeValidate() {
 		if(!$this->user_id){
-        	$this->user_id = Yii::app()->user->id;
+        	$this->user_id=Yii::app()->user->id;
         }
         return true;
     }
@@ -111,9 +117,9 @@ class ThreadReplyVote extends CActiveRecord
 	public function beforeSave()
 	{
 		if(!$this->created_at){
-			$this->created_at = time();
+			$this->created_at=time();
         }else{
-        	$this->updated_at = time();
+        	$this->updated_at=time();
         }
         return parent::beforeSave();
 	}
@@ -121,11 +127,11 @@ class ThreadReplyVote extends CActiveRecord
 	public function afterSave()
 	{
 		parent::afterSave();
-		$vote_type='';
-		if($this->vote_type==1){
-			$vote_type='VoteUp';
-		}elseif($this->vote_type==-1){
-			$vote_type='VoteDown';
+		$vote_type=Constants::voteType($this->vote_type);
+		$old_vote_type=Constants::voteType($this->old_vote_type);
+		if(!$this->isNewRecord){
+			if(!UserLog::removeActivity($old_vote_type, 'ThreadReply', $this->thread_reply_id, $this->user_id))
+				throw new CHttpException(400, 'Couldn\'n delete old activity');
 		}
 		UserLog::addActivity($vote_type, $this->threadReply);
 		$this->user->stat_votes++;

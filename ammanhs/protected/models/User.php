@@ -108,6 +108,8 @@ class User extends CActiveRecord
 		return array(
 			'threads'=>array(self::HAS_MANY, 'Thread', 'user_id'),
 			'threadReplys'=>array(self::HAS_MANY, 'ThreadReply', 'user_id'),
+			'threadVotes'=>array(self::HAS_MANY, 'ThreadVote', 'user_id'),
+			'threadReplyVotes'=>array(self::HAS_MANY, 'ThreadReplyVote', 'user_id'),
 			'membership'=>array(self::HAS_ONE, 'Membership', 'user_id')//, 'on'=>'membership.status='.Constants::MEMBERSHIP_STATUS_APPROVED),
 		);
 	}
@@ -188,6 +190,7 @@ class User extends CActiveRecord
 		parent::afterSave();
 		if($this->isNewRecord){
 			UserLog::addActivity('Join', $this);
+			//Mailer::sendTemplatedEmail($this->email, Yii::t('core', 'Welcome to Amman Hackerspace'), 'user/welcome_email', array('user'=>$this));
 		}
 	}
 

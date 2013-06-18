@@ -51,7 +51,7 @@ class ThreadController extends Controller
 	public function actionView($id)
 	{
 		$thread_reply=new ThreadReply;
-		$model=$this->loadModel($id);
+		$model=Thread::model()->with('replies')->findByPk($id);
 		if(!isset(Yii::app()->session['viewed_threads']) || !in_array($model->id, Yii::app()->session['viewed_threads'])){
 			if(!isset(Yii::app()->session['viewed_threads'])) Yii::app()->session['viewed_threads']=array();
 			$viewed_threads=Yii::app()->session['viewed_threads'];
@@ -60,9 +60,32 @@ class ThreadController extends Controller
 			$model->stat_views++;
 			$model->save(false);
 		}
+		$thread_voted=false;
+		$reply_up_votes=array();
+		$reply_down_votes=array();
+		$thread_replies=$model->replies;
+		if(!Yii::app()->user->isGuest){
+			$user=Yii::app()->user->model;
+			$thread_reply_votes=$user->threadReplyVotes;
+			foreach($thread_reply_votes as $thread_reply_vote){
+				if($thread_reply_vote->vote_type==Constants::VOTE_UP)
+					$reply_up_votes[]=$thread_reply_vote->thread_reply_id;
+				else
+					$reply_down_votes[]=$thread_reply_vote->thread_reply_id;
+			}
+			$thread_vote=ThreadVote::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
+			if($thread_vote){
+				if($thread_vote->vote_type==Constants::VOTE_UP) $thread_voted='up';
+				else $thread_voted='down';
+			}
+		}
 		$this->render('view',array(
 			'model'=>$model,
 			'thread_reply'=>$thread_reply,
+			'thread_voted'=>$thread_voted,
+			'thread_replies'=>$thread_replies,
+			'reply_up_votes'=>$reply_up_votes,
+			'reply_down_votes'=>$reply_down_votes,
 		));
 	}
 
@@ -223,29 +246,32 @@ class ThreadController extends Controller
 			throw new CHttpException(404, 'Bad request.');
         }
 
-        $thread_id = $_POST['Vote']['thread_id'];
-        $vote_type = $_POST['Vote']['type'];
-        $user_id = Yii::app()->user->id;
-        $thread = Thread::model()->findByPk($thread_id);
-        $thread_vote = ThreadVote::model()->findByAttributes(array('user_id'=>$user_id, 'thread_id'=>$thread_id));
+        $thread_id=$_POST['Vote']['thread_id'];
+        $vote_type=$_POST['Vote']['type'];
+        $user_id=Yii::app()->user->id;
+        $thread=Thread::model()->findByPk($thread_id);
+        $thread_vote=ThreadVote::model()->findByAttributes(array('user_id'=>$user_id, 'thread_id'=>$thread_id));
         
-        if (!$thread_vote){
-        	$thread_vote = new ThreadVote();
-        	$thread_vote->thread_id = $thread_id;
+        if(!$thread_vote){
+        	$thread_vote=new ThreadVote();
+        	$thread_vote->thread_id=$thread_id;
+        }elseif($thread_vote->vote_type==$vote_type){
+        	Yii::app()->end();
         }
 
-        $thread_vote->vote_type = $vote_type;
+        $thread_vote->vote_type=$vote_type;
         
-        if ($thread_vote->save()){
-        	$errno = 0;	
-        } else {
-        	$errno = 1;
+        if($thread_vote->save()){
+        	$errno=0;	
+        }else{
+        	$errno=1;
         }
 
         if($thread->updateStatVotes())
-        	$stat_votes = $thread->stat_votes;
-        $r = array('errno'=>$errno, 'vote_type'=>$vote_type, 'stat_votes'=>$stat_votes);
-        $json = CJSON::encode($r);
+        	$stat_votes=$thread->stat_votes;
+        
+        $r=array('errno'=>$errno, 'vote_type'=>$vote_type, 'stat_votes'=>$stat_votes);
+        $json=CJSON::encode($r);
         header('Content-type: text/javascript; charset=UTF-8');
         echo $json;  
 	}

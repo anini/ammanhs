@@ -143,28 +143,32 @@ class ThreadReplyController extends Controller
 			throw new CHttpException(404, 'Bad request.');
         }
 
-        $thread_reply_id = $_POST['Vote']['thread_reply_id'];
-        $vote_type = $_POST['Vote']['type'];
-        $user_id = Yii::app()->user->id;
-        $thread_reply = ThreadReply::model()->findByPk($thread_reply_id);
-        $thread_reply_vote = ThreadReplyVote::model()->findByAttributes(array('user_id'=>$user_id, 'thread_reply_id'=>$thread_reply_id));
+        $thread_reply_id=$_POST['Vote']['thread_reply_id'];
+        $vote_type=$_POST['Vote']['type'];
+        $user_id=Yii::app()->user->id;
+        $thread_reply=ThreadReply::model()->findByPk($thread_reply_id);
+        $thread_reply_vote=ThreadReplyVote::model()->findByAttributes(array('user_id'=>$user_id, 'thread_reply_id'=>$thread_reply_id));
         
         if (!$thread_reply_vote){
-        	$thread_reply_vote = new ThreadReplyVote();
-        	$thread_reply_vote->thread_reply_id = $thread_reply_id;
+        	$thread_reply_vote=new ThreadReplyVote();
+        	$thread_reply_vote->thread_reply_id=$thread_reply_id;
+        }elseif($thread_reply_vote->vote_type==$vote_type){
+        	Yii::app()->end();
         }
 
-        $thread_reply_vote->vote_type = $vote_type;
+        $thread_reply_vote->vote_type=$vote_type;
         
-        if ($thread_reply_vote->save()){
-        	$errno = 0;	
-        } else {
-        	$errno = 1;
+        if($thread_reply_vote->save()){
+        	$errno=0;	
+        }else{
+        	$errno=1;
         }
+        
         if($thread_reply->updateStatVotes())
-        	$stat_votes = $thread_reply->stat_votes;
-        $r = array('errno'=>$errno, 'vote_type'=>$vote_type, 'stat_votes'=>$stat_votes);
-        $json = CJSON::encode($r);
+        	$stat_votes=$thread_reply->stat_votes;
+
+        $r=array('errno'=>$errno, 'vote_type'=>$vote_type, 'stat_votes'=>$stat_votes);
+        $json=CJSON::encode($r);
         header('Content-type: text/javascript; charset=UTF-8');
         echo $json;  
 	}

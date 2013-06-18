@@ -139,7 +139,7 @@ class UserLog extends CActiveRecord
 		$uri = '';
 
 		$object_class = get_class($object);
-		switch ($object_class){
+		switch($object_class){
 			case 'Thread':
 				$thread_id = $object->id;
 				$uri = $object->link;
@@ -170,6 +170,25 @@ class UserLog extends CActiveRecord
 			Yii::app()->end();
 			throw new CHttpException(400, 'Couldn\'n save user activity');
 		}
+		return true;
+	}
+
+	public static function removeActivity($action, $object_class, $object_id, $user_id){
+		switch($object_class){
+			case 'Thread':
+				$condition="thread_id={$object_id}";
+				break;
+			case 'ThreadReply':
+				$condition="thread_reply_id={$object_id}";
+				break;
+			case 'User':
+				if($action!='Join')
+					$condition="targeted_user_id={$object_id}";
+				break;
+		}
+		if(!$condition) return false;
+		$condition.=" AND user_id={$user_id} AND action=\"{$action}\"";
+		$deleted=self::model()->deleteAll($condition);
 		return true;
 	}
 

@@ -4,6 +4,26 @@ class Constants {
 
         //--*--//--*--//--*--//--*--//--*--//
        //--*--//--*--//--*--//--*--//--*--//
+      //--*--//     Vote Types    //--*--//
+     //--*--//--*--//--*--//--*--//--*--//
+    //--*--//--*--//--*--//--*--//--*--//
+
+    const VOTE_UP=1;
+    const VOTE_DOWN=-1;
+
+    private static $_vote_types=array(
+        self::VOTE_UP=>'VoteUp',
+        self::VOTE_DOWN=>'VoteDown',
+    );
+
+    public static function voteType($vote_type){
+        if(isset(self::$_vote_types[$vote_type]))
+            return self::$_vote_types[$vote_type];
+        return '';
+    }
+
+        //--*--//--*--//--*--//--*--//--*--//
+       //--*--//--*--//--*--//--*--//--*--//
       //--*--//  Membership Types //--*--//
      //--*--//--*--//--*--//--*--//--*--//
     //--*--//--*--//--*--//--*--//--*--//
@@ -48,7 +68,7 @@ class Constants {
 
     public static function membershipStatus($status){
         $memberships=self::getMembershipStatuses();
-        if (isset($memberships[$status]))
+        if(isset($memberships[$status]))
             return $memberships[$status];
         return '';
     }

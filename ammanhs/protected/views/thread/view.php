@@ -67,9 +67,9 @@ $this->menu=array(
 					)); ?>
 					<input type="hidden" name="Vote[thread_id]" value="<?php echo  $model->id; ?>"/>
 					<input type="hidden" id="thread-vote-type" name="Vote[type]" value="0"/>
-					<div class="arrow vote-up vote-up-off" title="Vote this <?php echo $model->type; ?> up!" onclick="$('#thread-vote-type').val(1); $('#thread-vote-form').submit();"></div>
+					<div class="arrow vote-up vote-up-<?php echo ($thread_voted && $thread_voted=='up')?'on':'off'; ?>" title="Vote this <?php echo $model->type; ?> up!" onclick="$('#thread-vote-type').val(1); $('#thread-vote-form').submit();"></div>
 					<div class="vote-number" itemprop="interactionCount" content="UserLikes:<?php echo $model->stat_votes; ?>"><?php echo $model->stat_votes; ?></div>
-					<div class="arrow vote-down vote-down-off" title="Vote this <?php echo $model->type; ?> down!" onclick="$('#thread-vote-type').val(-1); $('#thread-vote-form').submit();"></div>
+					<div class="arrow vote-down vote-down-<?php echo ($thread_voted && $thread_voted=='down')?'on':'off'; ?>" title="Vote this <?php echo $model->type; ?> down!" onclick="$('#thread-vote-type').val(-1); $('#thread-vote-form').submit();"></div>
 					<?php $this->endWidget(); ?>
 				</div>
 			</div>
@@ -79,7 +79,7 @@ $this->menu=array(
 <hr/>
 
 <div id="thread-replies">
-	<?php if($model->stat_replies) { ?>
+	<?php if($thread_replies){ ?>
 		<?php
 		$form=$this->beginWidget('CActiveForm',array(
 			'id'=>'thread-reply-vote-form',
@@ -92,8 +92,8 @@ $this->menu=array(
 		<input type="hidden" id="thread-reply-vote-type" name="Vote[type]" value="0"/>
 		<?php $this->endWidget(); ?>
 		<?php
-		foreach ($model->replies as $reply) {
-			$this->renderPartial('../threadReply/view', array('model' => $reply));
+		foreach ($thread_replies as $reply) {
+			$this->renderPartial('../threadReply/view', array('model'=>$reply, 'reply_up_votes'=>$reply_up_votes, 'reply_down_votes'=>$reply_down_votes));
 		}
 		?>
 	<?php } ?>
