@@ -93,7 +93,7 @@ $this->menu=array(
 		<?php $this->endWidget(); ?>
 		<?php
 		foreach ($thread_replies as $reply) {
-			$this->renderPartial('../threadReply/view', array('model'=>$reply, 'reply_up_votes'=>$reply_up_votes, 'reply_down_votes'=>$reply_down_votes));
+			$this->renderPartial('../threadReply/view', array('model'=>$reply, 'is_guest'=>$is_guest));
 		}
 		?>
 	<?php } ?>
@@ -101,7 +101,7 @@ $this->menu=array(
 
 <div class="row">
 	<div class="span8 offset1">
-		<div class="shadow-box reply-user">
+		<div class="shadow-box reply-user new-reply-user">
 			<?php if(Yii::app()->user->isGuest){ ?>
 				<div><img src="/images/default-male.jpg" width="128px" height="128px" title="Test User" alt="Test User"></div>
 			<?php }else{

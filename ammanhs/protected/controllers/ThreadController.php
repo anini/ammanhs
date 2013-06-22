@@ -50,8 +50,7 @@ class ThreadController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$thread_reply=new ThreadReply;
-		$model=Thread::model()->with('replies')->findByPk($id);
+		$model=Thread::model()->with($with)->findByPk($id);
 		if(!isset(Yii::app()->session['viewed_threads']) || !in_array($model->id, Yii::app()->session['viewed_threads'])){
 			if(!isset(Yii::app()->session['viewed_threads'])) Yii::app()->session['viewed_threads']=array();
 			$viewed_threads=Yii::app()->session['viewed_threads'];
@@ -60,32 +59,28 @@ class ThreadController extends Controller
 			$model->stat_views++;
 			$model->save(false);
 		}
-		$thread_voted=false;
-		$reply_up_votes=array();
-		$reply_down_votes=array();
+
 		$thread_replies=$model->replies;
+		$thread_reply=new ThreadReply;
+		$is_guest=true;
+		$thread_voted=false;
+		$with='replies';
 		if(!Yii::app()->user->isGuest){
-			$user=Yii::app()->user->model;
-			$thread_reply_votes=$user->threadReplyVotes;
-			foreach($thread_reply_votes as $thread_reply_vote){
-				if($thread_reply_vote->vote_type==Constants::VOTE_UP)
-					$reply_up_votes[]=$thread_reply_vote->thread_reply_id;
-				else
-					$reply_down_votes[]=$thread_reply_vote->thread_reply_id;
-			}
+			$is_guest=false;
+			$with.=', replies.my_up_vote, replies.my_down_vote';
 			$thread_vote=ThreadVote::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
 			if($thread_vote){
 				if($thread_vote->vote_type==Constants::VOTE_UP) $thread_voted='up';
 				else $thread_voted='down';
 			}
 		}
+		
 		$this->render('view',array(
 			'model'=>$model,
 			'thread_reply'=>$thread_reply,
 			'thread_voted'=>$thread_voted,
 			'thread_replies'=>$thread_replies,
-			'reply_up_votes'=>$reply_up_votes,
-			'reply_down_votes'=>$reply_down_votes,
+			'is_guest'=>$is_guest,
 		));
 	}
 
