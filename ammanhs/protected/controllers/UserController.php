@@ -31,7 +31,7 @@ class UserController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('profile','logout'),
+				'actions'=>array('profile','logout','changePassword'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -325,6 +325,28 @@ class UserController extends Controller
 	        }
 	    }
 	    $this->render('profile',array('model'=>$model));
+	}
+
+	public function actionChangePassword(){
+		$this->layout=false;
+		$password_changed=false;
+		if(!isset($_GET['modal'])){
+			$this->redirect($this->createUrl('user/profile').'#changePassword');
+		}
+		$model=Yii::app()->user->model;
+		$model->setScenario('change_password');
+		$model->old_password=$model->verify_password=$model->password=null;
+		if(isset($_POST['User'])){
+			$model->attributes=$_POST['User'];
+			$model->old_password=md5($model->old_password);
+			if($model->validate()){
+				$model->password=md5($model->password);
+                $model->save(false);
+                $password_changed=true;				
+			}
+		}
+		$model->old_password=$model->verify_password=$model->password=null;
+		$this->render('change_password', array('model'=>$model, 'password_changed'=>$password_changed));
 	}
 
 	/**

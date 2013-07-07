@@ -30,6 +30,8 @@ return array(
 	'Invalid username! Alphanumerics only.'=>'استخدم حروف وأرقام فقط.',
 	'Username should start with a letter.'=>'يجب أن يبدأ بحرف.',
 	'The verification code is incorrect.'=>'رمز التحقق غير صحيح',
+	'The old passowrd is incorrect!'=>'كلمة المرور القديمة غير صحيحة!',
+	'Retype Password is incorrect!'=>'تأكيد كلمة المرور غير صحيح!',
 
 	//Time Helper
 	'Less than a minute ago'=>'منذ أقل من دقيقة',
@@ -101,6 +103,12 @@ return array(
 	'Stat Replies'=>'الردود',
 	'Member since :time'=>'<span class="muted">عضو منذ</span> :time',
 
+	//Change Password
+	'Change Password'=>'تغيير كلمة المرور',
+	'Old Password'=>'كلمة المرور القديمة',
+	'New Password'=>'كلمة المرور الجديدة',
+	'Verify Password'=>'تأكيد كلمة المرور الجديدة',
+
 	//Signup
 	'Pick a Username'=>'اختر اسم مستخدم (بالإنجليزية)',
 	'Your Email'=>'بريدك الإلكتروني',
@@ -121,6 +129,7 @@ return array(
 	'Your membership request is pending, we will contact you as soon as possible.'=>'إن طلب عضويتك قيد التدقيق، سوف يقوم فريقنا بالتواصل معك قريبا.',
 	'Congrates! Your membership in Amman Hackerspace has been approved!'=>'تهانينا! لقد تم قبول طلب عضويتك في فضاء المتمكنين | عمّان',
 	'Welcome to Amman Hackerspace'=>'أهلا بك في فضاء المتمكنين | عمّان',
+	'Your password has been successfuly updated.'=>'لقد تم تغيير كلمة المرور بنجاح.',
 
 	//User Feed
 	'User Joint Amman Hackerspace'=>'انضم إلى فضاء المتمكنين | عمّان :time',
@@ -140,6 +149,8 @@ return array(
 	'Add your reply'=>'أضف ردك',
 	'Register'=>'سجل',
 	'Send'=>'إرسال',
+	'Submit'=>'ارسال',
+	'Change'=>'تغيير',
 
 	//Common
 	'Follow us:'=>'تابعنا:',

@@ -56,3 +56,8 @@
 	padding: 5px;
 	margin-top: 5px;
 }
+body .modal{
+	width: 300px;
+	max-width: 300px;
+	margin-right: -180px;
+}

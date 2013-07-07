@@ -1,6 +1,7 @@
 <a href="javascript:void(0);" data-src="/user/connect?modal" id="connect-link" data-toggle="ajax-modal"></a>
 <a href="javascript:void(0);" data-src="/site/contact?modal" id="contact-link" data-toggle="ajax-modal"></a>
 <a href="javascript:void(0);" data-src="/membership/membershipForm" id="membership-form-link" data-toggle="ajax-modal"></a>
+<a href="javascript:void(0);" data-src="/user/changePassword?modal" id="change-password-link" data-toggle="ajax-modal"></a>
 <ul class="nav pull-left" id="user-header">
 	<?php if (Yii::app()->user->isGuest) { ?>
 	<li class="dropdown">
