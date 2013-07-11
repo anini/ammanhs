@@ -73,6 +73,8 @@
 				<button class="btn btn-primary" type="submit"><?php echo Yii::t('core', 'Send'); ?></button>
 			</div>
 
+			<?php echo CHTML::hiddenField('ContactForm[ref]', '', array('id'=>'contact-ref')); ?>
+
 			<?php $this->endWidget(); ?>
 
 			<?php endif; ?>
@@ -84,4 +86,5 @@
 $('.modal').on('hidden', function(){
 	document.location.hash='';
 });
+document.getElementById('contact-ref').value=document.location.href;
 </script>

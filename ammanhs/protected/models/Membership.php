@@ -19,6 +19,7 @@
  */
 class Membership extends CActiveRecord
 {
+	public $old_status;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Membership the static model class
@@ -114,6 +115,11 @@ class Membership extends CActiveRecord
 		));
 	}
 
+	public function setAttribute($n, $v){
+		if($n=='status') $this->old_status=$this->status;
+		return parent::setAttribute($n, $v);
+	}
+
 	protected function beforeValidate() {
 		if(!$this->user_id){
         	$this->user_id=Yii::app()->user->id;
@@ -139,8 +145,10 @@ class Membership extends CActiveRecord
 		if($this->isNewRecord){
 			$this->user->stat_points+=3;
 			$this->user->save(false);
-			Mailer::sendTemplatedEmail(Yii::app()->params['admin_email'], 'New Membership Request'.date('Y/m/d', time()), 'new_membership_request', array('user'=>$this->user, 'membership'=>$this));
-		}		
+			Mailer::sendTemplatedEmail(Yii::app()->params['admin_email'], 'New Membership Request'.date('Y/m/d', time()), 'admin/new_membership_request', array('user'=>$this->user, 'membership'=>$this));
+		}elseif($this->status!=$this->old_status && $this->status==Constants::MEMBERSHIP_STATUS_APPROVED){
+			Mailer::sendTemplatedEmail($this->user->email, Yii::t('core', 'Congrates! Your membership in Amman Hackerspace has been approved!'), 'membership/membership_approved', array('user'=>$this->user, 'membership'=>$this));
+		}
 	}
 
 	public function getExpiryDate(){

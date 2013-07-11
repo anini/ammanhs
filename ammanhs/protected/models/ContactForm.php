@@ -24,6 +24,7 @@ class ContactForm extends CFormModel
 			array('name, email, subject, body', 'required'),
 			// email has to be a valid email address
 			array('email', 'email'),
+			array('ref', 'safe'),
 			// verifyCode needs to be entered correctly
 			array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements()),
 		);

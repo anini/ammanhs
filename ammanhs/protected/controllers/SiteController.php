@@ -92,10 +92,10 @@ class SiteController extends Controller
 		if(isset($_POST['ContactForm']))
 		{
 			$model->attributes=$_POST['ContactForm'];
+			var_dump($model->ref);die();
 			if($model->validate())
 			{
-				$headers="From: {$model->email}\r\nReply-To: {$model->email}";
-				mail(Yii::app()->params['admin_email'],$model->subject,$model->body,$headers);
+				Mailer::sendTemplatedEmail(Yii::app()->params['admin_email'], $model->subject, 'admin/contact_us', array('user_id'=>(Yii::app()->user->isGuest?0:Yii::app()->user->id), 'contact_form'=>$model, 'user_ip'=>IPDetector::clientIP()));
 				Yii::app()->user->setFlash('contact', Yii::t('core' ,'Thank you for contacting us. We will respond to you as soon as possible.'));
 				$this->refresh();
 			}
