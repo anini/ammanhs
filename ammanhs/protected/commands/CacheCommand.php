@@ -26,5 +26,3 @@ class CacheCommand extends CConsoleCommand
   }
 
 }
-
-
