@@ -25,10 +25,7 @@ if(isset($redirect)) $data['redirect']=$redirect;
 	</div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){
-	document.location.hash='connect';
-	$('.modal').on('hidden', function(){
-		document.location.hash='';
-	});
+$('.modal').on('hidden', function(){
+	document.location.hash='';
 });
 </script>
