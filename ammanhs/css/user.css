@@ -22,6 +22,9 @@
 	width: 25%;
 	position: relative;
 }
+#user-info-box img{
+	border-radius: 4px;
+}
 #user-stats{
 	cursor: default;
 }
