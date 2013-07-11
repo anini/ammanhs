@@ -4,6 +4,7 @@ return array(
 	'slogan'=>'بوابة المعرفة العربية',
 	'Copy Rights - Arabic'=>'جميع حقوق النسخ والطبع والتوزيع ممنوحة ضمن شروط رخصة التشارك الإبداعي مع ذِكرِ المصدر',
 	'Copy Rights - English'=>'All rights granted under the terms of Creative Commons License',
+	
 	// Header
 	'Home'=>'الرئيسية',
 	'Threads'=>'المواضيع',
@@ -16,6 +17,7 @@ return array(
 	'Profile'=>'الصفحة الشخصية',
 	'Settings'=>'الإعدادات',
 	'Logout'=>'تسجيل الخروج',
+	'Sponsers'=>'الرعاة',
 
 	//Validators
 	'{attribute} is not a valid email address.'=>'{attribute} ليس بريد إلكتروني صحيح.',
