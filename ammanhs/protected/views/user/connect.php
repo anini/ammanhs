@@ -24,6 +24,7 @@ if(isset($redirect)) $data['redirect']=$redirect;
 		</a>
 	</div>
 </div>
+
 <script type="text/javascript">
 $('.modal').on('hidden', function(){
 	document.location.hash='';

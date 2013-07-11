@@ -5,7 +5,6 @@
 	</div>
 	<div class="modal-body">
 		<div class="span12"> 
-
 			<?php if(Yii::app()->user->hasFlash('contact')): ?>
 			<div class="flash-success">
 				<?php echo Yii::app()->user->getFlash('contact'); ?>

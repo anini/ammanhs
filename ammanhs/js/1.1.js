@@ -50,6 +50,7 @@ function submit_ajax(e, parent_selector) {
 }
 
 function open_login_modal(callback_func, attr, redirect){
+	if(!user_is_guest) return false;
 	document.location.hash='connect';
 	var old_uri=$('#connect-link').attr('data-src');
 	var uri=old_uri;
