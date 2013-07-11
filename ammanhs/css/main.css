@@ -184,3 +184,9 @@ form .help-inline{
 #error-404 form{
     padding-top: 20px;
 }
+.loading{
+    background: url('/images/common/loading.gif') 50% 50% no-repeat !important;
+}
+.loading *{
+    opacity: 0.2;
+}
