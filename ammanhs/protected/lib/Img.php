@@ -56,4 +56,37 @@ class Img{
 			@unlink($d.DIRECTORY_SEPARATOR.$img.".jpg");
 		}
 	}
+
+	/**
+     * @author  Mohammad Anini
+     * @param   string $source_url:		Source URL of the original image
+     * @param   string $sub_directory:	Where to save the image
+     * @param   int $id:				Unique ID of the object
+     * @param   string $extension:		Extension of the output file
+     * @return  string Sub/directoy/file_name.ext
+     */
+	public static function cloneImg($source_url, $sub_directory='Threads', $id=0, $extension='jpg'){
+        // Generating the new image file name and creating the directory        
+        $new_img_uri=ImageValidator::generateFilename($sub_directory, $id, $extension);
+        $new_img=Yii::app()->basePath.'/../images/'.$new_img_uri;
+        @mkdir(dirname($new_img), 0777, true);
+        
+        // Cloning the original image
+        list($w, $h, $type)=getimagesize($source_url);
+        switch($type){
+			case IMAGETYPE_GIF:
+				$source=imagecreatefromgif($source_url); break;
+			case IMAGETYPE_JPEG:
+				$source=imagecreatefromjpeg($source_url); break;
+			case IMAGETYPE_PNG:
+				$source=imagecreatefrompng($source_url); break;
+			default:
+				die("unsupported image type for file [$source_url]");
+		}
+
+        // Creating the new image
+        imagejpeg($source, $new_img, 95);
+
+        return $new_img_uri;
+	}
 }

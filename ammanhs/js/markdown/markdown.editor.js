@@ -28,7 +28,7 @@
     // The text that appears on the upper part of the dialog box when
     // entering links.
     var linkDialogText = "<p>http://example.com/ \"عنوان اختياري\"</p>";
-    var imageDialogText = "<p>http://example.com/images/diagram.jpg \"عنوان اختياري\"</p>";
+    var imageDialogText = "<p>http://example.com/images/diagram.jpg \"عنوان اختياري\"<br>ننصح بإضافة روابط لصور ذات امتداد jpg أو jpeg.</p>";
 
     // The default text that appears in the dialog input box when entering
     // links.
