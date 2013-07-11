@@ -28,7 +28,7 @@ function refresh_sidebar(){
 
 function open_contact_modal(){
     $('#contact-link').click();
-    document.location.hash='changePassword';
+    document.location.hash='contact';
     return false;
 }
 
