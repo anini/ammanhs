@@ -51,7 +51,7 @@ class Mailer
         $message.="--{$mime_boundary}--\n\n";
 
         // From
-        if($from===null) $from=Yii::app()->params['admin_email'];
+        if($from===null) $from=Yii::app()->params['support_email'];
 
         // Headers
         $headers_a=$headers;
@@ -64,10 +64,12 @@ class Mailer
         return $r;
     }
 
-    static public function sendTemplatedEmail($to, $subject, $view, $data=array(), $from=null, $headers=array(), $utms='?utm_source=AmmanHSEmail&utm_medium=Email&utm_campaign=AmmanHSEmail')
+    static public function sendTemplatedEmail($to, $subject, $view, $data=array(), $with_layout=true, $from=null, $headers=array(), $utms='?utm_source=AmmanHSEmail&utm_medium=Email&utm_campaign=AmmanHSEmail')
     {
         if(!array_key_exists('utms', $data)) $data['utms']=$utms;
         $body=Yii::app()->getController()->renderPartial("/emailTemplates/$view", $data, true);
+        if($with_layout)
+            $body=Yii::app()->getController()->renderPartial("/emailTemplates/layout", array('content'=>$body), true);
         Mailer::send($to, $subject, $body, $from, $headers);
     }
 
