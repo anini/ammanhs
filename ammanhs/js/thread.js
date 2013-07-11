@@ -62,7 +62,13 @@ function switch_threads_tab(tab){
 		'url':'/thread/threads',
 		'data':{'type':tab},
 		'success':function(data){
-            $('#threads-container').hide('slow', function(){
+           /* $('#threads-container').animate({
+                //left:'250px',
+                opacity:'0',
+                height:'10px',
+                //width:'150px'
+            });*/
+            $('#threads-container').slideUp('slow', function(){
                 $('#threads-container').html(data);
                 $('#threads-container').slideDown('slow');
             });

@@ -1,20 +1,26 @@
 #threads-container{
 	padding-top: 10px;
+	display: inline-block;
 }
 .thread-summary{
 	width: 100%;
 	border-bottom: 1px solid #BBB;
-	margin-top: 10px;
+	margin-top: 7px;
 }
 .thread-summary a{
 	text-decoration: none;
 }
 .summary{
 	width: 100%;
+	padding-bottom: 7px;
 }
-.thread-stat-replies, .thread-stat-votes, .thread-stat-views{
+.thread-stat-replies, .thread-stat-votes{
 	text-align: center;
 	min-width: 70px;
+}
+.thread-stat-views, .thread-date{
+	text-align: center;
+	min-width: 80px;
 }
 .thread-title a{
 	font-size: 18px;
