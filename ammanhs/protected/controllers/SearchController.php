@@ -55,7 +55,7 @@ class SearchController extends Controller
         $q=urldecode($q);
 
         $time=microtime();
-        $results=Thread::model()->with(array('user'))->findAll(array('condition'=>"title LIKE '%{$q}%' OR tags LIKE '%{$q}%' OR content LIKE '%{$q}%'"));
+        $results=Thread::model()->with(array('user'))->findAll(array('condition'=>"title LIKE '%{:q}%' OR tags LIKE '%{:q}%' OR content LIKE '%{:q}%'"), array(':q'=>$q));
         $num_of_results=COUNT($results);
         //$results = Search::find($q, $sort, $page, $results_per_page);
         $time=microtime()-$time;
