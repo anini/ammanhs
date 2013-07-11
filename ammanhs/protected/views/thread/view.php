@@ -122,7 +122,7 @@ $this->menu=array(
 				)); ?>
 				<?php echo $form->errorSummary($thread_reply); ?>
 
-				<div style="float: left;">
+				<div id="add-thread-reply-button">
 					<button class="btn" type="submit"><?php echo Yii::t('core', 'Add your reply'); ?></button>
 				</div>
 				<?php echo $form->markdownEditor($thread_reply, 'content', array('placeholder'=>Yii::t('core' ,'Have something to say?!'), 'style'=>'height: 150px;'));?>

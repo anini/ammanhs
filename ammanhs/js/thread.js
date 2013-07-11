@@ -36,8 +36,9 @@ function add_thread_reply(form_id){
         open_login_modal('add_thread_reply', form_id);
         return false;
     }
-	f = $('#'+form_id);
-	$('.yw0').attr('disabled', 'disabled');
+	f=$('#'+form_id);
+	$('#add-thread-reply-button button').attr('disabled', 'disabled');
+    $('#add-thread-reply-button').addClass('loading');
 	$.ajax({
 		'type':'post',
 		'url':f.attr('action'),
@@ -47,6 +48,8 @@ function add_thread_reply(form_id){
 			$('#thread-replies').append(data);
 			$('#ThreadReply_content').val('');
 			$('#wmd-preview').html('');
+            $('#add-thread-reply-button').removeClass('loading');
+            $('#add-thread-reply-button button').removeAttr("disabled");
 		}
 	});
 	return false;
@@ -62,12 +65,6 @@ function switch_threads_tab(tab){
 		'url':'/thread/threads',
 		'data':{'type':tab},
 		'success':function(data){
-           /* $('#threads-container').animate({
-                //left:'250px',
-                opacity:'0',
-                height:'10px',
-                //width:'150px'
-            });*/
             $('#threads-container').slideUp('slow', function(){
                 $('#threads-container').html(data);
                 $('#threads-container').slideDown('slow');

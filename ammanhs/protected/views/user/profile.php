@@ -51,7 +51,7 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 					
 					<?php echo $form->error($model,'first_name'); ?>
 					<?php echo $form->error($model,'last_name'); ?>
-					<a class="btn pull-left" onclick="open_change_password_modal(); return false;"><icon class="octicons octicon-edit">&nbsp</icon><?php echo Yii::t('core', 'Change Password'); ?></a>
+					<a class="btn pull-left" onclick="return open_change_password_modal();"><icon class="octicons octicon-edit">&nbsp</icon><?php echo Yii::t('core', 'Change Password'); ?></a>
 				</div>
 				<div class="control-group">
 					<?php echo $form->textField($model,'email', array('class'=>'span3 english-field', 'placeholder'=>Yii::t('core', 'Email'))); ?>
