@@ -1,2 +1,6 @@
 .DS_Store
 .Trashes
+dump.rdb
+*.sublime-workspace
+*.sublime-project
+
