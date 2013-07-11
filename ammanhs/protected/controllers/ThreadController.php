@@ -68,7 +68,7 @@ class ThreadController extends Controller
 		if(!Yii::app()->user->isGuest){
 			$is_guest=false;
 			$with.=', replies.my_up_vote, replies.my_down_vote';
-			$thread_vote=ThreadVote::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
+			$thread_vote=ThreadVote::model()->findByAttributes(array('user_id'=>Yii::app()->user->id, 'thread_id'=>$id));
 			if($thread_vote){
 				if($thread_vote->vote_type==Constants::VOTE_UP) $thread_voted='up';
 				else $thread_voted='down';
