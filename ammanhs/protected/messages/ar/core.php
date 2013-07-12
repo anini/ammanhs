@@ -18,6 +18,7 @@ return array(
 	'Settings'=>'الإعدادات',
 	'Logout'=>'تسجيل الخروج',
 	'Sponsers'=>'الرعاة',
+	'E-Store'=>'المتجر الإلكتروني',
 
 	//Validators
 	'{attribute} is not a valid email address.'=>'{attribute} ليس بريد إلكتروني صحيح.',

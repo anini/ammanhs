@@ -13,6 +13,10 @@
 		<div>
 			<a onclick="open_contact_modal();"><?php echo Yii::t('core', 'Contact Us'); ?></a>
 		</div>
+		|
+		<div>
+			<a target="_blank" href="http://eshtre.com/?ref=ammanhs"><?php echo Yii::t('core', 'E-Store'); ?></a>
+		</div>
 
 		<div id="follow-us-footer">
 		    <div class="ge-ss social-buttons-title"><?php echo Yii::t('core', 'Follow us:'); ?></div>
@@ -24,7 +28,7 @@
 		</div>
 	</div>
 	<div id="sponsers">
-		<a id="sponser-eshtre" target="_blank" href="http://eshtre.com/"></a>
+		<a id="sponser-eshtre" target="_blank" href="http://eshtre.com/?ref=ammanhs"></a>
 		<a id="sponser-jubilee" target="_blank" href="http://www.jubilee.edu.jo/"></a>
 		<a id="sponser-sparkfun" target="_blank" href="http://www.sparkfun.com/"></a>
 	</div>
