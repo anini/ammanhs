@@ -62,6 +62,7 @@ return CMap::mergeArray(
 			'showScriptName'=>false,
 			'rules'=>array(
 				''=>'site/index',
+				'/sitemap.xml'=>'site/sitemap',
 				'contact'=>'site/contact',
 				'about'=>'site/about',
 				'login'=>'user/login',

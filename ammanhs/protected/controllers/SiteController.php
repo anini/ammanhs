@@ -56,7 +56,7 @@ class SiteController extends Controller
 	{
 	    if($error=Yii::app()->errorHandler->error)
 	    {
-	    	if(Yii::app()->request->isAjaxRequest)
+	    	if(!Yii::app()->request->isAjaxRequest)
 	    		echo $error['message'];
 	    	else
 	        	$this->render('404', $error);
@@ -102,4 +102,67 @@ class SiteController extends Controller
 		}
 		$this->render('contact',array('model'=>$model));
 	}
+
+	public function actionSitemap()
+	{
+		header('Content-Type: application/xml');
+		$urls=array();
+		if($this->beginCache('ammanhs', array("duration"=>(3600*12)))){
+			$urls[]=$this->createAbsoluteUrl('site/threadsSitemap');
+			$urls[]=$this->createAbsoluteUrl('site/usersSitemap');
+			$this->renderPartial('sitemap',array('urls'=>$urls));
+			$this->endCache();
+		}
+	}
+
+	public function actionThreadsSitemap(){
+		header('Content-Type: application/xml');
+		if($this->beginCache('threads', array("duration"=>(300*12)))){
+			echo
+			'<?xml version="1.0" encoding="UTF-8"?>
+				<urlset
+					xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+					xmlns:xhtml="http://www.w3.org/1999/xhtml"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+					>';
+			// REVIEW: NOTE: might need a limit and loop to avoid out of memory
+			$c_threads=new CDbCriteria();
+			$c_threads->select='id';
+			//$c_threads->condition="publish_status > 0";
+			$threads=Thread::model()->findAll($c_threads);
+			foreach($threads as $thread){
+				$url=$this->createAbsoluteUrl('thread/view', array('id'=>$thread->id));
+				$this->renderPartial('_sitemap', array('url'=>$url));
+			}
+			echo '</urlset>';
+			$this->endCache();
+		}
+	}
+
+	public function actionUsersSitemap(){
+		header('Content-Type: application/xml');
+		if($this->beginCache('users', array("duration"=>(300*12)))){
+			echo
+			'<?xml version="1.0" encoding="UTF-8"?>
+				<urlset
+					xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+					xmlns:xhtml="http://www.w3.org/1999/xhtml"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+					>';
+			// REVIEW: NOTE: might need a limit and loop to avoid out of memory
+			$c_users=new CDbCriteria();
+			$c_users->select='id';
+			//$c_users->condition="active > 0";
+			$users=User::model()->findAll($c_users);
+			foreach($users as $user){
+				$url=$this->createAbsoluteUrl('user/view', array('id'=>$user->id));
+				$this->renderPartial('_sitemap', array('url'=>$url));
+			}
+			echo '</urlset>';
+			$this->endCache();
+		}
+	}
+
 }
