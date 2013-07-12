@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle=Yii::t('core', 'Amman Hackerspace').' - '.$model->name;
 $this->breadcrumbs=array(
 	$model->name,
 );

@@ -1,6 +1,7 @@
 <?php
+$this->pageTitle=Yii::t('core', 'Amman Hackerspace').' - '.Yii::t('core', 'Search results fot :q', array(':q'=>$_GET['q']));
 $this->breadcrumbs=array(
-	'Search',
+	Yii::t('core','Search'),
 );?>
 <div class="row">
 	<div class="span9">

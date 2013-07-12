@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle=Yii::t('core', 'Amman Hackerspace').' - '.Yii::t('core', 'Settings');
 $this->breadcrumbs=array(
 	Yii::t('core', 'Profile')=>array($this->createUrl('user/view', array('id'=>Yii::app()->user->id))),
 	Yii::t('core', 'Settings'),

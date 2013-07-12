@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle=Yii::app()->name.' - '.Yii::t('core', 'About');
+$this->pageTitle=Yii::t('core', 'Amman Hackerspace').' - '.Yii::t('core', 'About');
 $this->breadcrumbs=array(
 	Yii::t('core', 'About'),
 );

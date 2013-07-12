@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle=Yii::t('core', 'Amman Hackerspace').' - '.Yii::t('core', 'Adding New Thread');
 $this->breadcrumbs=array(
 	Yii::t('core', 'Threads')=>array('index'),
 	Yii::t('core', 'Adding New Thread'),

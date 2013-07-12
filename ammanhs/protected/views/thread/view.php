@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = $model->title;
+$this->pageTitle=Yii::t('core', 'Amman Hackerspace').' - '.$model->title;
 $this->breadcrumbs=array(
 	Yii::t('core','Threads')=>array('index'),
 	$model->title,

@@ -1,7 +1,7 @@
 <?php
 /* @var $this SiteController */
 $this->pageTitle=Yii::app()->name;
-$cs = Yii::app()->clientScript;
+$cs=Yii::app()->clientScript;
 $cs->registerCSSFile("/css/home.css");
 ?>
 

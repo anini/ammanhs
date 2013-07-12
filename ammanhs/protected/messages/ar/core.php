@@ -159,6 +159,7 @@ return array(
 	'Follow us:'=>'تابعنا:',
 
 	//Search
+	'Search results fot :q'=>'نتائج البحث عن ":q"',
 	'There\'s no results for the query ":q"!'=>'نأسف! لا يوجد نتائج لبحثك ":q"...',
 	'What about asking about ":q" throguh a thread?'=>'يمكنك السؤال عن ":q" من خلال طرح موضوع جديد:',
 
