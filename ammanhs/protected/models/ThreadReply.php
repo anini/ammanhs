@@ -65,8 +65,8 @@ class ThreadReply extends CActiveRecord
 		return array(
 			'thread'=>array(self::BELONGS_TO, 'Thread', 'thread_id'),
 			'user'=>array(self::BELONGS_TO, 'User', 'user_id'),
-			'my_up_vote'=>array(self::HAS_ONE, 'ThreadReplyVote', 'thread_reply_id', 'alias'=> 'vote', 'on'=>'vote.vote_type='.Constants::VOTE_UP.' AND vote.user_id='.Yii::app()->user->id),
-			'my_down_vote'=>array(self::HAS_ONE, 'ThreadReplyVote', 'thread_reply_id', 'alias'=> 'vote', 'on'=>'vote.vote_type='.Constants::VOTE_DOWN.' AND vote.user_id='.Yii::app()->user->id),
+			'my_up_vote'=>array(self::HAS_ONE, 'ThreadReplyVote', 'thread_reply_id', 'alias'=> 'vote_up', 'on'=>'vote_up.vote_type='.Constants::VOTE_UP.' AND vote_up.user_id='.Yii::app()->user->id),
+			'my_down_vote'=>array(self::HAS_ONE, 'ThreadReplyVote', 'thread_reply_id', 'alias'=> 'vote_down', 'on'=>'vote_down.vote_type='.Constants::VOTE_DOWN.' AND vote_down.user_id='.Yii::app()->user->id),
 		);
 	}
 

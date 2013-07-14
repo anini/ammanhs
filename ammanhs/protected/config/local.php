@@ -13,4 +13,7 @@ return array(
 			'enableProfiling'=>true,
 		),
 	),
+'params'=>array(
+		'static_host'=>'local.ammanhs.com',
+	),
 );

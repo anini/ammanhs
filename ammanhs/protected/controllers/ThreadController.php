@@ -52,10 +52,11 @@ class ThreadController extends Controller
 	{
 		$is_guest=true;
 		$thread_voted=false;
-		$with='replies';
-		if(!Yii::app()->user->isGuest){
+		if(Yii::app()->user->isGuest){
+			$model=Thread::model()->with('replies')->findByPk($id);
+		}else{
+			$model=Thread::model()->with('replies', 'replies.my_up_vote', 'replies.my_down_vote')->findByPk($id);
 			$is_guest=false;
-			$with.=', replies.my_up_vote, replies.my_down_vote';
 			$thread_vote=ThreadVote::model()->findByAttributes(array('user_id'=>Yii::app()->user->id, 'thread_id'=>$id));
 			if($thread_vote){
 				if($thread_vote->vote_type==Constants::VOTE_UP) $thread_voted='up';
@@ -63,9 +64,7 @@ class ThreadController extends Controller
 			}
 		}
 
-		$model=Thread::model()->with($with)->findByPk($id);
-
-		if($model->publish_status<Constants::PUBLISH_STATUS_DRAFT){
+		if(!$model || $model->publish_status<Constants::PUBLISH_STATUS_DRAFT){
 			Yii::app()->user->setFlash('flash', array(
                     'status'=>'error',
                     'message'=>Yii::t('core', 'Sorry! This is thread is no longer available.')
