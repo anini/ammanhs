@@ -129,7 +129,7 @@ class SiteController extends Controller
 			// REVIEW: NOTE: might need a limit and loop to avoid out of memory
 			$c_threads=new CDbCriteria();
 			$c_threads->select='id';
-			//$c_threads->condition="publish_status > 0";
+			$c_threads->condition='publish_status>='.Constants::PUBLISH_STATUS_DRAFT;
 			$threads=Thread::model()->findAll($c_threads);
 			foreach($threads as $thread){
 				$url=$this->createAbsoluteUrl('thread/view', array('id'=>$thread->id));
