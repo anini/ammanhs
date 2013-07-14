@@ -2,6 +2,57 @@
 
 class Constants {
 
+          //--*--//--*--//--*--//--*--//--*--//
+         //--*--//--*--//--*--//--*--//--*--//
+        //--*--//  Publish Statuses //--*--//
+       //--*--//--*--//--*--//--*--//--*--//
+      //   common across various data    //
+     //   nodes: threads, replies ...   //
+    //--*--//--*--//--*--//--*--//--*--//
+
+    const PUBLISH_STATUS_UNPUBLISHED=-10;
+    const PUBLISH_STATUS_DRAFT=0;
+    const PUBLISH_STATUS_PUBLISHED=10;
+
+    private static $_publish_statuses=array(
+        self::PUBLISH_STATUS_DRAFT=>'Draft',
+        self::PUBLISH_STATUS_PUBLISHED=>'Published',
+        self::PUBLISH_STATUS_UNPUBLISHED=>'Unpublished',
+    );
+
+    public static function publishStatuses(){
+        return self::$_publish_statuses;
+    }
+
+    public static function publishStatus($id){
+        if (isset(self::$_publish_statuses[$id]))
+            return self::$_publish_statuses[$id];
+        return '';
+    }
+
+
+        //--*--//--*--//--*--//--*--//--*--//
+       //--*--//--*--//--*--//--*--//--*--//
+      //--*--//     User Types    //--*--//
+     //--*--//--*--//--*--//--*--//--*--//
+    //--*--//--*--//--*--//--*--//--*--//
+
+    const USER_TYPE_USER='User';
+    const USER_TYPE_MEMBER='Member';
+    const USER_TYPE_HACKER='Hacker';
+    const USER_TYPE_ADMIN='Admin';
+
+    private static $_user_types=array(
+        self::USER_TYPE_USER,
+        self::USER_TYPE_MEMBER,
+        self::USER_TYPE_HACKER,
+        self::USER_TYPE_ADMIN
+    );
+
+    public static function userTypes(){
+        return self::$_user_types;
+    }
+
         //--*--//--*--//--*--//--*--//--*--//
        //--*--//--*--//--*--//--*--//--*--//
       //--*--//     Vote Types    //--*--//
@@ -38,7 +89,7 @@ class Constants {
         self::MEMBERSHIP_TYPE_PREMIUM
     );
 
-    public static function membershipTypes() {
+    public static function membershipTypes(){
         return self::$_membership_types;
     }
     
