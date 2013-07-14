@@ -133,6 +133,7 @@ return array(
 	'Congrates! Your membership in Amman Hackerspace has been approved!'=>'تهانينا! لقد تم قبول طلب عضويتك في فضاء المتمكنين | عمّان',
 	'Welcome to Amman Hackerspace'=>'أهلا بك في فضاء المتمكنين | عمّان',
 	'Your password has been successfuly updated.'=>'لقد تم تغيير كلمة المرور بنجاح.',
+	'Sorry! This is thread is no longer available.'=>'نأسف! إن هذا الموضوع ليس متاحاَ.',
 
 	//User Feed
 	'User Joint Amman Hackerspace'=>'انضم إلى فضاء المتمكنين | عمّان :time',

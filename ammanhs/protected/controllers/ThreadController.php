@@ -50,18 +50,6 @@ class ThreadController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model=Thread::model()->with($with)->findByPk($id);
-		if(!isset(Yii::app()->session['viewed_threads']) || !in_array($model->id, Yii::app()->session['viewed_threads'])){
-			if(!isset(Yii::app()->session['viewed_threads'])) Yii::app()->session['viewed_threads']=array();
-			$viewed_threads=Yii::app()->session['viewed_threads'];
-			$viewed_threads[]=$model->id;
-			Yii::app()->session['viewed_threads']=$viewed_threads;
-			$model->stat_views++;
-			$model->save(false);
-		}
-
-		$thread_replies=$model->replies;
-		$thread_reply=new ThreadReply;
 		$is_guest=true;
 		$thread_voted=false;
 		$with='replies';
@@ -74,6 +62,29 @@ class ThreadController extends Controller
 				else $thread_voted='down';
 			}
 		}
+
+		$model=Thread::model()->with($with)->findByPk($id);
+
+		if($model->publish_status<Constants::PUBLISH_STATUS_DRAFT){
+			Yii::app()->user->setFlash('flash', array(
+                    'status'=>'error',
+                    'message'=>Yii::t('core', 'Sorry! This is thread is no longer available.')
+                ));
+                $this->redirect(array('index'));
+		}
+
+		if(!isset(Yii::app()->session['viewed_threads']) || !in_array($model->id, Yii::app()->session['viewed_threads'])){
+			if(!isset(Yii::app()->session['viewed_threads'])) Yii::app()->session['viewed_threads']=array();
+			$viewed_threads=Yii::app()->session['viewed_threads'];
+			$viewed_threads[]=$model->id;
+			Yii::app()->session['viewed_threads']=$viewed_threads;
+			$model->stat_views++;
+			$model->save(false);
+		}
+
+		$thread_replies=$model->replies;
+		$thread_reply=new ThreadReply;
+		
 		
 		$this->render('view',array(
 			'model'=>$model,
@@ -146,12 +157,12 @@ class ThreadController extends Controller
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			// if AJAX request(triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -159,9 +170,10 @@ class ThreadController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$threads = Thread::model()->findAll(array(
-				'order'=>'created_at desc'));
-
+		$threads=Thread::model()->findAll(array(
+				'order'=>'created_at desc',
+				'condition'=>'publish_status>='.Constants::PUBLISH_STATUS_DRAFT,
+				));
 		$this->render('index',array(
 			'threads'=>$threads,
 			'type'=>'recent',
@@ -170,8 +182,10 @@ class ThreadController extends Controller
 
 	public function actionRecent()
 	{
-		$threads = Thread::model()->findAll(array(
-			'order'=>'created_at desc'));
+		$threads=Thread::model()->findAll(array(
+			'order'=>'created_at desc',
+			'condition'=>'publish_status>='.Constants::PUBLISH_STATUS_DRAFT,
+			));
 		
 		$this->render('index',array(
 			'threads'=>$threads,
@@ -181,8 +195,10 @@ class ThreadController extends Controller
 
 	public function actionTop()
 	{
-		$threads = Thread::model()->findAll(array(
-			'order'=>'stat_replies desc, stat_votes desc, stat_views desc, created_at desc'));
+		$threads=Thread::model()->findAll(array(
+			'order'=>'stat_replies desc, stat_votes desc, stat_views desc, created_at desc',
+			'condition'=>'publish_status>='.Constants::PUBLISH_STATUS_DRAFT,
+			));
 		
 		$this->render('index',array(
 			'threads'=>$threads,
@@ -192,9 +208,9 @@ class ThreadController extends Controller
 
 	public function actionMe()
 	{
-		$threads = Thread::model()->findAll(array(
+		$threads=Thread::model()->findAll(array(
 			'order'=>'created_at desc',
-			'condition'=>'user_id='.Yii::app()->user->id));
+			'condition'=>'publish_status>='.Constants::PUBLISH_STATUS_DRAFT.' AND user_id='.Yii::app()->user->id));
 		
 		$this->render('index',array(
 			'threads'=>$threads,
@@ -205,31 +221,34 @@ class ThreadController extends Controller
 
 	public function actionThreads($type){
 		//This action should only be called via Ajax
-		if (!Yii::app()->request->isAjaxRequest){
+		if(!Yii::app()->request->isAjaxRequest){
 			$this->redirect(array('/thread#me'));
-			//throw new CHttpException(404, 'Bad request.');
         }
-		switch ($type) {
+		switch($type){
 			case '1':
-				if (Yii::app()->user->isGuest){
-					Yii::app()->user->returnUrl = '/thread#me';
-					$login_form = new LoginForm;
+				if(Yii::app()->user->isGuest){
+					Yii::app()->user->returnUrl='/thread#me';
+					$login_form=new LoginForm;
 					return $this->renderPartial('//user/login', array('model'=>$login_form));
 				}
-				$threads = Thread::model()->findAll(array(
+				$threads=Thread::model()->findAll(array(
 					'order'=>'created_at desc',
-					'condition'=>'user_id='.Yii::app()->user->id));
-				$type = 'me';
+					'condition'=>'publish_status>='.Constants::PUBLISH_STATUS_DRAFT.' AND user_id='.Yii::app()->user->id));
+				$type='me';
 				break;
 			case '2':
-				$threads = Thread::model()->findAll(array(
-					'order'=>'stat_replies desc'));
-				$type = 'top';
+				$threads=Thread::model()->findAll(array(
+					'order'=>'stat_replies desc',
+					'condition'=>'publish_status>='.Constants::PUBLISH_STATUS_DRAFT,
+					));
+				$type='top';
 				break;
 			default:
-				$threads = Thread::model()->findAll(array(
-					'order'=>'created_at desc'));
-				$type = 'recent';
+				$threads=Thread::model()->findAll(array(
+					'order'=>'created_at desc',
+					'condition'=>'publish_status>='.Constants::PUBLISH_STATUS_DRAFT,
+					));
+				$type='recent';
 				break;
 		}
 		return $this->renderPartial('_threads', array('threads'=>$threads, 'type'=>$type));
@@ -237,7 +256,7 @@ class ThreadController extends Controller
 
 	public function actionVote()
 	{
-		if (empty($_POST['Vote']) || !Yii::app()->request->isAjaxRequest){
+		if(empty($_POST['Vote']) || !Yii::app()->request->isAjaxRequest){
 			throw new CHttpException(404, 'Bad request.');
         }
 
@@ -276,6 +295,7 @@ class ThreadController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->layout='main';
 		$model=new Thread('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Thread']))
