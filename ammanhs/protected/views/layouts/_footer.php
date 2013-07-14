@@ -30,7 +30,7 @@
 	<div id="sponsers">
 		<a id="sponser-eshtre" target="_blank" href="http://eshtre.com/?ref=ammanhs"></a>
 		<a id="sponser-jubilee" target="_blank" href="http://www.jubilee.edu.jo/"></a>
-		<a id="sponser-sparkfun" target="_blank" href="http://www.sparkfun.com/"></a>
+		<!--<a id="sponser-sparkfun" target="_blank" href="http://www.sparkfun.com/"></a>-->
 	</div>
 	<div id="footer-bg"></div>
 	<div class="copyrights">
