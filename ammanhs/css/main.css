@@ -222,7 +222,8 @@ form .help-inline{
     padding-top: 20px;
 }
 .loading{
-    background: url('/images/common/loading.gif') 50% 50% no-repeat !important;
+    background: url('/images/common/loading-gear.gif') 50% 50% no-repeat !important;
+    color: transparent !important;
 }
 .loading *{
     opacity: 0.2;
