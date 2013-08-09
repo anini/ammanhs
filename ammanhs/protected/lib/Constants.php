@@ -43,14 +43,38 @@ class Constants {
     const USER_TYPE_ADMIN='Admin';
 
     private static $_user_types=array(
-        self::USER_TYPE_USER,
-        self::USER_TYPE_MEMBER,
-        self::USER_TYPE_HACKER,
-        self::USER_TYPE_ADMIN
+        self::USER_TYPE_USER=>self::USER_TYPE_USER,
+        self::USER_TYPE_MEMBER=>self::USER_TYPE_MEMBER,
+        self::USER_TYPE_HACKER=>self::USER_TYPE_HACKER,
+        self::USER_TYPE_ADMIN=>self::USER_TYPE_ADMIN
     );
 
     public static function userTypes(){
         return self::$_user_types;
+    }
+
+        //--*--//--*--//--*--//--*--//--*--//
+       //--*--//--*--//--*--//--*--//--*--//
+      //--*--//    Thread Types   //--*--//
+     //--*--//--*--//--*--//--*--//--*--//
+    //--*--//--*--//--*--//--*--//--*--//
+
+    const THREAD_TYPE_QUESTION='Question';
+    const THREAD_TYPE_IDEA='Idea';
+    const THREAD_TYPE_DISCUSSION='Discussion';
+    const THREAD_TYPE_ANNOUNCEMENT='Announcement';
+    const THREAD_TYPE_ARTICLE='Article';
+
+    private static $_thread_types=array(
+        self::THREAD_TYPE_QUESTION=>self::THREAD_TYPE_QUESTION,
+        self::THREAD_TYPE_IDEA=>self::THREAD_TYPE_IDEA,
+        self::THREAD_TYPE_DISCUSSION=>self::THREAD_TYPE_DISCUSSION,
+        self::THREAD_TYPE_ANNOUNCEMENT=>self::THREAD_TYPE_ANNOUNCEMENT,
+        self::THREAD_TYPE_ARTICLE=>self::THREAD_TYPE_ARTICLE
+    );
+
+    public static function threadTypes(){
+        return self::$_thread_types;
     }
 
         //--*--//--*--//--*--//--*--//--*--//
@@ -123,6 +147,15 @@ class Constants {
             return $memberships[$status];
         return '';
     }
+
+        //--*--//--*--//--*--//--*--//--*--//
+       //--*--//--*--//--*--//--*--//--*--//
+      //--*--//       Points      //--*--//
+     //--*--//--*--//--*--//--*--//--*--//
+    //--*--//--*--//--*--//--*--//--*--//
+
+    const THREAD_ADDED_EARNED_POINTS=3;
+    const THREAD_REPLY_ADDED_EARNED_POINTS=1;
     
     //--*--//--*--//--*--//--*--//--*--//
 
