@@ -2,7 +2,7 @@
 	<tr>
 		<td class="summary">
 			<div class="<?php echo $thread->type; ?>-thread-icon"></div>
-			<div class="thread-title ge-ss-strong">
+			<div class="thread-title">
 				<a href="<?php echo Yii::app()->urlManager->createUrl('thread/view', array('id' => $thread->id)); ?>"><?php echo $thread->title; ?></a>
 			</div>
 			<div class="thread-tags"></div>

@@ -39,7 +39,7 @@ $this->menu=array(
 				    <?php } ?>
 				    <?php if($model->website){ ?>
 				    <div class="english-field">
-				    	<a href="http://<?php echo $model->website; ?>" target="_blank" title="<?php echo $model->website; ?>"><?php echo Text::teaser($model->website, 15); ?></a><span class="octicons octicon-url muted"></span>
+				    	<a href="http://<?php echo $model->website; ?>" target="_blank" title="<?php echo $model->website; ?>"><?php echo Text::teaser($model->website, 13); ?></a><span class="octicons octicon-url muted"></span>
 					</div>
 				    <?php } ?>
 				    <div>

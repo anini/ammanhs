@@ -1,5 +1,5 @@
-<div class="row-fluid ge-ss">
-	<div class="modal-header">
+<div class="row-fluid">
+	<div class="modal-header ge-ss">
 		<a class="close" data-dismiss="modal" onclick="document.location.hash='';">×</a>
 		<h4><?php echo Yii::t('core', 'Contact Us'); ?></h4> 
 	</div>

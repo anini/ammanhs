@@ -35,10 +35,10 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 					<div class="fileupload-preview thumbnail" class="span2">
 						<?php echo $model->avatar(160, 160, false); ?>
 					</div>
-					<div>
+					<div class="uploader-btns">
 						<span class="btn btn-file">
-							<span class="fileupload-new">Select image</span>
-							<span class="fileupload-exists">Change</span>
+							<span class="fileupload-new"><?php echo Yii::t('core', $model->avatar_uri?'Change the image':'Select image'); ?></span>
+							<span class="fileupload-exists"><?php echo Yii::t('core', 'Change the image'); ?></span>
 							<input name="User[avatar_uri]" id="User_avatar_uri" type="file"/>
 						</span>
 						<span class="help-inline error" id="User_avatar_uri_em_" style="display: none"></span>

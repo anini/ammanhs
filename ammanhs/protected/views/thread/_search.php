@@ -1,36 +1,59 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+<hr/>
+<div class="wide form">
+
+<?php $form=$this->beginWidget('CActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
+	'htmlOptions'=>array(
+		'class'=>'form-inline',
+		)
 )); ?>
 
-	<?php echo $form->textFieldRow($model,'id',array('class'=>'span5')); ?>
-
-	<?php echo $form->textFieldRow($model,'user_id',array('class'=>'span5')); ?>
-
-	<?php echo $form->textFieldRow($model,'type',array('class'=>'span5','maxlength'=>12)); ?>
-
-	<?php echo $form->textFieldRow($model,'status',array('class'=>'span5')); ?>
-
-	<?php echo $form->textFieldRow($model,'title',array('class'=>'span5','maxlength'=>256)); ?>
-
-	<?php echo $form->textAreaRow($model,'content',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
-
-	<?php echo $form->textFieldRow($model,'tags',array('class'=>'span5','maxlength'=>128)); ?>
-
-	<?php echo $form->textFieldRow($model,'stat_replies',array('class'=>'span5')); ?>
-
-	<?php echo $form->textFieldRow($model,'stat_votes',array('class'=>'span5')); ?>
-
-	<?php echo $form->textFieldRow($model,'created_at',array('class'=>'span5')); ?>
-
-	<?php echo $form->textFieldRow($model,'updated_at',array('class'=>'span5')); ?>
-
-	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'submit',
-			'type'=>'primary',
-			'label'=>'Search',
-		)); ?>
+<div class="control-group">
+	<div class="form-inline">
+		<div class="row">
+			<div class="span3">
+				<?php echo $form->label($model,'id', array('class'=>'span1')); ?>
+				<?php echo $form->textField($model,'id', array('class'=>'span2')); ?>
+			</div>
+			<div class="span3">
+				<?php echo $form->label($model,'user_id', array('class'=>'span1')); ?>
+				<?php echo $form->textField($model,'user_id', array('class'=>'span2')); ?>
+			</div>
+			<div class="span3">
+				<?php echo $form->label($model,'publish_status', array('class'=>'span1')); ?>
+				<?php echo $form->dropDownList($model, 'publish_status', array(''=>'All')+Constants::publishStatuses(), array('class'=>'span2')); ?>
+			</div>
+			<div class="span3">
+				<?php echo $form->label($model,'created_at', array('class'=>'span1')); ?>
+				<?php echo $form->textField($model,'created_at', array('class'=>'span2')); ?>
+			</div>
+		</div>
 	</div>
+</div>
+<div class="control-group">
+	<div class="form-inline">
+		<div class="row">
+			<div class="span3">
+				<?php echo $form->label($model,'type', array('class'=>'span1')); ?>
+				<?php echo $form->dropDownList($model, 'type', array(''=>'All')+Constants::threadTypes(), array('class'=>'span2')); ?>
+			</div>
+			<div class="span3">
+				<?php echo $form->label($model,'title', array('class'=>'span1')); ?>
+				<?php echo $form->textField($model,'title', array('class'=>'span2')); ?>
+			</div>
+			<div class="span3">
+				<?php echo $form->label($model,'content', array('class'=>'span1')); ?>
+				<?php echo $form->textField($model,'content', array('class'=>'span2')); ?>
+			</div>
+			<div class="span2 offset1">
+				<?php echo CHtml::submitButton('Search', array('class'=>'span2 btn btn-primary btn-block')); ?>
+			</div>
+		</div>
+	</div>
+</div>
 
 <?php $this->endWidget(); ?>
+
+</div><!-- search-form -->
+<hr/>

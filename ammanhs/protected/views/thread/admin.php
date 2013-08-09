@@ -37,7 +37,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
+<?php $this->widget('zii.widgets.grid.CGridView',array(
 	'id'=>'thread-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -45,18 +45,18 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'user_id',
 		'type',
-		'status',
+		'publish_status',
 		'title',
 		'content',
+		'created_at',
 		/*
 		'tags',
 		'stat_replies',
 		'stat_votes',
-		'created_at',
 		'updated_at',
 		*/
 		array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 )); ?>

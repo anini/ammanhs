@@ -5,13 +5,15 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="language" content="ar" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="author" content="ammanhs.com">
+		<meta name="author" content="Amman Hackerspace">
 		<meta name="description" id="metadescription" content="مجتمع مفتوح المصدر ومركز أبحاث يوفر المكان والبيئة والأدوات المناسبة لعمل وتطبيق أي مشروع متعلق بالهندسة والإلكترونيات والروبوت."/>
 		<meta name="keywords" content="robot,روبوت,arduino,أردوينو,electronics,إلكترونيات,hacker,هاكر,hackerspace,amman,عمان,lab,مختبر,fablab,برمجة,تكنولوجيا,technology,programming">
 		<meta name="thumbnail" content="http://ammanhs.com/images/ammanhs_logo.png" />
 		<meta property="og:image" content="http://ammanhs.com/images/ammanhs_logo.png" />
 		<link rel="image_src" href="http://ammanhs.com/images/ammanhs_logo.png" />
 		<link rel="shortcut icon" href="http://ammanhs.com/ammanhs.ico" />
+		<link href="http://fonts.googleapis.com/css?family=Monda:400,700" rel="stylesheet" type="text/css" />
+		<link href="http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css" rel="stylesheet" type="text/css" />
 
 		<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 

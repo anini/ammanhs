@@ -24,7 +24,7 @@ $this->menu=array(
 ?>
 
 <div class="row" itemscope itemtype="http://schema.org/Article">
-	<div class="span2 text-center shadow-box ge-ss" style="padding: 5px 0;">
+	<div class="span2 text-center shadow-box" style="padding: 5px 0;">
 		<?php echo $model->user->avatar_a(160, 160, array('class'=>'img-rounded')); ?>
 		<h4><a href="<?php echo $model->user->profileLink(); ?>"><span itemprop="author"><?php echo $model->user->name; ?></span></a></h4>
 		<div id="user-stats">
@@ -45,7 +45,7 @@ $this->menu=array(
 			<div class="span7 shadow-box">
 				<div class="row">
 					<div class="span5 ">
-						<h4 style="margin-right: 10px;" itemprop="name" class="ge-ss"><?php echo $model->title; ?></h4>
+						<h4 style="margin-right: 10px;" itemprop="name"><?php echo $model->title; ?></h4>
 					</div>
 					<div class="span2 text-left">
 						<h4 class="muted" itemprop="dateCreated" style="margin-left: 10px;"><?php echo date('Y-m-d', $model->created_at); ?></h4>

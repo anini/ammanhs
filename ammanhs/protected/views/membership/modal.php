@@ -1,5 +1,5 @@
-<div class="row-fluid ge-ss">
-	<div class="modal-header">  
+<div class="row-fluid">
+	<div class="modal-header ge-ss">  
 		<a class="close" data-dismiss="modal">×</a>
 		<h4><?php echo ($model->scenario=='create')?Yii::t('core', 'Create Membership'):Yii::t('core', 'Edit Membership'); ?></h4> 
 	</div>

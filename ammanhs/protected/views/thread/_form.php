@@ -13,7 +13,7 @@ $form=$this->beginWidget('CActiveForm',array(
 )); ?>
 
 <div class="control-group">
-	<?php echo $form->labelEx($model,'title', array('class'=>'ge-ss')); ?>
+	<?php echo $form->labelEx($model,'title'); ?>
 	<?php echo $form->textField($model,'title',array('class'=>'span5','maxlength'=>256)); ?>
 	<?php echo $form->error($model,'title', array('class'=>'help-inline error ge-ss')); ?>
 </div>
@@ -21,7 +21,7 @@ $form=$this->beginWidget('CActiveForm',array(
 <?php //echo $form->textField($model,'type',array('class'=>'span5','maxlength'=>12)); ?>
 
 <div class="control-group">
-	<?php echo $form->labelEx($model,'content', array('class'=>'ge-ss')); ?>
+	<?php echo $form->labelEx($model,'content'); ?>
 	<?php echo $form->markdownEditor($model, 'content', array('error'=>$form->error($model,'content', array('class'=>'help-inline error ge-ss', 'style'=>'float: left; margin-top:-30px;'))));?>
 </div>
 

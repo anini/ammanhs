@@ -8,8 +8,8 @@ Yii::app()->clientScript->registerScriptFile('/js/thread.js', CClientScript::POS
 Yii::app()->clientScript->registerCSSFile('/css/thread.css');
 ?>
 
-<div id="yw0" class="ge-ss">
-    <ul id="yw1" class="nav nav-tabs">
+<div class="ge-ss">
+    <ul class="nav nav-tabs">
         <li id="me-tab" onclick="switch_threads_tab(1)">
             <a data-toggle="tab" href="#me"><?php echo Yii::t('core', 'My Threads'); ?></a>
         </li>
@@ -27,6 +27,6 @@ Yii::app()->clientScript->registerCSSFile('/css/thread.css');
     </div>
 </div>
 
-<div id="threads-container" class="ge-ss">
+<div id="threads-container">
     <?php $this->renderPartial('_threads', array('threads'=>$threads, 'type'=>$type)); ?>
 </div>

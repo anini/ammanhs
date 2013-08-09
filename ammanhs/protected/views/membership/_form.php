@@ -13,13 +13,13 @@
 )); ?>
 
 	<div class="control-group">
-		<?php echo $form->labelEx($user,'mobile', array('class'=>'ge-ss')); ?>
+		<?php echo $form->labelEx($user,'mobile'); ?>
 		<?php echo $form->textField($user,'mobile',array('class'=>'english-field','maxlength'=>256, 'class'=>'span12')); ?>
 		<?php echo $form->error($user,'mobile', array('class'=>'help-inline error ge-ss')); ?>
 	</div>
 
 	<div class="control-group">
-		<?php echo $form->labelEx($model,'type', array('class'=>'ge-ss')); ?>
+		<?php echo $form->labelEx($model,'type'); ?>
 		<?php echo CHtml::hiddenField('Membership[type]', $model->type, array('id'=>'membership-type')); ?>
 		<div class="btn-group span12" data-toggle="buttons-radio" style="margin-right: 0;">
 			<button type="button" style="width: 30%;" onclick="switch_privileges('free'); $('#membership-type').val('Free');" class="btn <?php if($model->type=='Free') echo 'active'; ?>"><?php echo Yii::t('core', 'Free'); ?></button>
@@ -30,13 +30,13 @@
 	</div>
 
 	<div class="control-group">
-		<?php echo $form->labelEx($model,'organization', array('class'=>'ge-ss')); ?>
+		<?php echo $form->labelEx($model,'organization'); ?>
 		<?php echo $form->textField($model,'organization',array('size'=>60,'maxlength'=>256, 'class'=>'span12')); ?>
 		<?php echo $form->error($model,'organization', array('class'=>'help-inline error ge-ss')); ?>
 	</div>
 
 	<div class="control-group">
-		<?php echo $form->labelEx($model,'title', array('class'=>'ge-ss')); ?>
+		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array('maxlength'=>256, 'class'=>'span12')); ?>
 		<?php echo $form->error($model,'title', array('class'=>'help-inline error ge-ss')); ?>
 	</div>
