@@ -3,7 +3,7 @@ $this->pageTitle=Yii::t('core', 'Amman Hackerspace').' - '.$model->name;
 $this->breadcrumbs=array(
 	$model->name,
 );
-Yii::app()->clientScript->registerCSSFile('/css/user.css');
+Yii::app()->clientScript->registerCSSFile('/css/user.css?v=3.1');
 $this->menu=array(
 	array('label'=>'List User','url'=>array('index')),
 	array('label'=>'Create User','url'=>array('create')),

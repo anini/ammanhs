@@ -4,7 +4,7 @@ $this->breadcrumbs=array(
 	Yii::t('core', 'Memberships'),
 );
 Yii::app()->clientScript->registerScriptFile('/js/membership.js', CClientScript::POS_END);
-Yii::app()->clientScript->registerCSSFile('/css/membership.css');
+Yii::app()->clientScript->registerCSSFile('/css/membership.css?v=3.1');
 
 if(!Yii::app()->user->isGuest && $membership=Yii::app()->user->model->membership){
 	$this->renderPartial('_view', array('model'=>$membership, 'user'=>$membership->user));
