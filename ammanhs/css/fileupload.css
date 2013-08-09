@@ -54,6 +54,9 @@
 .fileupload {
   margin-bottom: 9px;
 }
+.fileupload .uploader-btns{
+  text-align: center;
+}
 .fileupload .uneditable-input {
   display: inline-block;
   margin-bottom: 0px;
