@@ -1,7 +1,7 @@
 <?php
 return array(
 	'Amman Hackerspace'=>'فضاء المتمكنين | عمّان',
-	'slogan'=>'بوابة المعرفة العربية',
+	'slogan'=>'مختبر ومركز أبحاث ومجتمع مفتوح المصدر',
 	'Copy Rights - Arabic'=>'جميع حقوق النسخ والطبع والتوزيع ممنوحة ضمن شروط رخصة التشارك الإبداعي مع ذِكرِ المصدر',
 	'Copy Rights - English'=>'All rights granted under the terms of Creative Commons License',
 	
@@ -105,6 +105,8 @@ return array(
 	'Stat Threads'=>'المواضيع',
 	'Stat Replies'=>'الردود',
 	'Member since :time'=>'<span class="muted">عضو منذ</span> :time',
+	'Select image'=>'اختر صورة',
+	'Change the image'=>'غير الصورة',
 
 	//Change Password
 	'Change Password'=>'تغيير كلمة المرور',
@@ -122,7 +124,7 @@ return array(
 	'Subject'=>'الموضوع',
 	'Body'=>'نص الرسالة',
 	'Verification Code'=>'رمز التحقق',
-	'Please enter the letters shown in the image above.'=>'قم بإخال الحروف الظاهرة في الصورة',
+	'Please enter the letters shown in the image above.'=>'قم بإدخال الحروف الظاهرة في الصورة',
 	'Get a new code'=>'غيّر رمز التحقق',
 
 	//Messages
@@ -136,7 +138,7 @@ return array(
 	'Sorry! This is thread is no longer available.'=>'نأسف! إن هذا الموضوع ليس متاحاَ.',
 
 	//User Feed
-	'User Joint Amman Hackerspace'=>'انضم إلى فضاء المتمكنين | عمّان :time',
+	'User Joint Amman Hackerspace'=>'انضم إلى <span class="ge-ss">فضاء المتمكنين | عمّان</span> :time',
 
 
 	'Join Amman Hackerspace'=>'انضم إلى فضاء المتمكنين | عمّان',
