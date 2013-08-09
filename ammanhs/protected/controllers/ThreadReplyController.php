@@ -178,6 +178,7 @@ class ThreadReplyController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->layout='main';
 		$model=new ThreadReply('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ThreadReply']))
