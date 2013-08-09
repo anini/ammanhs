@@ -224,7 +224,7 @@ textarea {
 
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Droid Arabic Naskh', 'Monda', sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: #333333;
@@ -1069,7 +1069,7 @@ input,
 button,
 select,
 textarea {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Droid Arabic Naskh', 'Monda', sans-serif;
 }
 
 label {
@@ -1243,16 +1243,19 @@ input[type="checkbox"]:focus {
 input:-moz-placeholder,
 textarea:-moz-placeholder {
   color: #999999;
+  line-height: 28px;
 }
 
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
   color: #999999;
+  line-height: 28px;
 }
 
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   color: #999999;
+  line-height: 28px;
 }
 
 .radio,
@@ -3931,7 +3934,7 @@ input[type="submit"].btn.btn-mini {
 .navbar-search .search-query {
   padding: 4px 14px;
   margin-bottom: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Droid Arabic Naskh', 'Monda', sans-serif;
   font-size: 13px;
   font-weight: normal;
   line-height: 1;
