@@ -133,8 +133,8 @@ class ThreadReply extends CActiveRecord
 	{
 		parent::afterSave();
 		if($this->isNewRecord){
-			UserLog::addActivity('Add', $this, 1);
-			$this->user->stat_points++;
+			UserLog::addActivity('Add', $this, Constants::THREAD_REPLY_ADDED_EARNED_POINTS);
+			$this->user->stat_points+=Constants::THREAD_REPLY_ADDED_EARNED_POINTS;
 			$this->user->stat_replies++;
 			$this->user->save();
 		}
@@ -143,10 +143,22 @@ class ThreadReply extends CActiveRecord
 	}
 
 	public function updateStatVotes(){
-		$positive_votes = COUNT(ThreadReplyVote::model()->findAllByAttributes(array('thread_reply_id'=>$this->id, 'vote_type'=>1)));
-		$negative_votes = COUNT(ThreadReplyVote::model()->findAllByAttributes(array('thread_reply_id'=>$this->id, 'vote_type'=>-1)));
-		$this->stat_votes = (int)($positive_votes - $negative_votes);
+		$positive_votes=COUNT(ThreadReplyVote::model()->findAllByAttributes(array('thread_reply_id'=>$this->id, 'vote_type'=>1)));
+		$negative_votes=COUNT(ThreadReplyVote::model()->findAllByAttributes(array('thread_reply_id'=>$this->id, 'vote_type'=>-1)));
+		$this->stat_votes=(int)($positive_votes-$negative_votes);
 		return $this->save();
+	}
+
+	/**
+	* Overriding delete() function, we actually replacing delete with unpublish
+	* we don't delete any data!
+	*/
+	public function delete(){
+		$this->publish_status=Constants::PUBLISH_STATUS_UNPUBLISHED;
+		if(!$this->save()){
+			throw new CHttpException(500, 'Couldn\'t unpublish the thread.');
+		}
+		UserLog::removeActivity('Add', $this, $this->user);
 	}
 
 	public function getLink($absolute=false){

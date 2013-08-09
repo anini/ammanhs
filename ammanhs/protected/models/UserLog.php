@@ -116,9 +116,10 @@ class UserLog extends CActiveRecord
 		));
 	}
 
-	protected function beforeValidate() {
+	protected function beforeValidate()
+	{
 		if(!$this->user_id){
-        	$this->user_id = Yii::app()->user->id;
+        	$this->user_id=Yii::app()->user->id;
         }
         return true;
     }
@@ -126,31 +127,31 @@ class UserLog extends CActiveRecord
 	public function beforeSave()
 	{
 		if(!$this->created_at){
-			$this->created_at = time();
+			$this->created_at=time();
         }
         return parent::beforeSave();
 	}
 
 	public static function addActivity($action, $object=null, $points_earned=0){
-		$thread_id = null;
-		$thread_reply_id = null;
-		$thread_id = null;
-		$targeted_user_id = null;
-		$uri = '';
+		$thread_id=null;
+		$thread_reply_id=null;
+		$thread_id=null;
+		$targeted_user_id=null;
+		$uri='';
 
-		$object_class = get_class($object);
+		$object_class=get_class($object);
 		switch($object_class){
 			case 'Thread':
-				$thread_id = $object->id;
-				$uri = $object->link;
+				$thread_id=$object->id;
+				$uri=$object->link;
 				break;
 			case 'ThreadReply':
-				$thread_reply_id = $object->id;
-				$uri = $object->link;
+				$thread_reply_id=$object->id;
+				$uri=$object->link;
 				break;
 			case 'User':
 				if($action!='Join')
-					$targeted_user_id = $object->id;
+					$targeted_user_id=$object->id;
 				$uri=$object->profileLink();
 				break;
 		}
@@ -173,12 +174,24 @@ class UserLog extends CActiveRecord
 		return true;
 	}
 
-	public static function removeActivity($action, $object_class, $object_id, $user_id){
+	public static function removeActivity($action, $object, $user){
+		$object_class=get_class($object);
+		$object_id=$object->id;
+		$user_id=$user->id;
+		$minus_points=0;
 		switch($object_class){
 			case 'Thread':
+				if($action=='Add'){
+					$minus_points=Constants::THREAD_ADDED_EARNED_POINTS;
+					$user->stat_threads--;
+				}
 				$condition="thread_id={$object_id}";
 				break;
 			case 'ThreadReply':
+				if($action=='Add'){
+					$minus_points=Constants::THREAD_REPLY_ADDED_EARNED_POINTS;
+					$user->stat_replies--;
+				}
 				$condition="thread_reply_id={$object_id}";
 				break;
 			case 'User':
@@ -189,6 +202,10 @@ class UserLog extends CActiveRecord
 		if(!$condition) return false;
 		$condition.=" AND user_id={$user_id} AND action=\"{$action}\"";
 		$deleted=self::model()->deleteAll($condition);
+		if($minus_points){
+			$user->stat_points-=$minus_points;
+			$user->save(false);
+		}
 		return true;
 	}
 

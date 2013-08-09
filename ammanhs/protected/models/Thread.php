@@ -70,8 +70,8 @@ class Thread extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-			'replies' => array(self::HAS_MANY, 'ThreadReply', 'thread_id'),
+			'user'=>array(self::BELONGS_TO, 'User', 'user_id'),
+			'replies'=>array(self::HAS_MANY, 'ThreadReply', 'thread_id', 'alias'=> 'reply', 'on'=>'reply.publish_status>='.Constants::PUBLISH_STATUS_DRAFT),
 		);
 	}
 
@@ -81,17 +81,18 @@ class Thread extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'user_id' => 'User',
-			'type' => 'Type',
-			'title' => Yii::t('core', 'Title'),
-			'content' => Yii::t('core', 'Content'),
-			'tags' => Yii::t('core', 'Tags'),
-			'stat_replies' => 'Stat Replies',
-			'stat_votes' => 'Stat Votes',
-			'stat_votes' => 'Stat Views',
-			'created_at' => 'Created At',
-			'updated_at' => 'Updated At',
+			'id'=>'ID',
+			'user_id'=>'User',
+			'type'=>'Type',
+			'title'=>Yii::t('core', 'Title'),
+			'content'=>Yii::t('core', 'Content'),
+			'tags'=>Yii::t('core', 'Tags'),
+			'stat_replies'=>'Stat Replies',
+			'stat_votes'=>'Stat Votes',
+			'stat_votes'=>'Stat Views',
+			'created_at'=>'Created At',
+			'updated_at'=>'Updated At',
+			'publish_status'=>'Status',
 		);
 	}
 
@@ -115,6 +116,7 @@ class Thread extends CActiveRecord
 		$criteria->compare('stat_replies',$this->stat_replies);
 		$criteria->compare('stat_votes',$this->stat_votes);
 		$criteria->compare('stat_views',$this->stat_views);
+		$criteria->compare('publish_status',$this->publish_status);
 		$criteria->compare('created_at',$this->created_at);
 		$criteria->compare('updated_at',$this->updated_at);
 
@@ -144,23 +146,35 @@ class Thread extends CActiveRecord
 	{
 		parent::afterSave();
 		if($this->isNewRecord){
-			UserLog::addActivity('Add', $this, 3);
-			$this->user->stat_points+=3;
+			UserLog::addActivity('Add', $this, Constants::THREAD_ADDED_EARNED_POINTS);
+			$this->user->stat_points+=Constants::THREAD_ADDED_EARNED_POINTS;
 			$this->user->stat_threads++;
 			$this->user->save(false);
 		}
 	}
 
 	public function updateStatVotes(){
-		$positive_votes = COUNT(ThreadVote::model()->findAllByAttributes(array('thread_id'=>$this->id, 'vote_type'=>1)));
-		$negative_votes = COUNT(ThreadVote::model()->findAllByAttributes(array('thread_id'=>$this->id, 'vote_type'=>-1)));
-		$this->stat_votes = (int)($positive_votes-$negative_votes);
+		$positive_votes=COUNT(ThreadVote::model()->findAllByAttributes(array('thread_id'=>$this->id, 'vote_type'=>1)));
+		$negative_votes=COUNT(ThreadVote::model()->findAllByAttributes(array('thread_id'=>$this->id, 'vote_type'=>-1)));
+		$this->stat_votes=(int)($positive_votes-$negative_votes);
 		return $this->save();
+	}
+
+	/**
+	 * Overriding delete() function, we actually replacing delete with unpublish
+	 * we don't delete any data!
+	 */
+	public function delete(){
+		$this->publish_status=Constants::PUBLISH_STATUS_UNPUBLISHED;
+		if(!$this->save()){
+			throw new CHttpException(500, 'Couldn\'t unpublish the thread.');
+		}
+		UserLog::removeActivity('Add', $this, $this->user);
 	}
 
 	public function getLink($absolute=false){
 		if ($absolute || !(Yii::app() instanceof CWebApplication))
-			return Yii::app()->urlManager->createAbsoluteUrl('thread/view', array('id' => $this->id));
-		return Yii::app()->urlManager->createUrl('thread/view', array('id' => $this->id));
+			return Yii::app()->urlManager->createAbsoluteUrl('thread/view', array('id'=>$this->id));
+		return Yii::app()->urlManager->createUrl('thread/view', array('id'=>$this->id));
 	}
 }
