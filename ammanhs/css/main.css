@@ -1,17 +1,16 @@
 @font-face{
-	font-family: GE SS Light;
-	src: url('../fonts/GESSLight.otf');
-}
-@font-face{
 	font-family: GE SS Medium;
 	src: url('../fonts/GESSMedium.otf');
+}
+@font-face{
+    font-family: GE SS Light;
+    src: url('../fonts/GESSLight.otf');
 }
 html{
     direction: rtl;
 }
 #page{
     padding-top: 60px;
-    font-family: Arial, sans-serif;
 }
 #footer-bg{
     background: url('/images/common/robots-bg.png') repeat-x;
@@ -120,17 +119,17 @@ form .help-inline{
     transition: all 0.5s ease;
 }
 .breadcrumbs, .navbar-inner{
-    font-family: 'GE SS Medium', Arial;
+    font-family: 'GE SS Medium', 'Droid Arabic Naskh', 'Monda', sans-serif;
     font-weight: bold;
 }
 .ge-ss{
-    font-family: 'GE SS Medium', Arial;
+    font-family: 'GE SS Medium', 'Droid Arabic Naskh', 'Monda', sans-serif;
     font-weight: bold;
     text-decoration: none !important;
     font-style: normal;
 }
-.ge-ss-light, .btn{
-    font-family: 'GE SS Light', Arial;
+.btn{
+    font-family: 'GE SS Light', 'Droid Arabic Naskh', 'Monda', sans-serif;
     text-decoration: none !important;
     font-style: normal;
 }

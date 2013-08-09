@@ -12,15 +12,15 @@
 }
 .summary{
 	width: 100%;
-	padding-bottom: 7px;
+	padding-bottom: 5px;
 }
 .thread-stat-replies, .thread-stat-votes{
 	text-align: center;
-	min-width: 70px;
+	min-width: 60px;
 }
 .thread-stat-views, .thread-date{
 	text-align: center;
-	min-width: 80px;
+	min-width: 70px;
 }
 .thread-title a{
 	font-size: 18px;
@@ -148,6 +148,7 @@
 	font-size: 20px;
 	font-weight: bold;
 	line-height: 30px;
+	height: 25px;
 }
 .reply-content{
 	width: 100%;
@@ -192,6 +193,9 @@
 }
 .reply-user-title h5{
 	margin: 5px 10px 5px 0;
+}
+.reply-user-title .muted{
+    font-weight: normal;
 }
 .muted{
 	float: left;

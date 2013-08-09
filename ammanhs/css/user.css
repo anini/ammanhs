@@ -35,6 +35,9 @@
 #user-info .octicons{
 	margin: 0 3px;
 }
+#user-info > div > .muted{
+	font-size: 13px;
+}
 .user-stat{
 	display: inline-block;
 }
@@ -52,6 +55,7 @@
 .user-feed .muted{
 	float: left;
 	font-size: 80%;
+	font-weight: normal;
 }
 #about{
 	font-size: 12px;
