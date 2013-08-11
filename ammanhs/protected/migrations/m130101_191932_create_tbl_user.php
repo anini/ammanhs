@@ -14,7 +14,7 @@ class m130101_191932_create_tbl_user extends CDbMigration
                 'email' => 'varchar(128) NOT NULL',
                 'first_name' => 'varchar(64) NOT NULL DEFAULT ""',
                 'last_name' => 'varchar(64) NOT NULL DEFAULT ""',
-                'type' => 'enum("User","Hacker","Admin") NOT NULL DEFAULT "User"',
+                'type' => 'enum("User","Member","Hacker","Admin") NOT NULL DEFAULT "User"',
                 'gender' => 'int(11) DEFAULT NULL',
                 'about' => 'text',
                 'avatar_uri' => 'varchar(256) DEFAULT NULL',
@@ -34,6 +34,9 @@ class m130101_191932_create_tbl_user extends CDbMigration
                 'stat_votes' => 'int(11) NOT NULL DEFAULT 0',
                 'stat_points' => 'int(11) NOT NULL DEFAULT 0',
                 'stat_views' => 'int(11) NOT NULL DEFAULT 0',
+                'signup_ref' => 'varchar(256) NOT NULL DEFAULT ""',
+                'active' => 'int(11) NOT NULL DEFAULT 1',
+                'ip_address' => 'varchar(64) NOT NULL DEFAULT ""',
                 'PRIMARY KEY(`id`)'),
                 'ENGINE=InnoDB CHARSET=utf8'
             );

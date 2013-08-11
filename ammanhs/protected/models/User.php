@@ -17,7 +17,7 @@
  * @property integer $created_at
  * @property integer $last_login_at
  * @property integer $mobile
- * @property integer $website
+ * @property string $website
  * @property string $twitter_uri
  * @property string $twitter_id
  * @property string $facebook_uri
@@ -30,6 +30,9 @@
  * @property integer $stat_votes
  * @property integer $stat_points
  * @property integer $stat_views
+ * @property string $signup_ref
+ * @property integer $active
+ * @property string $ip_address
  *
  * The followings are the available model relations:
  * @property Thread[] $threads
@@ -92,7 +95,7 @@ class User extends CActiveRecord
 			array('username, email', 'unique', 'on'=>'signup, create, update'),
 			array('type', 'required', 'on'=>'create, update'),
 			array('email', 'email'),
-			array('avatar_uri, created_at, last_login_at, stat_threads, stat_replies, stat_votes, stat_points, stat_views, twitter_id, facebook_id, google_id', 'unsafe'),
+			array('avatar_uri, created_at, last_login_at, stat_threads, stat_replies, stat_votes, stat_points, stat_views, twitter_id, facebook_id, google_id, signup_ref, ip_address, active', 'unsafe'),
 			array('type', 'unsafe', 'on'=>'signup, profile'),
 			// Change Password Scenario
 			array('old_password, password, verify_password', 'required', 'on'=>'change_password'),
@@ -100,7 +103,7 @@ class User extends CActiveRecord
 			array('old_password', 'exist', 'on'=>'change_password', 'className'=>'User', 'criteria'=>array('condition'=>'id='.Yii::app()->user->id), 'attributeName'=>'password', 'message'=>(Yii::t('core','The old passowrd is incorrect!'))),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, email, first_name, last_name, type, gender, about, avatar_uri, created_at, last_login_at, website, mobile, twitter_id, facebook_id, google_id. twitter_uri, facebook_uri, google_uri, country', 'safe', 'on'=>'search'),
+			array('id, username, email, first_name, last_name, type, gender, about, avatar_uri, created_at, last_login_at, website, mobile, twitter_id, facebook_id, google_id. twitter_uri, facebook_uri, google_uri, country, signup_ref, ip_address, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -179,6 +182,9 @@ class User extends CActiveRecord
 		$criteria->compare('facebook_id',$this->facebook_uri,true);
 		$criteria->compare('google_id',$this->facebook_uri,true);
 		$criteria->compare('country',$this->country,true);
+		$criteria->compare('signup_ref',$this->country,true);
+		$criteria->compare('ip_address',$this->country,true);
+		$criteria->compare('active',$this->country,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -187,8 +193,11 @@ class User extends CActiveRecord
 
 	public function beforeSave()
 	{
-		if (!$this->created_at){
-			$this->created_at = time();
+		if(!$this->ip_address || $this->ip_address=='127.0.0.1'){
+			$this->ip_address=IPDetector::clientIP();
+		}
+		if(!$this->created_at){
+			$this->created_at=time();
         }
         return parent::beforeSave();
 	}

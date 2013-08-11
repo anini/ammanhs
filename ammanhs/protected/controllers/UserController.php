@@ -178,6 +178,10 @@ class UserController extends Controller
 		if(!Yii::app()->user->isGuest){
 			exit();
 		}
+		$ref=isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
+		if(!isset(Yii::app()->session['login_ref'])){
+			Yii::app()->session['login_ref']=$ref;
+		}
 		$data=array();
 		if(isset($_GET['callback_func']) && $_GET['callback_func']){
 			$data['callback_func']=$_GET['callback_func'];
@@ -267,11 +271,18 @@ class UserController extends Controller
 			exit();
 		}
 
+		$ref=isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
+
+		if(!isset(Yii::app()->session['login_ref']))
+			Yii::app()->session['login_ref']=$ref;
+
 		$model=new User('signup');
 
 	    if(isset($_POST['User']))
 	    {
 	        $model->attributes=$_POST['User'];
+	        $model->signup_ref=Yii::app()->session['login_ref'];
+	        unset(Yii::app()->session['login_ref']);
 	        if($_POST['User']['password'])
 	        	$model->password=md5($model->password);
 	        if($model->save())
