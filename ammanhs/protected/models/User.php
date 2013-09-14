@@ -226,7 +226,7 @@ class User extends CActiveRecord
 
 	public function avatar_a($w=false, $h=false, $img_attributes=array(), $anchor_attributes=array(), $container_style=""){
 		$default_img_attributes = array('title'=>$this->name, 'data-original-title'=>$this->name);
-		$default_anchor_attributes = array('href'=> $this->profileLink(), 'style'=>"text-decoration: none;");
+		$default_anchor_attributes = array('href'=> $this->profileLink, 'style'=>"text-decoration: none;");
 		return  '<div style="'.$container_style.'">'.
 					Img::a($this->avatar_uri, $w, $h,($this->gender==2)?'default-female.jpg':'default-male.jpg',
 						array_merge($default_img_attributes , $img_attributes),
@@ -235,7 +235,7 @@ class User extends CActiveRecord
 				'</div>';
 	}
 
-	public function profileLink($absolute=false){
+	public function getProfileLink($absolute=false){
 		if ($absolute || !(Yii::app() instanceof CWebApplication))
 			return Yii::app()->urlManager->createAbsoluteUrl('user/view', array('id' => $this->id));
 		return Yii::app()->urlManager->createUrl('user/view', array('id' => $this->id));
