@@ -12,7 +12,19 @@ return array(
 			//'schemaCachingDuration'=>3600,
 			'enableProfiling'=>true,
 		),
-	),
+		'log'=>array(
+			'class'=>'CLogRouter',
+			'routes'=>array(
+				array(
+					'class'=>'CProfileLogRoute',
+				),
+				// uncomment the following to show log messages on web pages
+				array(
+					'class'=>'CWebLogRoute',
+				),
+			),
+		),
+),
 'params'=>array(
 		'static_host'=>'local.ammanhs.com',
 	),
