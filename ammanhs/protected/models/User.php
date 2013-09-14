@@ -236,9 +236,9 @@ class User extends CActiveRecord
 	}
 
 	public function getProfileLink($absolute=false){
-		if ($absolute || !(Yii::app() instanceof CWebApplication))
-			return Yii::app()->urlManager->createAbsoluteUrl('user/view', array('id' => $this->id));
-		return Yii::app()->urlManager->createUrl('user/view', array('id' => $this->id));
+		if($absolute || !(Yii::app() instanceof CWebApplication))
+			return Yii::app()->urlManager->createAbsoluteUrl('user/view', array('id'=>$this->username));
+		return Yii::app()->urlManager->createUrl('user/view', array('id'=>$this->username));
 	}
 
 	public function getUserFeed($limit=10, $types=array('thread','thread_reply'), $actions=array('Add'), $newer_than=0, $with_join=true){

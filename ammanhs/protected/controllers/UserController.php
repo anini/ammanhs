@@ -62,7 +62,13 @@ class UserController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model=$this->loadModel($id);
+		$model=User::model()->findByAttributes(array('username'=>$id));
+		if(!$model && is_numeric(($id))){
+			$model=User::model()->findByPk($id);
+			if($model){
+				$this->redirect($model->profileLink, true, 301);
+			}
+		}
 		$user_feed=$model->getUserFeed(10, array('thread'));
 		if(Yii::app()->user->isGuest || Yii::app()->user->id!=$model->id){
 			$model->stat_views++;
