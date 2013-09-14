@@ -105,7 +105,7 @@ return array(
 	'Stat Points'=>'النقاط',
 	'Stat Threads'=>'المواضيع',
 	'Stat Replies'=>'الردود',
-	'Member since :time'=>'<span class="muted">عضو منذ</span> :time',
+	'Member since :time'=>'<span class="muted">عضو منذ</span> <span itemprop="dateCreated">:time</span>',
 	'Select image'=>'اختر صورة',
 	'Change the image'=>'غير الصورة',
 

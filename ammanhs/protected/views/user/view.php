@@ -1,15 +1,23 @@
 <?php
-$this->pageTitle=Yii::t('core', 'Amman Hackerspace').' - '.$model->name;
+$this->pageTitle=$model->name.' - '.Yii::t('core', 'Amman Hackerspace');
 $this->breadcrumbs=array(
 	$model->name,
 );
-Yii::app()->clientScript->registerCSSFile('/css/user.css?v=3.1');
+$cs=Yii::app()->clientScript;
+$cs->registerMetaTag($model->name, 'twitter:title');
+$cs->registerMetaTag($model->name , 'og:title');
+if($model->about){
+	$cs->registerMetaTag($model->about, 'description', null, array(), 'metadescription');
+	$cs->registerMetaTag($model->about, 'twitter:description');
+	$cs->registerMetaTag($model->about, 'og:description');
+}
+$cs->registerCSSFile('/css/user.css?v=3.1');
 $this->menu=array(
-	array('label'=>'List User','url'=>array('index')),
-	array('label'=>'Create User','url'=>array('create')),
-	array('label'=>'Update User','url'=>array('update','id'=>$model->id)),
-	array('label'=>'Delete User','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage User','url'=>array('admin')),
+	array('label'=>'List User', 'url'=>array('index')),
+	array('label'=>'Create User', 'url'=>array('create')),
+	array('label'=>'Update User', 'url'=>array('update','id'=>$model->id)),
+	array('label'=>'Delete User', 'url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage User', 'url'=>array('admin')),
 );
 ?>
 
