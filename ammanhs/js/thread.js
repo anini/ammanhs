@@ -1,5 +1,6 @@
 $(document).ready(function(){
-    hash = document.location.hash;
+    if(document.location.pathname.indexOf('/thread/')<0) return;
+    hash=document.location.hash;
     if(hash){
         switch(hash){
             case '#me':
@@ -9,26 +10,27 @@ $(document).ready(function(){
                 switch_threads_tab(2);
                 break;
         }
-    }else if(typeof type !== 'undefined'){
+    }else if(typeof type!=='undefined'){
         switch(type){
             case 'me':
                 $('.nav-tabs .active').removeClass('active');
                 $('.tab-content .active').removeClass('active');
-                document.location.hash = 'top';
+                document.location.hash='top';
                 $('#me-tab').addClass('active');
                 $('#me-tab-label').addClass('active');
                 break;
             case 'top':
                 $('.nav-tabs .active').removeClass('active');
                 $('.tab-content .active').removeClass('active');
-                document.location.hash = 'top';
+                document.location.hash='top';
                 $('#top-tab').addClass('active');
                 $('#top-tab-label').addClass('active');
                 break;
             default:
-                document.location.hash = 'recent';
+                document.location.hash='recent';
         }
     }
+    $('.thread-title-anchor').tooltip({placement: 'bottom'});
 });
 
 function add_thread_reply(form_id){
@@ -105,7 +107,7 @@ function vote(form_id){
         open_login_modal('vote', form_id);
         return false;
     }
-	form = $('#'+form_id);
+	form=$('#'+form_id);
 	$.ajax({
         dataType: 'json',
         type: 'post',
@@ -121,32 +123,32 @@ function vote(form_id){
         	//some code here
         },
         success:function(data){
-            if (data.errno == 0) {
+            if(data.errno==0){
                 if(form_id.indexOf('reply')!=-1)
-                    p = $('#reply-vote-'+$('#thread-reply-vote-id').val());
+                    p=$('#reply-vote-'+$('#thread-reply-vote-id').val());
                 else
-                    p = form.parent();
-            	stat_votes = p.find('.vote-number');
+                    p=form.parent();
+            	stat_votes=p.find('.vote-number');
             	stat_votes.html(data.stat_votes);
-            	up_arrow = p.find('.vote-up');
-            	down_arrow = p.find('.vote-down');
-            	if (data.vote_type == 1) {
+            	up_arrow=p.find('.vote-up');
+            	down_arrow=p.find('.vote-down');
+            	if (data.vote_type==1){
             		up_arrow.removeClass('vote-up-off');
             		down_arrow.removeClass('vote-down-on');
             		up_arrow.addClass('vote-up-on');
             		down_arrow.addClass('vote-down-off');
-            	} else if (data.vote_type == -1) {
+            	}else if(data.vote_type==-1){
             		down_arrow.removeClass('vote-down-off');
             		up_arrow.removeClass('vote-up-on');
             		down_arrow.addClass('vote-down-on');
             		up_arrow.addClass('vote-up-off');
-            	} else {
+            	}else{
             		down_arrow.removeClass('vote-down-on');
             		up_arrow.removeClass('vote-up-on');
             		down_arrow.addClass('vote-up-off');
             		up_arrow.addClass('vote-down-off');
             	}
-            } else {
+            }else{
             	//some code here
             }
         }

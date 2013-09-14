@@ -3,7 +3,7 @@
 		<td class="summary">
 			<div class="<?php echo $thread->type; ?>-thread-icon"></div>
 			<div class="thread-title">
-				<a href="<?php echo $thread->getLink(); ?>"><?php echo $thread->title; ?></a>
+				<a href="<?php echo $thread->getLink(); ?>" class="thread-title-anchor" data-original-title="<?php echo Text::teaser($thread->content, 100); ?>"><?php echo $thread->title; ?></a>
 			</div>
 			<div class="thread-tags"></div>
 			<div class="thread-info">

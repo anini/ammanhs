@@ -11,8 +11,8 @@ $cs->registerMetaTag($model->title , 'og:title');
 $cs->registerMetaTag(strip_tags($model->content), 'description', null, array(), 'metadescription');
 $cs->registerMetaTag(strip_tags($model->content), 'twitter:description');
 $cs->registerMetaTag(strip_tags($model->content), 'og:description');
-$cs->registerCSSFile('/css/thread.css?v=3.1');
-$cs->registerScriptFile('/js/thread.js', CClientScript::POS_END);
+$cs->registerCSSFile('/css/thread.css?v=3.2');
+$cs->registerScriptFile('/js/thread.js?v=1.1', CClientScript::POS_END);
 
 $this->menu=array(
 	array('label'=>'List Thread','url'=>array('index')),
