@@ -1,6 +1,6 @@
 <?php
-$user_link=Yii::app()->urlManager->createUrl('user/view', array('id'=>$result->user->id));
-$thread_link=Yii::app()->urlManager->createUrl('thread/view', array('id'=>$result->id));
+$user_link=$result->user->profileLink;
+$thread_link=$result->link;
 ?>
 <div class="search-result">
 	<div style="width: 10%;">

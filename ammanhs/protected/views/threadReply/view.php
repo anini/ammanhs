@@ -7,7 +7,7 @@
 		<div class="shadow-box thread-reply">
 			<div>
 				<div class="reply-user-title">
-					<h5><a href="<?php echo $model->user->profileLink(); ?>"><?php echo $model->user->name; ?></a><span class="muted"><?php echo Time::deltaInWords($model->created_at); ?></span></h5>
+					<h5><a href="<?php echo $model->user->profileLink; ?>"><?php echo $model->user->name; ?></a><span class="muted"><?php echo Time::deltaInWords($model->created_at); ?></span></h5>
 				</div>
 				<div class="reply-content"><div><?php echo $model->content; ?></div></div>
 				<div class="reply-vote" id="reply-vote-<?php echo $model->id; ?>">

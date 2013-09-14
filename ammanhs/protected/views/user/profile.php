@@ -1,7 +1,7 @@
 <?php
 $this->pageTitle=Yii::t('core', 'Amman Hackerspace').' - '.Yii::t('core', 'Settings');
 $this->breadcrumbs=array(
-	Yii::t('core', 'Profile')=>array($this->createUrl('user/view', array('id'=>Yii::app()->user->id))),
+	Yii::t('core', 'Profile')=>Yii::app()->user->model->profileLink,
 	Yii::t('core', 'Settings'),
 );
 $cs=Yii::app()->clientScript;
@@ -122,7 +122,7 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 
 <div class="form-actions">
 	<button class="btn btn-primary" type="submit"><?php echo Yii::t('core','Save'); ?></button>
-	<a href="<?php echo $model->profileLink(); ?>"><button type="button" class="btn"><?php echo Yii::t('core','Cancel'); ?></button></a>
+	<a href="<?php echo $model->profileLink; ?>"><button type="button" class="btn"><?php echo Yii::t('core','Cancel'); ?></button></a>
 </div>
 
 <?php $this->endWidget(); ?>

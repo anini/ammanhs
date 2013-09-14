@@ -152,7 +152,7 @@ class UserLog extends CActiveRecord
 			case 'User':
 				if($action!='Join')
 					$targeted_user_id=$object->id;
-				$uri=$object->profileLink();
+				$uri=$object->profileLink;
 				break;
 		}
 
