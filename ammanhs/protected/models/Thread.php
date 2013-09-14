@@ -16,6 +16,7 @@
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $publish_status
+ * @property string $uq_title
  *
  * The followings are the available model relations:
  * @property User $user
@@ -54,8 +55,8 @@ class Thread extends CActiveRecord
 			array('title', 'length', 'max'=>256),
 			array('tags', 'length', 'max'=>128),
 			array('content', 'safe'),
-			array('content', 'unique'),
-			array('user_id, publish_status', 'unsafe'),
+			array('content', 'unique', 'message'=>Yii::t('core', 'Sorry.. This content is duplicated!')),
+			array('user_id, publish_status, uq_title', 'unsafe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, user_id, type, title, content, tags, stat_replies, stat_votes, stat_views, created_at, updated_at, publish_status', 'safe', 'on'=>'search'),
@@ -93,6 +94,7 @@ class Thread extends CActiveRecord
 			'created_at'=>'Created At',
 			'updated_at'=>'Updated At',
 			'publish_status'=>'Status',
+			'uq_title'=>'Unique Title'
 		);
 	}
 
@@ -146,6 +148,7 @@ class Thread extends CActiveRecord
 	{
 		parent::afterSave();
 		if($this->isNewRecord){
+			$this->generateUniqueTitle();
 			UserLog::addActivity('Add', $this, Constants::THREAD_ADDED_EARNED_POINTS);
 			$this->user->stat_points+=Constants::THREAD_ADDED_EARNED_POINTS;
 			$this->user->stat_threads++;
@@ -173,8 +176,32 @@ class Thread extends CActiveRecord
 	}
 
 	public function getLink($absolute=false){
-		if ($absolute || !(Yii::app() instanceof CWebApplication))
-			return Yii::app()->urlManager->createAbsoluteUrl('thread/view', array('id'=>$this->id));
-		return Yii::app()->urlManager->createUrl('thread/view', array('id'=>$this->id));
+		if($absolute || !(Yii::app() instanceof CWebApplication))
+			return Yii::app()->urlManager->createAbsoluteUrl('thread/view', array('id'=>$this->uq_title));
+		return Yii::app()->urlManager->createUrl('thread/view', array('id'=>$this->uq_title));
+	}
+
+	public function generateUniqueTitle(){
+		$title=$this->title;
+		if(strlen($title)>200){
+			$title=substr($title, 0, 200);
+		}
+		$uq_title=UrlManager::seoUrl($title);
+		$done=false;
+		$n=2;
+		while(!$done){
+			$old_thread=Thread::model()->findByAttributes(array('uq_title'=>$uq_title));
+			if(!$old_thread || $old_thread->id==$this->id){
+				$done=true;
+			}else{
+				$uq_title=$uq_title.'-'.$n;
+				$n++;
+			}
+			if($n>100){
+				throw new CHttpException(500, 'Unique title generation trials exceeded, try later');
+			}
+		}
+		$this->uq_title=$uq_title;
+		$this->save(false);
 	}
 }
