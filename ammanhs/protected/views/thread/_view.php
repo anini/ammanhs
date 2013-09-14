@@ -3,12 +3,12 @@
 		<td class="summary">
 			<div class="<?php echo $thread->type; ?>-thread-icon"></div>
 			<div class="thread-title">
-				<a href="<?php echo Yii::app()->urlManager->createUrl('thread/view', array('id' => $thread->id)); ?>"><?php echo $thread->title; ?></a>
+				<a href="<?php echo $thread->getLink(); ?>"><?php echo $thread->title; ?></a>
 			</div>
 			<div class="thread-tags"></div>
 			<div class="thread-info">
 				<div class="thread-author">
-					<?php echo Yii::t('core', 'By'); ?> <a href="<?php echo Yii::app()->urlManager->createUrl('user/view', array('id' => $thread->user->id)); ?>"><?php echo $thread->user->name; ?></a>
+					<?php echo Yii::t('core', 'By'); ?> <a href="<?php echo $thread->user->profileLink; ?>"><?php echo $thread->user->name; ?></a>
 				</div>
 				<div class="thread-date">
 					<?php echo Time::deltaInWords($thread->created_at); ?>

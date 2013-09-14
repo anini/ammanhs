@@ -26,7 +26,7 @@ $this->menu=array(
 <div class="row" itemscope itemtype="http://schema.org/Article">
 	<div class="span2 text-center shadow-box" style="padding: 5px 0;">
 		<?php echo $model->user->avatar_a(160, 160, array('class'=>'img-rounded')); ?>
-		<h4><a href="<?php echo $model->user->profileLink(); ?>"><span itemprop="author"><?php echo $model->user->name; ?></span></a></h4>
+		<h4><a href="<?php echo $model->user->profileLink; ?>"><span itemprop="author"><?php echo $model->user->name; ?></span></a></h4>
 		<div id="user-stats">
 	    	<h4 class="user-stat">
 	    		<span class="octicons octicon-star" data-original-title="<?php echo Yii::t('core','Stat Points'); ?>"><?php echo '<br>'.$model->user->stat_points; ?></span>
