@@ -130,7 +130,7 @@ class ThreadVote extends CActiveRecord
 		$vote_type=Constants::voteType($this->vote_type);
 		$old_vote_type=Constants::voteType($this->old_vote_type);
 		if(!$this->isNewRecord){
-			if(!UserLog::removeActivity($old_vote_type, 'Thread', $this->thread_id, $this->user_id))
+			if(!UserLog::removeActivity($old_vote_type, $this->thread, $this->user))
 				throw new CHttpException(400, 'Couldn\'n delete old activity');
 		}
 		UserLog::addActivity($vote_type, $this->thread);

@@ -14,7 +14,7 @@ class m130309_192033_create_tbl_user_log extends CDbMigration
                 'thread_id' => 'int(11) DEFAULT NULL',
                 'thread_reply_id' => 'int(11) DEFAULT NULL',
                 'targeted_user_id' => 'int(11) DEFAULT NULL',
-                'uri' => 'varchar(128) DEFAULT NULL',
+                'uri' => 'varchar(256) DEFAULT NULL',
                 'points_earned' => 'int(11) NOT NULL DEFAULT 0',
                 'created_at' => 'int(11) DEFAULT NULL',
                 'PRIMARY KEY(`id`)'),

@@ -50,7 +50,7 @@ class UserLog extends CActiveRecord
 			array('user_id', 'required'),
 			array('user_id, thread_id, thread_reply_id, targeted_user_id, points_earned, created_at', 'numerical', 'integerOnly'=>true),
 			array('action', 'length', 'max'=>11),
-			array('uri', 'length', 'max'=>128),
+			array('uri', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, user_id, action, thread_id, thread_reply_id, targeted_user_id, uri, points_earned, created_at', 'safe', 'on'=>'search'),
