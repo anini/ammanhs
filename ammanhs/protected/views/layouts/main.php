@@ -15,7 +15,7 @@
 		<link href="http://fonts.googleapis.com/css?family=Monda:400,700" rel="stylesheet" type="text/css" />
 		<link href="http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css" rel="stylesheet" type="text/css" />
 
-		<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+		<script src="/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 
 		<?php $cs=Yii::app()->clientScript; ?>
 		<?php $cs->registerCSSFile("/css/main.css?v=2.3"); ?>
