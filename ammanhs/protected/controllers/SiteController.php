@@ -128,11 +128,10 @@ class SiteController extends Controller
 					>';
 			// REVIEW: NOTE: might need a limit and loop to avoid out of memory
 			$c_threads=new CDbCriteria();
-			$c_threads->select='id';
 			$c_threads->condition='publish_status>='.Constants::PUBLISH_STATUS_DRAFT;
 			$threads=Thread::model()->findAll($c_threads);
 			foreach($threads as $thread){
-				$url=$this->createAbsoluteUrl('thread/view', array('id'=>$thread->id));
+				$url=$thread->getLink(true);
 				$this->renderPartial('_sitemap', array('url'=>$url));
 			}
 			echo '</urlset>';
@@ -157,7 +156,7 @@ class SiteController extends Controller
 			//$c_users->condition="active > 0";
 			$users=User::model()->findAll($c_users);
 			foreach($users as $user){
-				$url=$this->createAbsoluteUrl('user/view', array('id'=>$user->id));
+				$url=$user->profileLink;
 				$this->renderPartial('_sitemap', array('url'=>$url));
 			}
 			echo '</urlset>';
