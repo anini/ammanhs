@@ -39,6 +39,7 @@
 	float: left;
 	color: #BBB;
 	font-style: italic;
+	min-width: 80px;
 }
 .nav-tabs{
 	width: 100%;
@@ -50,7 +51,7 @@
 	margin-top: -50px;
 	font-size: 20px;
 	font-weight: bold;
-	line-height: 25px;
+	line-height: 30px;
 	color: #888;
 }
 .shadow-box{
