@@ -35,6 +35,7 @@ return array(
 	'The verification code is incorrect.'=>'رمز التحقق غير صحيح',
 	'The old passowrd is incorrect!'=>'كلمة المرور القديمة غير صحيحة!',
 	'Retype Password is incorrect!'=>'تأكيد كلمة المرور غير صحيح!',
+	'Sorry.. This content is duplicated!'=>'عذرا.. هذا المحتوى مكرر!',
 
 	//Time Helper
 	'Less than a minute ago'=>'منذ أقل من دقيقة',
