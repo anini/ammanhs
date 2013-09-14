@@ -20,6 +20,7 @@ class m130102_151046_create_tbl_thread extends CDbMigration
                 'created_at' => 'int(11) DEFAULT NULL',
                 'updated_at' => 'int(11) DEFAULT NULL',
                 'publish_status' => 'int(11) NOT NULL DEFAULT 0',
+                'uq_title' => 'varchar(256) DEFAULT NULL',
                 'PRIMARY KEY(`id`)'),
                 'ENGINE=InnoDB CHARSET=utf8'
             );
@@ -34,6 +35,7 @@ class m130102_151046_create_tbl_thread extends CDbMigration
             $this->createIndex('ix_tbl_thread_created_at', 'tbl_thread', 'created_at', false);
             $this->createIndex('ix_tbl_thread_updated_at', 'tbl_thread', 'updated_at', false);
             $this->createIndex('ix_tbl_thread_publish_status', 'tbl_thread', 'publish_status', false);
+            $this->createIndex('ix_tbl_thread_title', 'tbl_thread', 'uq_title', true);
             $this->addForeignKey('fk_tbl_thread_user_id', 'tbl_thread', 'user_id', 'tbl_user', 'id', 'RESTRICT', 'CASCADE');
 
 			$transaction->commit();

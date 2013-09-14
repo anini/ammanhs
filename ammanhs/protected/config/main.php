@@ -58,6 +58,7 @@ return CMap::mergeArray(
 
 		// uncomment the following to enable URLs in path-format		
 		'urlManager'=>array(
+			'class'=>'UrlManager',
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
 			'rules'=>array(
@@ -74,6 +75,7 @@ return CMap::mergeArray(
 				//'user/<id:\w+>'=>'user/view',
 				'gii'=>'gii',
 				'<controller:\w+>'=>'<controller>/index',
+				't/<id:[^\/]+>'=>'thread/view',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -147,7 +149,7 @@ return CMap::mergeArray(
 			'password'=>'',
 			'charset'=>'utf8',
 			//'schemaCachingDuration'=>3600,
-			'enableProfiling'=>true,
+			//'enableProfiling'=>true,
 		),
 		
 		'errorHandler'=>array(
@@ -159,15 +161,12 @@ return CMap::mergeArray(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'class'=>'CProfileLogRoute',
 				),
 				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
+				//array(
+				//	'class'=>'CWebLogRoute',
+				//),
 			),
 		),
 	),

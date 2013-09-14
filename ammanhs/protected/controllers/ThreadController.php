@@ -53,11 +53,23 @@ class ThreadController extends Controller
 		$is_guest=true;
 		$thread_voted=false;
 		if(Yii::app()->user->isGuest){
-			$model=Thread::model()->with('replies')->findByPk($id);
+			$model=Thread::model()->with('replies')->findByAttributes(array('uq_title'=>$id));
+			if(!$model && is_numeric(($id))){
+				$model=Thread::model()->with('replies')->findByPk($id);
+				if($model){
+					$this->redirect($model->link, true, 301);
+				}
+			}
 		}else{
-			$model=Thread::model()->with('replies', 'replies.my_up_vote', 'replies.my_down_vote')->findByPk($id);
+			$model=Thread::model()->with('replies', 'replies.my_up_vote', 'replies.my_down_vote')->findByAttributes(array('uq_title'=>$id));
 			$is_guest=false;
-			$thread_vote=ThreadVote::model()->findByAttributes(array('user_id'=>Yii::app()->user->id, 'thread_id'=>$id));
+			if(!$model && is_numeric($id)){
+				$model=Thread::model()->with('replies', 'replies.my_up_vote', 'replies.my_down_vote')->findByPk($id);
+				if($model){
+					$this->redirect($model->link, true, 301);
+				}
+			}
+			$thread_vote=ThreadVote::model()->findByAttributes(array('user_id'=>Yii::app()->user->id, 'thread_id'=>$model->id));
 			if($thread_vote){
 				if($thread_vote->vote_type==Constants::VOTE_UP) $thread_voted='up';
 				else $thread_voted='down';
@@ -69,7 +81,7 @@ class ThreadController extends Controller
                     'status'=>'error',
                     'message'=>Yii::t('core', 'Sorry! This is thread is no longer available.')
                 ));
-                $this->redirect(array('index'));
+                $this->redirect(array('index'), true, 301);
 		}
 
 		if(!isset(Yii::app()->session['viewed_threads']) || !in_array($model->id, Yii::app()->session['viewed_threads'])){
