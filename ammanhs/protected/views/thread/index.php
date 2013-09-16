@@ -1,10 +1,10 @@
 <?php
 $this->pageTitle=Yii::t('core', 'Amman Hackerspace').' - '.Yii::t('core', 'Threads');
 $this->breadcrumbs=array(
-	Yii::t('core', 'Threads'),
+    Yii::t('core', 'Threads'),
 );
 Yii::app()->clientScript->registerScript("threads-type", "var type = '{$type}';", CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile('/js/thread.js?v=1.1', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/thread.js?v=1.2', CClientScript::POS_END);
 Yii::app()->clientScript->registerCSSFile('/css/thread.css?v=3.2');
 ?>
 

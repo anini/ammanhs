@@ -1,5 +1,9 @@
 $(document).ready(function(){
-    if(document.location.pathname.indexOf('/thread/')<0) return;
+    if(document.location.pathname.indexOf('/thread/')<0){
+        $('.vote-up').tooltip({placement: 'top'});
+        $('.vote-down').tooltip({placement: 'bottom'});
+        return;
+    }
     hash=document.location.hash;
     if(hash){
         switch(hash){
@@ -38,23 +42,23 @@ function add_thread_reply(form_id){
         open_login_modal('add_thread_reply', form_id);
         return false;
     }
-	f=$('#'+form_id);
-	$('#add-thread-reply-button button').attr('disabled', 'disabled');
+    f=$('#'+form_id);
+    $('#add-thread-reply-button button').attr('disabled', 'disabled');
     $('#add-thread-reply-button').addClass('loading');
-	$.ajax({
-		'type':'post',
-		'url':f.attr('action'),
-		'data':f.serialize(),
-		'success':function(data){
-			$('.yw0').attr('disabled', 'enabled');
-			$('#thread-replies').append(data);
-			$('#ThreadReply_content').val('');
-			$('#wmd-preview').html('');
+    $.ajax({
+        'type':'post',
+        'url':f.attr('action'),
+        'data':f.serialize(),
+        'success':function(data){
+            $('.yw0').attr('disabled', 'enabled');
+            $('#thread-replies').append(data);
+            $('#ThreadReply_content').val('');
+            $('#wmd-preview').html('');
             $('#add-thread-reply-button').removeClass('loading');
             $('#add-thread-reply-button button').removeAttr("disabled");
-		}
-	});
-	return false;
+        }
+    });
+    return false;
 }
 
 function switch_threads_tab(tab){
@@ -62,11 +66,11 @@ function switch_threads_tab(tab){
         open_login_modal('switch_threads_tab', tab);
         return false;
     }
-	$.ajax({
-		'type':'get',
-		'url':'/thread/threads',
-		'data':{'type':tab},
-		'success':function(data){
+    $.ajax({
+        'type':'get',
+        'url':'/thread/threads',
+        'data':{'type':tab},
+        'success':function(data){
             $('#threads-container').slideUp('slow', function(){
                 $('#threads-container').html(data);
                 $('#threads-container').slideDown('slow');
@@ -90,16 +94,16 @@ function switch_threads_tab(tab){
                     $('#recent-tab-label').addClass('active');
                     break;
             }
-		}
-	});
-	return false;
+        }
+    });
+    return false;
 }
 
 function slide_up_threads_container(){
-	if ($("#threads-container").css("display")=="block")
-		$("#threads-container").slideUp();
-	else
-		$("#threads-container").slideDown();
+    if ($("#threads-container").css("display")=="block")
+        $("#threads-container").slideUp();
+    else
+        $("#threads-container").slideDown();
 }
 
 function vote(form_id){
@@ -107,8 +111,8 @@ function vote(form_id){
         open_login_modal('vote', form_id);
         return false;
     }
-	form=$('#'+form_id);
-	$.ajax({
+    form=$('#'+form_id);
+    $.ajax({
         dataType: 'json',
         type: 'post',
         url: form.attr('action'),
@@ -120,7 +124,7 @@ function vote(form_id){
             //form.removeClass('menu_loading');
         },
         error: function(request){
-        	//some code here
+            //some code here
         },
         success:function(data){
             if(data.errno==0){
@@ -128,28 +132,28 @@ function vote(form_id){
                     p=$('#reply-vote-'+$('#thread-reply-vote-id').val());
                 else
                     p=form.parent();
-            	stat_votes=p.find('.vote-number');
-            	stat_votes.html(data.stat_votes);
-            	up_arrow=p.find('.vote-up');
-            	down_arrow=p.find('.vote-down');
-            	if (data.vote_type==1){
-            		up_arrow.removeClass('vote-up-off');
-            		down_arrow.removeClass('vote-down-on');
-            		up_arrow.addClass('vote-up-on');
-            		down_arrow.addClass('vote-down-off');
-            	}else if(data.vote_type==-1){
-            		down_arrow.removeClass('vote-down-off');
-            		up_arrow.removeClass('vote-up-on');
-            		down_arrow.addClass('vote-down-on');
-            		up_arrow.addClass('vote-up-off');
-            	}else{
-            		down_arrow.removeClass('vote-down-on');
-            		up_arrow.removeClass('vote-up-on');
-            		down_arrow.addClass('vote-up-off');
-            		up_arrow.addClass('vote-down-off');
-            	}
+                stat_votes=p.find('.vote-number');
+                stat_votes.html(data.stat_votes);
+                up_arrow=p.find('.vote-up');
+                down_arrow=p.find('.vote-down');
+                if (data.vote_type==1){
+                    up_arrow.removeClass('vote-up-off');
+                    down_arrow.removeClass('vote-down-on');
+                    up_arrow.addClass('vote-up-on');
+                    down_arrow.addClass('vote-down-off');
+                }else if(data.vote_type==-1){
+                    down_arrow.removeClass('vote-down-off');
+                    up_arrow.removeClass('vote-up-on');
+                    down_arrow.addClass('vote-down-on');
+                    up_arrow.addClass('vote-up-off');
+                }else{
+                    down_arrow.removeClass('vote-down-on');
+                    up_arrow.removeClass('vote-up-on');
+                    down_arrow.addClass('vote-up-off');
+                    up_arrow.addClass('vote-down-off');
+                }
             }else{
-            	//some code here
+                //some code here
             }
         }
     });

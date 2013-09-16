@@ -81,6 +81,8 @@ return array(
 	'Adding New Thread'=>'إضافة موضوع جديد',
 	'You have no threads!'=>'ليس لديك مواضيع!',
 	'Have something to say?!'=>'لديك سؤال.. تعليق.. استفسار.. توضيح.. شكر.. اضافة؟!',
+	'This article shows research effort; it is useful and clear!'=>'هذه المقالة تظهر جهد بحثي؛ وهي مفيدة وواضحة!',
+	'This article does not show any research effort; it is unclear or not useful!'=>'هذه المقالة لا تظهر أي جهد بحثي؛ وهي غير واضحة أو غير مفيدة!',
 
 	//User
 	'Username'=>'اسم المستخدم',

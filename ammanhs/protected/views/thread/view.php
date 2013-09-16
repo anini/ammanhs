@@ -12,7 +12,7 @@ $cs->registerMetaTag(strip_tags($model->content), 'description', null, array(), 
 $cs->registerMetaTag(strip_tags($model->content), 'twitter:description');
 $cs->registerMetaTag(strip_tags($model->content), 'og:description');
 $cs->registerCSSFile('/css/thread.css?v=3.2');
-$cs->registerScriptFile('/js/thread.js?v=1.1', CClientScript::POS_END);
+$cs->registerScriptFile('/js/thread.js?v=1.2', CClientScript::POS_END);
 
 $this->menu=array(
 	array('label'=>'List Thread','url'=>array('index')),
@@ -67,9 +67,9 @@ $this->menu=array(
 					)); ?>
 					<input type="hidden" name="Vote[thread_id]" value="<?php echo  $model->id; ?>"/>
 					<input type="hidden" id="thread-vote-type" name="Vote[type]" value="0"/>
-					<div class="arrow vote-up vote-up-<?php echo ($thread_voted && $thread_voted=='up')?'on':'off'; ?>" title="Vote this <?php echo $model->type; ?> up!" onclick="$('#thread-vote-type').val(1); $('#thread-vote-form').submit();"></div>
+					<div class="arrow vote-up vote-up-<?php echo ($thread_voted && $thread_voted=='up')?'on':'off'; ?>" data-original-title="<?php echo Yii::t('core', 'This '.strtolower($model->type).' shows research effort; it is useful and clear!'); ?>" onclick="$('#thread-vote-type').val(1); $('#thread-vote-form').submit();"></div>
 					<div class="vote-number" itemprop="interactionCount" content="UserLikes:<?php echo $model->stat_votes; ?>"><?php echo $model->stat_votes; ?></div>
-					<div class="arrow vote-down vote-down-<?php echo ($thread_voted && $thread_voted=='down')?'on':'off'; ?>" title="Vote this <?php echo $model->type; ?> down!" onclick="$('#thread-vote-type').val(-1); $('#thread-vote-form').submit();"></div>
+					<div class="arrow vote-down vote-down-<?php echo ($thread_voted && $thread_voted=='down')?'on':'off'; ?>" data-original-title="<?php echo Yii::t('core', 'This '.strtolower($model->type).' does not show any research effort; it is unclear or not useful!'); ?>" onclick="$('#thread-vote-type').val(-1); $('#thread-vote-form').submit();"></div>
 					<?php $this->endWidget(); ?>
 				</div>
 			</div>
