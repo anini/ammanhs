@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
     Yii::t('core', 'Threads'),
 );
 Yii::app()->clientScript->registerScript("threads-type", "var type = '{$type}';", CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile('/js/thread.js?v=1.2', CClientScript::POS_END);
-Yii::app()->clientScript->registerCSSFile('/css/thread.css?v=3.2');
+Yii::app()->clientScript->registerScriptFile('/js/thread.js?v=1.3', CClientScript::POS_END);
+Yii::app()->clientScript->registerCSSFile('/css/thread.css?v=3.3');
 ?>
 
 <div class="ge-ss">

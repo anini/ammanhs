@@ -2,6 +2,14 @@ $(document).ready(function(){
     if(document.location.pathname.indexOf('/thread/')<0){
         $('.vote-up').tooltip({placement: 'top'});
         $('.vote-down').tooltip({placement: 'bottom'});
+        $('#page').scroll(function(){
+            if($(this).scrollTop()>300){
+                $('#thread-vote').addClass('thread-vote-fixed');
+            }else{
+                $('#thread-vote').removeClass('thread-vote-fixed');
+            }
+        });
+        $(window).scroll(update_thread_vote).trigger('scroll');
         return;
     }
     hash=document.location.hash;
@@ -158,4 +166,16 @@ function vote(form_id){
         }
     });
     return false;
+}
+
+function update_thread_vote(){
+    $("#thread-vote").each(function() {
+        var scroll_top=$(window).scrollTop(),
+            offset    =$('#thread-content').height()-70;
+        if(scroll_top<offset){
+            $('#thread-vote').addClass('thread-vote-fixed');
+        }else{
+            $('#thread-vote').removeClass('thread-vote-fixed');
+        };
+    });
 }

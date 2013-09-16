@@ -177,6 +177,13 @@
 }
 #thread-vote{
 	padding-top: 20px;
+	display: inline-table;
+}
+#thread-vote .tooltip-inner{
+	min-width:200px;
+}
+.thread-vote-fixed{
+	position: fixed;
 }
 #new-thread{
 	padding-top: 10px;
