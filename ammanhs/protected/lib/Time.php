@@ -84,4 +84,45 @@ Class Time
 			}
 		}
 	}
+
+	public static function dateInArabic($timestamp, $with_day=true){
+		$date=date(($with_day?'1 D ':'0 ').'d M Y', $timestamp);
+		if($with_day){
+			$arabic_date=preg_replace_callback('/(\d+) (\w+) (\d+) (\w+) (\d+)/i', array(get_class($this), '_dateInArabic'), $date);
+		}else{
+			$arabic_date=preg_replace_callback('/(\d+) (\d+) (\w+) (\d+)/i', array(get_class($this), '_dateInArabic'), $date);
+		}
+		return $arabic_date;
+	}
+
+	public static function _dateInArabic($english_date){
+		$months=array(
+			'Jan'=>'كانون الثاني',
+			'Feb'=>'شباط',
+			'Mar'=>'آذار',
+			'Apr'=>'نيسان',
+			'May'=>'أيار',
+			'Jun'=>'حزيران',
+			'Jul'=>'تموز',
+			'Aug'=>'آب',
+			'Sep'=>'أيلول',
+			'Oct'=>'تشرين الأول',
+			'Nov'=>'تشرين الثاني',
+			'Dec'=>'كانون الأول'
+		);
+		$days=array(
+			'Sat'=>'السبت',
+			'Sun'=>'الأحد',
+			'Mon'=>'الاثنين',
+			'Tue'=>'الثلاثاء',
+			'Wed'=>'الأربعاء',
+			'Thu'=>'الخميس',
+			'Fri'=>'الجمعة',
+		);
+		if($english_date[1]){
+			return $days[$english_date[2]].' الموافق '.$english_date[3].' '.$months[$english_date[4]].' '.$english_date[5];
+		}else{ 
+			return $english_date[2].' '.$months[$english_date[3]].' '.$english_date[4];
+		}
+	}
 }
