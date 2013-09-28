@@ -27,5 +27,6 @@ return array(
 ),
 'params'=>array(
 		'static_host'=>'local.ammanhs.com',
+		'host'=>'local.ammanhs.com'
 	),
 );
