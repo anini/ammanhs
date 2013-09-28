@@ -124,7 +124,7 @@ class ThreadController extends Controller
     		$_POST['Thread']['content']=$parser->safeTransform($_POST['Thread']['content']);
 			$model->attributes=$_POST['Thread'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->uq_title));
 		}
 
 		$this->render('create',array(
@@ -148,7 +148,7 @@ class ThreadController extends Controller
 		{
 			$model->attributes=$_POST['Thread'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->uq_title));
 		}
 
 		$this->render('update',array(
