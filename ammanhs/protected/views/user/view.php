@@ -11,7 +11,7 @@ if($model->about){
 	$cs->registerMetaTag($model->about, 'twitter:description');
 	$cs->registerMetaTag($model->about, 'og:description');
 }
-$cs->registerCSSFile('/css/user.css?v=3.1');
+$cs->registerCSSFile('/css/user.css?v=3.2');
 $this->menu=array(
 	array('label'=>'List User', 'url'=>array('index')),
 	array('label'=>'Create User', 'url'=>array('create')),
@@ -33,10 +33,10 @@ $this->menu=array(
 			    		<span class="octicons octicon-star" data-original-title="<?php echo Yii::t('core','Stat Points'); ?>"><?php echo '<br>'.$model->stat_points; ?></span>
 			    	</h4>
 			    	<h4 class="user-stat">
-			    		<span class="octicons octicon-thread" data-original-title="<?php echo Yii::t('core','Stat Threads'); ?>"><?php echo '<br>'.$model->stat_threads; ?></span>
+			    		<span class="octicons octicon-repo" data-original-title="<?php echo Yii::t('core','Stat Threads'); ?>"><?php echo '<br>'.$model->stat_threads; ?></span>
 			    	</h4>
 			    	<h4 class="user-stat">
-			    		<span class="octicons octicon-discussion" data-original-title="<?php echo Yii::t('core','Stat Replies'); ?>"><?php echo '<br>'.$model->stat_replies; ?></span>
+			    		<span class="octicons octicon-comment" data-original-title="<?php echo Yii::t('core','Stat Replies'); ?>"><?php echo '<br>'.$model->stat_replies; ?></span>
 			    	</h4>
 			    </div>
 			    <div id="user-info">
@@ -47,11 +47,11 @@ $this->menu=array(
 				    <?php } ?>
 				    <?php if($model->website){ ?>
 				    <div class="english-field">
-				    	<a href="http://<?php echo $model->website; ?>" target="_blank" title="<?php echo $model->website; ?>"><?php echo Text::teaser($model->website, 13); ?></a><span class="octicons octicon-url muted"></span>
+				    	<a href="http://<?php echo $model->website; ?>" target="_blank" title="<?php echo $model->website; ?>"><?php echo Text::teaser($model->website, 13); ?></a><span class="octicons octicon-link muted"></span>
 					</div>
 				    <?php } ?>
 				    <div>
-				    	<span class="octicons octicon-time muted"></span><?php echo Yii::t('core', 'Member since :time', array(':time'=>Date('Y/m/d', $model->created_at))); ?>
+				    	<span class="octicons octicon-clock muted"></span><?php echo Yii::t('core', 'Member since :time', array(':time'=>Date('Y/m/d', $model->created_at))); ?>
 				    </div>
 				    <?php if($model->about){ ?>
 				    <div>

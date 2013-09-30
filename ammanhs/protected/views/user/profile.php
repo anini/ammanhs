@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 );
 $cs=Yii::app()->clientScript;
 $cs->registerCSSFile("/css/fileupload.css?v=2.1");
-$cs->registerCSSFile("/css/user.css?v=3.1");
+$cs->registerCSSFile("/css/user.css?v=3.2");
 $cs->registerScriptFile('/js/user.js', CClientScript::POS_END);
 $cs->registerScriptFile('/js/fileupload.js', CClientScript::POS_END);
 $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'image'});", CClientScript::POS_END) ;
@@ -52,7 +52,7 @@ $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'im
 					
 					<?php echo $form->error($model,'first_name'); ?>
 					<?php echo $form->error($model,'last_name'); ?>
-					<a class="btn pull-left" onclick="return open_change_password_modal();"><icon class="octicons octicon-edit">&nbsp</icon><?php echo Yii::t('core', 'Change Password'); ?></a>
+					<a class="btn pull-left" onclick="return open_change_password_modal();"><icon class="octicons octicon-pencil">&nbsp</icon><?php echo Yii::t('core', 'Change Password'); ?></a>
 				</div>
 				<div class="control-group">
 					<?php echo $form->textField($model,'email', array('class'=>'span3 english-field', 'placeholder'=>Yii::t('core', 'Email'))); ?>

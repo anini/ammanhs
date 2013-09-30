@@ -31,10 +31,10 @@ $this->menu=array(
 	    		<span class="octicons octicon-star" data-original-title="<?php echo Yii::t('core','Stat Points'); ?>"><?php echo '<br>'.$model->user->stat_points; ?></span>
 	    	</h4>
 	    	<h4 class="user-stat">
-	    		<span class="octicons octicon-thread" data-original-title="<?php echo Yii::t('core','Stat Threads'); ?>"><?php echo '<br>'.$model->user->stat_threads; ?></span>
+	    		<span class="octicons octicon-repo" data-original-title="<?php echo Yii::t('core','Stat Threads'); ?>"><?php echo '<br>'.$model->user->stat_threads; ?></span>
 	    	</h4>
 	    	<h4 class="user-stat">
-	    		<span class="octicons octicon-discussion" data-original-title="<?php echo Yii::t('core','Stat Replies'); ?>"><?php echo '<br>'.$model->user->stat_replies; ?></span>
+	    		<span class="octicons octicon-comment" data-original-title="<?php echo Yii::t('core','Stat Replies'); ?>"><?php echo '<br>'.$model->user->stat_replies; ?></span>
 	    	</h4>
 	    </div>
 	</div>

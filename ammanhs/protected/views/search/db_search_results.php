@@ -28,6 +28,6 @@ if($num_of_results){
 		<?php echo Yii::t('core', 'There\'s no results for the query ":q"!', array(':q'=>$q)); ?>
 		<br><br>
 		<?php echo Yii::t('core', 'What about asking about ":q" throguh a thread?', array(':q'=>$q)); ?>
-		<a class="btn btn-success add-thread-button" href="<?php echo $this->createUrl('thread/create', array('title'=>$q)); ?>"><icon class="octicons octicon-add"></icon><?php echo Yii::t('core', 'Create a New Thread'); ?></a>
+		<a class="btn btn-success add-thread-button" href="<?php echo $this->createUrl('thread/create', array('title'=>$q)); ?>"><icon class="octicons octicon-repo-create"></icon><?php echo Yii::t('core', 'Create a New Thread'); ?></a>
 	</div>
 <?php } ?>

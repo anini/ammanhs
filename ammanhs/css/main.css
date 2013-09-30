@@ -110,6 +110,15 @@ form .help-inline{
 .navbar-search{
     padding-left: 20px;
 }
+.navbar-search .octicon-search{
+    margin-right: -22px;
+    opacity: 0.5;
+    position: absolute;
+    margin-top: 7px;
+}
+.octicon-search{
+    padding-right: 1px;
+}
 #header-search{
     padding-left: 24px;
     -moz-transition: all 0.5s ease;

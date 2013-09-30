@@ -18,7 +18,7 @@
 	</li>
     <?php } else { ?>
 	<?php echo Yii::app()->user->model->avatar_a(32, 32, array('id'=>'header-avatar', 'title'=>''), array(), 'float: right;'); ?>
-	<a href="/settings" class="octicons octicon-settings user-icons" data-original-title="<?php echo Yii::t('core','Settings'); ?>"></a>
-	<a href="/logout" class="octicons octicon-exit user-icons" data-original-title="<?php echo Yii::t('core','Logout'); ?>"></a>
+	<a href="/settings" class="octicons octicon-tools user-icons" data-original-title="<?php echo Yii::t('core','Settings'); ?>"></a>
+	<a href="/logout" class="octicons octicon-log-out user-icons" data-original-title="<?php echo Yii::t('core','Logout'); ?>"></a>
 	<?php } ?>
 </ul>

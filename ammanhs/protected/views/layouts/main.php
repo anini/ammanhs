@@ -18,8 +18,8 @@
 		<script src="/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 
 		<?php $cs=Yii::app()->clientScript; ?>
-		<?php $cs->registerCSSFile("/css/main.css?v=2.3"); ?>
-		<?php $cs->registerCSSFile("/css/octicons.css"); ?>
+		<?php $cs->registerCSSFile("/css/main.css?v=2.4"); ?>
+		<?php $cs->registerCSSFile("/css/octicons.css?v=2.1"); ?>
 		<?php $cs->registerCSSFile("/css/bootstrap/bootstrap.min.css?v=2.1"); ?>
 		<?php $cs->registerCSSFile("/css/bootstrap/bootstrap-responsive.min.css"); ?>
 		<?php $cs->registerCSSFile("/css/bootstrap/bootstrap-modal.min.css"); ?>
@@ -29,6 +29,7 @@
 			'jquery.min.js'=>false,
 			'jquery.yiilistview.js'=>'/js/jquery.yiilistview.min.js',
 			); ?>
+		<?php $cs->registerScriptFile('/js/jquery-migrate.min.js', CClientScript::POS_END); ?>
 		<?php $cs->registerScriptFile('/js/1.1.js', CClientScript::POS_END); ?>
 		<?php $cs->registerScriptFile('/js/bootstrap/bootstrap.min.js', CClientScript::POS_END); ?>
 		<?php $cs->registerScriptFile('/js/bootstrap/bootstrap-modal.min.js', CClientScript::POS_END); ?>

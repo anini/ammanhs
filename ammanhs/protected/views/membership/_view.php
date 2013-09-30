@@ -65,7 +65,7 @@
 		</table>
 		<?php if($model->status!=Constants::MEMBERSHIP_STATUS_APPROVED) { ?>
 		<br>
-		<a style="max-width: 400px;" class="btn btn-danger add-thread-button btn-block" onclick="open_membership_modal();"><icon class="octicons octicon-user"></icon><?php echo Yii::t('core', ((Yii::app()->user->model->membership)?'Edit':'Create').' Membership'); ?></a>
+		<a style="max-width: 400px;" class="btn btn-danger add-thread-button btn-block" onclick="open_membership_modal();"><icon class="octicons octicon-credit-card"></icon><?php echo Yii::t('core', ((Yii::app()->user->model->membership)?'Edit':'Create').' Membership'); ?></a>
 		<?php } ?>
 	</div>
 </div>

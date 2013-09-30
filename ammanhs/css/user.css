@@ -33,7 +33,9 @@
 	font-size: 15px;
 }
 #user-info .octicons{
-	margin: 0 3px;
+	font-size: 18px !important;
+	width: 23px;
+	text-align: center;
 }
 #user-info > div > .muted{
 	font-size: 13px;
