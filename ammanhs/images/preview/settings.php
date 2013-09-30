@@ -18,6 +18,8 @@ class Conf
 		'128x128'=>true,
 		'160x160'=>true,
 		'256x256'=>true,
+		'360x128'=>true, // activity thumbnail
+		'900x320'=>true, // acitivty cover photo
 
 		/*'480x480'=>array(
 			array('watermark-corner.png', 1.0, 1.0), // file x-percent y-percent x-margin y-margin
