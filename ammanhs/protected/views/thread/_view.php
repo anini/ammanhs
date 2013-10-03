@@ -16,13 +16,13 @@
 			</div>
 		</td>
 		<td class="thread-stat-replies">
-			<?php echo $thread->stat_replies . '<br/>' . Yii::t('core', ((abs($thread->stat_replies)<11 && abs($thread->stat_replies)>2)?'Replies':'Reply')); ?>
+			<?php echo $thread->stat_replies . '<br/>' . Yii::t('core', ((abs(substr($thread->stat_replies, -2))<11 && abs(substr($thread->stat_replies, -2))>2)?'Replies':'Reply')); ?>
 		</td>
 		<td class="thread-stat-votes">
-			<?php echo $thread->stat_votes . '<br/>' . Yii::t('core', ((abs($thread->stat_votes)<11 && abs($thread->stat_votes)>2)?'Votes':'Vote')); ?>
+			<?php echo $thread->stat_votes . '<br/>' . Yii::t('core', ((abs(substr($thread->stat_votes, -2))<11 && abs(substr($thread->stat_votes, -2))>2)?'Votes':'Vote')); ?>
 		</td>
 		<td class="thread-stat-views">
-			<?php echo $thread->stat_views . '<br/>' . Yii::t('core', ((abs($thread->stat_views)<11 && abs($thread->stat_views)>2)?'Views':'View')) ?>
+			<?php echo $thread->stat_views . '<br/>' . Yii::t('core', ((abs(substr($thread->stat_views, -2))<11 && abs(substr($thread->stat_views, -2))>2)?'Views':'View')) ?>
 		</td>		
 	</tr>
 </table>
