@@ -61,13 +61,13 @@ class Img{
      * @author  Mohammad Anini
      * @param   string $source_url:		Source URL of the original image
      * @param   string $sub_directory:	Where to save the image
-     * @param   int $id:				Unique ID of the object
+     * @param   int $object_id:		Unique ID of the object
      * @param   string $extension:		Extension of the output file
      * @return  string Sub/directoy/file_name.ext
      */
-	public static function cloneImg($source_url, $sub_directory='thread', $id=0, $extension='jpg'){
+	public static function cloneImg($source_url, $sub_directory='thread', $object_id=0, $extension='jpg'){
         // Generating the new image file name and creating the directory        
-        $new_img_uri=ImageValidator::generateFilename($sub_directory, $id, $extension);
+        $new_img_uri=ImageValidator::generateFilename($sub_directory, $object_id, $extension);
         $new_img=Yii::app()->basePath.'/../images/'.$new_img_uri;
         @mkdir(dirname($new_img), 0777, true);
         
@@ -87,6 +87,31 @@ class Img{
         // Creating the new image
         imagejpeg($source, $new_img, 95);
 
-        return $new_img_uri;
+        return 'http://'.Yii::app()->params['static_host'].'/images/'.$new_img_uri;
 	}
+
+	/**
+     * @author  Mohammad Anini
+     * @use		Cloning all external images in a content and replace the src with the cloned one
+     * @param   string $content:		Content with might containes external images
+     * @param   string $sub_directory:	Where to save the cloned image
+     * @param   int $object_id:			Unique ID of the object
+     * @param   string $extension:		Extension of the output file
+     * @return  string Sub/directoy/file_name.ext
+     */
+	public static function cloneAllExternalImages($content, $sub_directory='thread', $object_id=0, $extension='jpg'){
+        preg_match_all('/<[\s]*img[^src]*src="([^"]*)"[^>]*>/', $content, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER);
+		$sources=array();
+		foreach($matches as $matche){
+			$sources[$matche[1][0]]=1;
+		}
+		foreach($sources as $source=>$value){
+			if(strpos($source, Yii::app()->params['static_host'].'/images/'.$sub_directory.'/'.$object_id.'/')===false){
+
+				$content=preg_replace("!$source!", Img::cloneImg($source, $sub_directory, $object_id, $extension), $content);
+			}
+		}
+		return $content;
+	}
+
 }
