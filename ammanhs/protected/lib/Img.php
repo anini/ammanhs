@@ -75,19 +75,51 @@ class Img{
         list($w, $h, $type)=getimagesize($source_url);
         switch($type){
 			case IMAGETYPE_GIF:
-				$source=imagecreatefromgif($source_url); break;
+				// Since there's no any manipulation on GIF photos, we can avoid the GD library
+				// and just copy the image as is
+				$gif_image=file_get_contents($source_url);
+				file_put_contents($new_img, $gif_image);
+				/*
+				$source=imagecreatefromgif($source_url);
+				// Creating the new image
+		        imagegif($source, $new_img);
+		        */
+		        break;
 			case IMAGETYPE_JPEG:
-				$source=imagecreatefromjpeg($source_url); break;
+				$source=imagecreatefromjpeg($source_url);
+				// Creating the new image
+		        imagejpeg($source, $new_img, 95);
+		        break;
 			case IMAGETYPE_PNG:
-				$source=imagecreatefrompng($source_url); break;
+				// Converting PNG images into JPG, and replacing black background by white
+				$source=imagecreatefrompng($source_url);
+				$output=imagecreatetruecolor($w, $h);
+				$white=imagecolorallocate($output, 255, 255, 255);
+				imagefilledrectangle($output, 0, 0, $w, $h, $white);
+				imagecopy($output, $source, 0, 0, 0, 0, $w, $h);
+				imagejpeg($output, $new_img, 95);
+				/*
+				Following code keeps the formate PNG
+				// Integer representation of the color black (rgb: 0,0,0)
+		        $background=imagecolorallocate($source, 0, 0, 0);
+		        // removing the black from the placeholder
+		        imagecolortransparent($source, $background);
+		        // Turning off alpha blending (to ensure alpha channel information 
+		        // is preserved, rather than removed (blending with the rest of the 
+		        // image in the form of black))
+		        imagealphablending($source, false);
+		        // Turning on alpha channel information saving (to ensure the full range 
+		        // of transparency is preserved)
+		        imagesavealpha($source, true);
+				// Creating the new image
+		        imagepng($source, $new_img, 5);
+		        */
+		        break;
 			default:
 				die("unsupported image type for file [$source_url]");
 		}
 
-        // Creating the new image
-        imagejpeg($source, $new_img, 95);
-
-        return 'http://'.Yii::app()->params['static_host'].'/images/'.$new_img_uri;
+		return 'http://'.Yii::app()->params['static_host'].'/images/'.$new_img_uri;
 	}
 
 	/**
@@ -107,7 +139,12 @@ class Img{
 		}
 		foreach($sources as $source=>$value){
 			if(strpos($source, Yii::app()->params['static_host'].'/images/'.$sub_directory.'/'.$object_id.'/')===false){
-
+				$org_ext=substr($source, -5);
+				$split=explode(".", $org_ext);
+				// Handling GIF formate
+				if(isset($split[1]) && in_array($split[1], array(/*'png', 'jpeg', 'jpg', */'gif'))){
+					$extension=$split[1];
+				}
 				$content=preg_replace("!$source!", Img::cloneImg($source, $sub_directory, $object_id, $extension), $content);
 			}
 		}
