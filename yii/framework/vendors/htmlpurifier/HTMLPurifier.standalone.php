@@ -10552,8 +10552,6 @@ class HTMLPurifier_AttrTransform_ImgRequired extends HTMLPurifier_AttrTransform
             if ($config->get('Core.RemoveInvalidImg')) return $attr;
             $attr['src'] = $config->get('Attr.DefaultInvalidImage');
             $src = false;
-        } elseif(strpos($attr['src'], Yii::app()->params['static_host']) === false) {
-            $attr['src'] = 'http://'.Yii::app()->params['static_host'].'/images/'.Img::cloneImg($attr['src']);
         }
 
         if (!isset($attr['alt'])) {

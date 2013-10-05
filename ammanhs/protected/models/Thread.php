@@ -136,6 +136,9 @@ class Thread extends CActiveRecord
 
 	public function beforeSave()
 	{
+		if($this->isNewRecord){
+			$this->generateUniqueTitle(false);
+		}
 		if(!$this->created_at){
 			$this->created_at=time();
         }else{
@@ -148,11 +151,18 @@ class Thread extends CActiveRecord
 	{
 		parent::afterSave();
 		if($this->isNewRecord){
-			$this->generateUniqueTitle();
 			UserLog::addActivity('Add', $this, Constants::THREAD_ADDED_EARNED_POINTS);
 			$this->user->stat_points+=Constants::THREAD_ADDED_EARNED_POINTS;
 			$this->user->stat_threads++;
 			$this->user->save(false);
+		}
+
+		if($this->isNewRecord || $this->scenario=='edit'){
+			// Cloning all external images
+			$content=Img::cloneAllExternalImages($this->content, 'thread', $this->id);
+			Yii::app()->db->createCommand(
+				"UPDATE tbl_thread SET content=:content where id=:id"
+				)->bindValues(array(':content'=>$content, ':id'=>$this->id))->execute();
 		}
 	}
 
@@ -181,27 +191,31 @@ class Thread extends CActiveRecord
 		return Yii::app()->urlManager->createUrl('thread/view', array('id'=>$this->uq_title));
 	}
 
-	public function generateUniqueTitle(){
+	public function generateUniqueTitle($save=true){
 		$title=$this->title;
 		if(strlen($title)>200){
 			$title=substr($title, 0, 200);
 		}
 		$uq_title=UrlManager::seoUrl($title);
+		$temp_uq_title=$uq_title;
 		$done=false;
 		$n=2;
 		while(!$done){
-			$old_thread=Thread::model()->findByAttributes(array('uq_title'=>$uq_title));
+			$old_thread=Thread::model()->findByAttributes(array('uq_title'=>$temp_uq_title));
 			if(!$old_thread || $old_thread->id==$this->id){
 				$done=true;
 			}else{
-				$uq_title=$uq_title.'-'.$n;
+				$temp_uq_title=$uq_title.'-'.$n;
 				$n++;
 			}
 			if($n>100){
 				throw new CHttpException(500, 'Unique title generation trials exceeded, try later');
 			}
 		}
-		$this->uq_title=$uq_title;
-		$this->save(false);
+		$this->uq_title=$temp_uq_title;
+		if($save){
+			$this->save(false);
+		}
+		
 	}
 }
