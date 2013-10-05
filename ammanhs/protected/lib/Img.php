@@ -65,7 +65,7 @@ class Img{
      * @param   string $extension:		Extension of the output file
      * @return  string Sub/directoy/file_name.ext
      */
-	public static function cloneImg($source_url, $sub_directory='Threads', $id=0, $extension='jpg'){
+	public static function cloneImg($source_url, $sub_directory='thread', $id=0, $extension='jpg'){
         // Generating the new image file name and creating the directory        
         $new_img_uri=ImageValidator::generateFilename($sub_directory, $id, $extension);
         $new_img=Yii::app()->basePath.'/../images/'.$new_img_uri;
