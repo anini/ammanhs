@@ -145,7 +145,7 @@ class Img{
 				if(isset($split[1]) && in_array($split[1], array(/*'png', 'jpeg', 'jpg', */'gif'))){
 					$extension=$split[1];
 				}
-				$content=preg_replace("!$source!", Img::cloneImg($source, $sub_directory, $object_id, $extension), $content);
+				$content=preg_replace('!'.preg_quote($source).'!', Img::cloneImg($source, $sub_directory, $object_id, $extension), $content);
 			}
 		}
 		return $content;
