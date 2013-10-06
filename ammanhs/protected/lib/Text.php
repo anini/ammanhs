@@ -154,4 +154,15 @@ class Text
     	$ret = substr($ret, 0, 0-strlen($glue));
     	return $ret;
     }
+
+    public static function addNofollowRelToAnchors($html, $only_externals=true){
+        if($only_externals)
+            return preg_replace('|(<a\s*(?!.*\brel=)[^>]*)(href="https?://)((?!ammanhs.com|www.ammanhs.com)[^"]+)"([^>]*)>|', '$1$2$3$4" rel="nofollow">', $html);
+        else
+            return preg_replace('|(<a\s*(?!.*\brel=)[^>]*)([^>]*)>|', '$1$2 rel="nofollow">', $html);
+    }
+
+    public static function addBlankTargetToAnchors($html){
+        return preg_replace('|(<a\s*(?!.*\btarget=)[^>]*)([^>]*)>|', '$1$2 target="_blank">', $html);
+    }
 }
