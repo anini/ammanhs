@@ -26,20 +26,24 @@ class UrlManager extends CUrlManager
 	}
 
 	public static function seoUrl($string){
-		// Remove spaces before and after
-		$string=trim($string);
+		// Remove spaces before and after - No need now, will be done late
+		// $string=trim($string);
 		// Replace & with and
 		$string=str_replace(array(' & ', '&'), array(' and ', ' and '), $string);
-		// Sequeze spaces
-    	$string=preg_replace('/\s+/', ' ', $string);
+		// Sequeze spaces - No need actually, since any space will be converted into dashe, and dashes gonna be sequezed
+    	// $string=preg_replace('/\s+/', ' ', $string);
     	// Raplace underscores, whitespaces and some special characters with dash
     	$string=preg_replace('/[\s_\/\.+:]+/', '-', $string);
 		// Remove non letter or digits
-		$string=preg_replace('/[^\pL\s0-9+-:]+/u', '', $string);
+		$string=preg_replace('/[^\pL0-9-]+/u', '', $string);
 		// Remove dashes before and after + and :
 		// $string=preg_replace('/[-]?([\+|:]+)[-]?/', '$1', $string);
 		// Sequeze dashes
     	$string=preg_replace('/-{2,}/', '-', $string);
+		// Remove dashes in trails
+		$string=preg_replace('/[-]+/', ' ', $string);
+		$string=trim($string);
+		$string=preg_replace('/[\s]+/', '-', $string);
 	    
 	    return $string;
 	}
