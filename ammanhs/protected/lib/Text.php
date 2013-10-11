@@ -81,11 +81,11 @@ class Text
     	return isset($matches[1])?$matches[1]:" ";
     }
 
-    public static function autolink($text, $target='_blank', $nofollow=true){
-    	$pattern = "/(((http[s]?:\/\/)|(www\.))(([a-z][-a-z0-9]+\.)?[a-z][-a-z0-9]+\.[a-z]+(\.[a-z]{2,2})?)\/?[a-z0-9._\/~#&=;%+?-]+[a-z0-9\/#=?]{1,1})/is";
-    	$text = preg_replace($pattern, " <a href='$1'>$1</a>", $text);
+    public static function autolink($text, $blank_target=true, $nofollow=true){
+    	$pattern="/(((http[s]?:\/\/)|(www\.))(([a-z][-a-z0-9]+\.)?[a-z][-a-z0-9]+\.[a-z]+(\.[a-z]{2,2})?)\/?[a-z0-9._\/~#&=;%+?-]+[a-z0-9\/#=?]{1,1})/is";
+    	$text=preg_replace($pattern, " <a href='$1'>$1</a>", $text);
     	// Fix URLs without protocols
-    	$text = preg_replace("/href='www/", "href='http://www", $text);
+    	$text=preg_replace("/href='www/", "href='http://www", $text);
     	return $text;
     }
 
@@ -157,12 +157,21 @@ class Text
 
     public static function addNofollowRelToAnchors($html, $only_externals=true){
         if($only_externals)
-            return preg_replace('|(<a\s*(?!.*\brel=)[^>]*)(href="https?://)((?!ammanhs.com|www.ammanhs.com)[^"]+)"([^>]*)>|', '$1$2$3$4" rel="nofollow">', $html);
+            return preg_replace('@(<a\s*(?!.*\brel=)[^>]*)(href="https?://)((?!ammanhs.com|www.ammanhs.com)[^"]+)"([^>]*)>@', '$1$2$3$4" rel="nofollow">', $html);
         else
             return preg_replace('|(<a\s*(?!.*\brel=)[^>]*)([^>]*)>|', '$1$2 rel="nofollow">', $html);
     }
 
     public static function addBlankTargetToAnchors($html){
         return preg_replace('|(<a\s*(?!.*\btarget=)[^>]*)([^>]*)>|', '$1$2 target="_blank">', $html);
+    }
+
+    public static function linkUrls($html, $blank_target=true, $nofollow=true){
+        $pattern='@(?<!\'|"|/)(((((ht)|(f))tp[s]?://)|(www\.))([a-z][-a-z0-9]+\.)?([a-z][-a-z0-9]+\.)?[a-z][-a-z0-9]+\.[a-z]+[/]?[a-z0-9._\/~#&=;%+?-]*)@si';//(?!\'|")
+        $replacement='<a href="$1"'.((($blank_target)?' target="_blank"':'').(($nofollow)?' rel="nofollow"':'')).'>$1</a>';
+        $html=preg_replace($pattern, $replacement, $html);
+        // Fix URLs without protocols
+        $html=preg_replace('/href="www/', 'href="http://www', $html);
+        return $html;
     }
 }
