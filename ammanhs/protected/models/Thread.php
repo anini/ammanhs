@@ -136,7 +136,7 @@ class Thread extends CActiveRecord
 
 	public function beforeSave()
 	{
-		if($this->isNewRecord || $this->scenario='edit'){
+		if($this->isNewRecord || $this->scenario=='edit'){
 			$this->generateUniqueTitle(false);
 			$this->content=Text::addNofollowRelToAnchors($this->content);
 			$this->content=Text::addBlankTargetToAnchors($this->content);

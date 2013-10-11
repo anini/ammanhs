@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 );
 $cs=Yii::app()->clientScript;
 $cs->registerCSSFile("/css/fileupload.css?v=2.1");
-$cs->registerCSSFile("/css/user.css?v=3.2");
+$cs->registerCSSFile("/css/user.css?v=3.3");
 $cs->registerScriptFile('/js/user.js', CClientScript::POS_END);
 $cs->registerScriptFile('/js/fileupload.js', CClientScript::POS_END);
 $cs->registerScript("imageUpload", "$('.fileupload').fileupload({uploadtype: 'image'});", CClientScript::POS_END) ;

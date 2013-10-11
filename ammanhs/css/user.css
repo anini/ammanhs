@@ -1,11 +1,4 @@
-#user-info-table{
-	width: 100%;
-}
-#user-info-table td{
-	vertical-align: top;
-}
 #user-info-box{
-	width: 160px;
 	padding: 4px;
 	border: 1px solid #DDD;
 	-webkit-border-radius: 4px;
@@ -14,7 +7,6 @@
 	-webkit-box-shadow: rgba(0, 0, 0, 0.199219) 0px 0px 10px 0px;
 	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
 	box-shadow: rgba(0, 0, 0, 0.199219) 0px 0px 10px 0px;
-	margin-left: 20px;
 	text-align: center;
 }
 #user-info-box h4{
@@ -58,6 +50,11 @@
 	float: left;
 	font-size: 80%;
 	font-weight: normal;
+}
+#user-website{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 #about{
 	font-size: 12px;
