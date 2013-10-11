@@ -28,14 +28,19 @@ class UrlManager extends CUrlManager
 	public static function seoUrl($string){
 		// Remove spaces before and after
 		$string=trim($string);
-	    // Lower case everything
-	    // $string=strtolower($string);
-	    // Make alphaunermic
-	    $string=preg_replace("/[^a-z0-9_\s-][all_arabic_letters]/", "", $string);
-	    // Clean multiple dashes or whitespaces
-	    $string=preg_replace("/[\s-]+/", " ", $string);
-	    // Convert whitespaces and underscore to dash
-	    $string=preg_replace("/[\s_]/", "-", $string);
+		// Replace & with and
+		$string=str_replace(array(' & ', '&'), array(' and ', ' and '), $string);
+		// Sequeze spaces
+    	$string=preg_replace('/\s+/', ' ', $string);
+    	// Raplace underscores, whitespaces and some special characters with dash
+    	$string=preg_replace('/[\s_\/\.+:]+/', '-', $string);
+		// Remove non letter or digits
+		$string=preg_replace('/[^\pL\s0-9+-:]+/u', '', $string);
+		// Remove dashes before and after + and :
+		// $string=preg_replace('/[-]?([\+|:]+)[-]?/', '$1', $string);
+		// Sequeze dashes
+    	$string=preg_replace('/-{2,}/', '-', $string);
+	    
 	    return $string;
 	}
 
