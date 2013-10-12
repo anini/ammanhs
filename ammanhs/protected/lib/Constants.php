@@ -156,6 +156,7 @@ class Constants {
 
     const THREAD_ADDED_EARNED_POINTS=3;
     const THREAD_REPLY_ADDED_EARNED_POINTS=1;
+    const ACTIVITY_REPLY_ADDED_EARNED_POINTS=1;
     
     //--*--//--*--//--*--//--*--//--*--//
 

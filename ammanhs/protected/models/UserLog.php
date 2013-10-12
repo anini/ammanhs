@@ -135,7 +135,7 @@ class UserLog extends CActiveRecord
 	public static function addActivity($action, $object=null, $points_earned=0){
 		$thread_id=null;
 		$thread_reply_id=null;
-		$thread_id=null;
+		$activity_reply_id=null;
 		$targeted_user_id=null;
 		$uri='';
 
@@ -149,6 +149,10 @@ class UserLog extends CActiveRecord
 				$thread_reply_id=$object->id;
 				$uri=$object->link;
 				break;
+			case 'ActivityReply':
+				$activity_reply_id=$object->id;
+				$uri=$object->link;
+				break;
 			case 'User':
 				if($action!='Join')
 					$targeted_user_id=$object->id;
@@ -160,7 +164,7 @@ class UserLog extends CActiveRecord
 		$user_activity->action=$action;
 		$user_activity->thread_id=$thread_id;
 		$user_activity->thread_reply_id=$thread_reply_id;
-		$user_activity->thread_id=$thread_id;
+		$user_activity->activity_reply_id=$activity_reply_id;
 		$user_activity->targeted_user_id=$targeted_user_id;
 		$user_activity->points_earned=$points_earned;
 		$user_activity->uri=$uri;
@@ -193,6 +197,13 @@ class UserLog extends CActiveRecord
 					$user->stat_replies--;
 				}
 				$condition="thread_reply_id={$object_id}";
+				break;
+			case 'ActivityReply':
+				if($action=='Add'){
+					$minus_points=Constants::ACTIVITY_REPLY_ADDED_EARNED_POINTS;
+					$user->stat_replies--;
+				}
+				$condition="activity_reply_id={$object_id}";
 				break;
 			case 'User':
 				if($action!='Join')
