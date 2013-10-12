@@ -5,8 +5,8 @@ class Conf
 	public static $qaulity=array('png'=>9, 'jpeg'=>85);
 	public static $orig='..';
 	public static $copy_to=false; // used to copy images to CDN
-	public static $max_width=640;
-	public static $max_height=480;
+	public static $max_width=900;
+	public static $max_height=320;
 	public static $aspect_handling=2; // 0 stretch, 1 pad, 2 crop
 	public static $bucketName='';
 
