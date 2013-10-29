@@ -151,4 +151,31 @@ class Img{
 		return $content;
 	}
 
+	public static function addWatermark($image_path, $quality=null){
+		$type=pathinfo($image_path, PATHINFO_EXTENSION);
+		switch($type){
+			case 'png':
+                $image=imagecreatefrompng($image_path);
+                $write_image='imagepng';
+                if(!$quality) $quality=9;
+                break;
+            default:
+                $image=imagecreatefromjpeg($image_path);
+                $write_image='imagejpeg';
+                if(!$quality) $quality=100;
+                break;
+            
+        }
+        $watermark=imagecreatefrompng('images/watermark.png');
+        $wm_sx=imagesx($watermark);
+        $wm_sy=imagesy($watermark);
+        $success=imagecopy($image, $watermark, 10, imagesy($image)-$wm_sy-10, 0, 0, $wm_sx, $wm_sy)
+        && $write_image($image, $image_path, $quality);
+        // Free up memory (imagedestroy does not delete files):
+        imagedestroy($watermark);
+        imagedestroy($image);
+
+        return $success;
+	}
+
 }
