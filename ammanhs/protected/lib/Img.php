@@ -155,7 +155,11 @@ class Img{
 		$type=pathinfo($image_path, PATHINFO_EXTENSION);
 		switch($type){
 			case 'png':
-                $image=imagecreatefrompng($image_path);
+                $png_image=imagecreatefrompng($image_path);
+                $sx=imagesx($png_image);
+                $sy=imagesy($png_image);
+                $image=imagecreatetruecolor($sx, $sy);
+                imagecopy($image, $png_image, 0, 0, 0, 0, $sx, $sy);
                 $write_image='imagepng';
                 if(!$quality) $quality=9;
                 break;
@@ -165,18 +169,28 @@ class Img{
                 $write_image='imagejpeg';
                 if(!$quality) $quality=100;
                 break;
-            /*case 'gif':
-                $image=imagecreatefromgif($image_path);
+            case 'gif':
+                $gif_image=imagecreatefromgif($image_path);
+                $sx=imagesx($gif_image);
+                $sy=imagesy($gif_image);
+                $image=imagecreatetruecolor($sx, $sy);
+                imagecopy($image, $gif_image, 0, 0, 0, 0, $sx, $sy);
                 $write_image='imagegif';
                 if(!$quality) $quality=null;
-                break;*/
+                break;
             default:
             	return false;
         }
         $watermark=imagecreatefrompng('images/watermark.png');
         $wm_sx=imagesx($watermark);
         $wm_sy=imagesy($watermark);
+        /*
+        imagealphablending($watermark, true);
+        imagesavealpha($watermark, true);
+        imagealphablending($image, true);
+        imagesavealpha($image, true);
         imagecolortransparent($watermark);
+        */
         $success=imagecopy($image, $watermark, 10, imagesy($image)-$wm_sy-10, 0, 0, $wm_sx, $wm_sy)
         && $write_image($image, $image_path, $quality);
         // Free up memory (imagedestroy does not delete files):
