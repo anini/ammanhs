@@ -159,16 +159,24 @@ class Img{
                 $write_image='imagepng';
                 if(!$quality) $quality=9;
                 break;
-            default:
-                $image=imagecreatefromjpeg($image_path);
+            case 'jpeg':
+            case 'jpg':
+            	$image=imagecreatefromjpeg($image_path);
                 $write_image='imagejpeg';
                 if(!$quality) $quality=100;
                 break;
-            
+            /*case 'gif':
+                $image=imagecreatefromgif($image_path);
+                $write_image='imagegif';
+                if(!$quality) $quality=null;
+                break;*/
+            default:
+            	return false;
         }
         $watermark=imagecreatefrompng('images/watermark.png');
         $wm_sx=imagesx($watermark);
         $wm_sy=imagesy($watermark);
+        imagecolortransparent($watermark);
         $success=imagecopy($image, $watermark, 10, imagesy($image)-$wm_sy-10, 0, 0, $wm_sx, $wm_sy)
         && $write_image($image, $image_path, $quality);
         // Free up memory (imagedestroy does not delete files):
