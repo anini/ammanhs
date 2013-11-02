@@ -106,11 +106,11 @@ class SiteController extends Controller
 
 		$this->layout=false;
 		$model=new ContactForm;
-		if(isset($_POST['ajax']))
+		/*if(isset($_POST['ajax']))
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
-		}
+		}*/
 		if(isset($_POST['ContactForm']))
 		{
 			$model->attributes=$_POST['ContactForm'];

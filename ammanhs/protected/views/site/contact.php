@@ -13,13 +13,13 @@
 			<?php else: ?>
 			<?php $form=$this->beginWidget('CActiveForm', array(
 				'id'=>'contact-form',
-				'enableAjaxValidation'=>true,
+				//'enableAjaxValidation'=>true,
 				'action'=>'/contact?modal',
 				'htmlOptions'=>array(
 					'enctype'=>'multipart/form-data',
 					'class'=>'form-horizontal inline-form',
 					'style'=>'margin-bottom: 0;',
-					'enableClientValidation'=>true,
+					//'enableClientValidation'=>true,
 					'onSubmit'=>"submit_ajax(this, '.modal'); return false;",
 					),
 				)); ?>
@@ -27,7 +27,8 @@
 				<div class="control-group">
 					<?php echo $form->labelEx($model, 'name', array('class'=>'control-label')); ?>
 					<div class="controls">
-						<?php echo $form->textField($model, 'name', array('class'=>'span10', 'value'=>((Yii::app()->user->isGuest)?'':Yii::app()->user->model->name))); ?>
+						<?php echo $form->textField($model, 'name', array('class'=>'span10', 'value'=>
+						($model->name?$model->name:(Yii::app()->user->isGuest?'':Yii::app()->user->model->name)))); ?>
 						<?php echo $form->error($model, 'name', array('class'=>'help-inline error ge-ss')); ?>
 					</div>
 				</div>
@@ -35,7 +36,8 @@
 				<div class="control-group">
 					<?php echo $form->labelEx($model, 'email', array('class'=>'control-label')); ?>
 					<div class="controls">
-						<?php echo $form->textField($model,'email', array('class'=>'span10', 'value'=>((Yii::app()->user->isGuest)?'':Yii::app()->user->model->email))); ?>
+						<?php echo $form->textField($model,'email', array('class'=>'span10', 'value'=>
+						($model->email?$model->email:(Yii::app()->user->isGuest?'':Yii::app()->user->model->email)))); ?>
 						<?php echo $form->error($model, 'email', array('class'=>'help-inline error ge-ss')); ?>
 					</div>
 				</div>
