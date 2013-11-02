@@ -21,7 +21,29 @@ class SiteController extends Controller
 		);
 	}
 
+	public function actionUpdateThreadsUniqueTitles(){
+		if(Yii::app()->user->isGuest || Yii::app()->user->model->id!=1) die('-_-');
+		$threads=Thread::model()->findAll();
+		foreach($threads as $t){
+			$t->generateUniqueTitle(true);
+			echo $t->uq_title.'<br>';
+		}
+		exit();
+	}
+
 	public function actionTest(){
+		if(Yii::app()->user->isGuest || Yii::app()->user->model->id!=1) die('-_-');
+		$threads=Thread::model()->findAll();
+		$content='';
+		foreach ($threads as $t){
+			$content.=$t->content;
+		}
+		preg_match_all('/<[\s]*img[^src]*src="([^"]*)"[^>]*>/', $content, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER);
+		$sources=array();
+		foreach($matches as $matche){
+			echo($matche[1][0]);echo("\n");
+		}
+		die();
 		$this->layout=false;
 		$user=User::model()->findByPk(1);
 		$body=$this->renderPartial("/emailTemplates/user/welcome_email", array('user'=>$user), true);
@@ -92,7 +114,6 @@ class SiteController extends Controller
 		if(isset($_POST['ContactForm']))
 		{
 			$model->attributes=$_POST['ContactForm'];
-			var_dump($model->ref);die();
 			if($model->validate())
 			{
 				Mailer::sendTemplatedEmail(Yii::app()->params['admin_email'], $model->subject, 'admin/contact_us', array('user_id'=>(Yii::app()->user->isGuest?0:Yii::app()->user->id), 'contact_form'=>$model, 'user_ip'=>IPDetector::clientIP()));
