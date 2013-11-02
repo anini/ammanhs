@@ -32,12 +32,18 @@ function open_contact_modal(){
     return false;
 }
 
-function submit_ajax(e, parent_selector) {
+function submit_ajax(e, parent_selector, url) {
 	var f=$(e);
 	var data=f.serialize();
+	var action;
+	if(typeof url!='undefined' && url){
+		action=url;
+	}else{
+		action=f.attr('action');
+	}
 	$.ajax({
 		'type':'post',
-		'url':f.attr('action'),
+		'url':action,
 		'data':data,
 		'success':function(data){
 			if(typeof parent_selector=='undefined')

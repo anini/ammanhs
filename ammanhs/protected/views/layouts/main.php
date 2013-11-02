@@ -30,7 +30,7 @@
 			'jquery.yiilistview.js'=>'/js/jquery.yiilistview.min.js',
 			); ?>
 		<?php $cs->registerScriptFile('/js/jquery-migrate.min.js', CClientScript::POS_END); ?>
-		<?php $cs->registerScriptFile('/js/1.1.js', CClientScript::POS_END); ?>
+		<?php $cs->registerScriptFile('/js/1.1.min.js?v=1.0', CClientScript::POS_END); ?>
 		<?php $cs->registerScriptFile('/js/bootstrap/bootstrap.min.js', CClientScript::POS_END); ?>
 		<?php $cs->registerScriptFile('/js/bootstrap/bootstrap-modal.min.js', CClientScript::POS_END); ?>
 		<?php $cs->registerScriptFile('/js/bootstrap/bootstrap-modalmanager.min.js', CClientScript::POS_END); ?>
