@@ -157,6 +157,51 @@ class Constants {
     const THREAD_ADDED_EARNED_POINTS=3;
     const THREAD_REPLY_ADDED_EARNED_POINTS=1;
     const ACTIVITY_REPLY_ADDED_EARNED_POINTS=1;
+
+        //--*--//--*--//--*--//--*--//--*--//
+       //--*--//--*--//--*--//--*--//--*--//
+      //--*--// Attachments Types //--*--//
+     //--*--//--*--//--*--//--*--//--*--//
+    //--*--//--*--//--*--//--*--//--*--//
+
+    const ATTACHMENT_TYPE_PRESENTATION='Presentation';
+    const ATTACHMENT_TYPE_PDF='PDF';
+    const ATTACHMENT_TYPE_CODE='Code';
+    const ATTACHMENT_TYPE_COMPRESSED='Compressed';
+
+    public static function getAttachmentsTypes(){
+        return array(
+            self::ATTACHMENT_TYPE_PRESENTATION=>Yii::t('core', 'Presentation'),
+            self::ATTACHMENT_TYPE_PDF=>Yii::t('core', 'PDF File'),
+            self::ATTACHMENT_TYPE_CODE=>Yii::t('core', 'Code File'),
+            self::ATTACHMENT_TYPE_COMPRESSED=>Yii::t('core', 'Compressed File')
+        );
+    }
+
+    public static function attachmentType($type){
+        $types=self::getAttachmentsTypes();
+        if(isset($types[$type]))
+            return $types[$type];
+        return '';
+    }
+
+    public static function attachmentTypeIcon($type){
+        switch($type){
+            case 'Presentation':
+                $icon='octicon-screen-full';
+                break;
+            case 'PDF':
+                $icon='octicon-file-pdf';
+                break;
+            case 'Code':
+                $icon='octicon-file-code';
+                break;
+            case 'Compressed':
+                $icon='octicon-file-zip';
+                break;
+        }
+        return $icon;
+    }
     
     //--*--//--*--//--*--//--*--//--*--//
 
