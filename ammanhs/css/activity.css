@@ -1,0 +1,146 @@
+.shadow-box{
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.199219) 0px 0px 10px 0px;
+	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+	box-shadow: rgba(0, 0, 0, 0.199219) 0px 0px 10px 0px;
+}
+#cover-photo{
+	border: 1px solid #DDD;
+}
+#cover-photo img{
+	border-radius: 4px;
+}
+#title-hr{
+	margin: 0;
+}
+#hidden-date{
+	float: left;
+	color: white;
+}
+.activity-details h3{
+	margin-top: 2px;
+}
+.activity-stats .octicons{
+	font-size: 26px;
+	position: relative;
+}
+.activity-stats .octicons span{
+	font-size: 12px;
+	font-weight: bold !important;
+	border: 3px solid #08C;
+	border-radius: 11px;
+	background: #08C;
+	line-height: 10px;
+	font-family: arial;
+	position: absolute;
+	right: 18px;
+	color: #FFF;
+	text-shadow: 1px 1px 1px #000;
+}
+.activity-stats .octicon-file-zip span{
+	right: 14px;
+}
+.activity-stats > div{
+	display: inline-block;
+}
+.activity-stats .stat-photos{
+	margin-left: 5px;
+}
+.create-date{
+	font-size: 14px;
+	margin-left: 6px;
+}
+
+#activity-body{
+	word-wrap: break-word;
+}
+.reply-user-title{
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.reply-user-title a, .shadow-box a{
+	color: #333;
+}
+.reply-user-title a:hover, .shadow-box a:hover{
+	text-decoration: none;
+}
+.reply-user-title h5{
+	margin: 5px 10px 5px 0;
+}
+.reply-user-title .muted{
+    font-weight: normal;
+	float: left;
+	margin-left: 10px;
+}
+.reply-content{
+	width: 100%;
+	float: right;
+}
+.reply-content > div{
+	padding: 10px;
+	padding-left: 40px;
+}
+.reply-user{
+	padding: 5px;
+	width: 15%;
+	display: inline-table;
+}
+.span8.offset1 > .new-reply-user{
+	margin-top: 12px;
+}
+.activity-reply{
+	width: 80%;
+	float: left;
+}
+.activity-reply .shadow-box{
+	padding: 1px;
+	margin-right: 15px;
+}
+.activity-reply > div{
+	width: 100%;
+}
+.activity-reply #wmd-button-row{
+	padding-top: 0;
+}
+#new-activity td{
+	vertical-align: top;
+}
+.nav-tabs > li{
+	float: left !important;
+}
+.summary a:hover{
+	text-decoration: none !important;
+	color: #333333 !important;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+#add-activity-reply-button{
+	float: left;
+}
+#images{
+	margin-bottom: -4px;
+}
+#images a img{
+	margin: 0 -4px 4px;
+	margin-right: 0.5%;
+	width: 12%;
+}
+#attachments-table td{
+	vertical-align: middle;
+}
+.buttons-td{
+	min-width: 160px;
+	text-align: center;
+}
+.type-td, .size-td, .buttons-td{
+	font-size: 13px;
+}
+.type-td i{
+	font-size: 20px;
+}
+#activity-view .tooltip{
+	font-size: 20px !important;
+}
+#activity-view #photos-album .tooltip{
+	font-size: 12px !important;
+}

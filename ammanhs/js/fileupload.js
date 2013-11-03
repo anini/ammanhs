@@ -85,6 +85,9 @@
         reader.onload = function(e) {
           preview.html('<img src="' + e.target.result + '" ' + (preview.css('max-height') != 'none' ? 'style="max-height: ' + preview.css('max-height') + ';"' : '') + ' />')
           element.addClass('fileupload-exists').removeClass('fileupload-new')
+          if(document.getElementById('submit-image') !== null){
+            $('#submit-image').show();
+          }
         }
 
         reader.readAsDataURL(file)
