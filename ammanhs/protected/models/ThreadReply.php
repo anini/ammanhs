@@ -156,7 +156,7 @@ class ThreadReply extends CActiveRecord
 	public function delete(){
 		$this->publish_status=Constants::PUBLISH_STATUS_UNPUBLISHED;
 		if(!$this->save()){
-			throw new CHttpException(500, 'Couldn\'t unpublish the thread.');
+			throw new CHttpException(500, 'Couldn\'t unpublish the thread reply.');
 		}
 		UserLog::removeActivity('Add', $this, $this->user);
 	}

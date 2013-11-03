@@ -55,7 +55,7 @@ class ThreadController extends Controller
 		if(Yii::app()->user->isGuest){
 			$model=Thread::model()->with('replies')->findByAttributes(array('uq_title'=>$id));
 			if(!$model && is_numeric(($id))){
-				$model=Thread::model()->with('replies')->findByPk($id);
+				$model=Thread::model()->findByPk($id);
 				if($model){
 					$this->redirect($model->link, true, 301);
 				}
