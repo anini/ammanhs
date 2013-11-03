@@ -76,6 +76,7 @@ return CMap::mergeArray(
 				'<controller:\w+>'=>'<controller>/index',
 				't/<id:[^\/]+>'=>'thread/view',
 				'u/<id:[^\/]+>'=>'user/view',
+				'a/<id:[^\/]+>'=>'activity/view',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
