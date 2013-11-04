@@ -121,17 +121,16 @@
 	float: left;
 }
 #photos-album{
-	margin-bottom: -4px;
-}
-#photo-album a{
-	margin: 0 -4px 4px;
-	margin-right: 0.5%;
-	width: 12%;
+	-moz-column-count: 8;
+    -moz-column-gap: 0px;
+    -webkit-column-count: 8;
+    -webkit-column-gap: 0px;
+    column-count: 8;
+    column-gap: 0px;
 }
 #photos-album a img{
-	margin: 0 -4px 4px;
-	margin-right: 0.5%;
-	width: 12%;
+	margin: 2%;
+	width: 98%;
 }
 #attachments-table td{
 	vertical-align: middle;
