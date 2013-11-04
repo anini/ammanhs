@@ -1,29 +1,17 @@
-# Maintenance mode
-RewriteEngine on
-RewriteCond     %{DOCUMENT_ROOT}/maintenance.html -f
-RewriteCond     %{SCRIPT_FILENAME}      !maintenance.html
-RewriteCond     %{REQUEST_FILENAME} !images/maintenance.jpg
-RewriteCond     %{REQUEST_FILENAME} !images/maintenance_0.1.png
-RewriteRule     ^.*$     /maintenance.html [R=302,L]
-
-Options +FollowSymlinks
-
-# Disable access to .svn and .git entries
-RewriteRule ^(.*/)?.svn/ - [F,L]
-RewriteRule ^(.*/)?.git/ - [F,L]
-
-
 Options +FollowSymLinks
 IndexIgnore */*
 RewriteEngine on
 
+# force non-www domain
+RewriteCond %{HTTP_HOST} ^www\.ammanhs\.com$ [NC]
+RewriteRule (.*) http://ammanhs.com/$1 [R=301,L]
+
+# Make backend accessible via url: http://site/backend.
+RewriteRule ^sysadmin& backend.php
+
 # if a directory or a file exists, use it directly
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule . index.php
-#RewriteRule ^.*$ index.php [L]
+RewriteCond %{REQUEST_FILENAME} !-d
 
-AddDefaultCharset UTF-8
-#php_admin_value mbstring.func_overload "7"
-#php_admin_value mbstring.internal_encoding "UTF-8"
-
-
+# otherwise forward it to index.php
+RewriteRule ^.*$ /index.php [L]
