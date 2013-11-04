@@ -50,7 +50,10 @@
 .files video {
   max-width: 300px;
 }
-
+.progress-extended{
+  direction: ltr;
+  text-align: center;
+}
 @media (max-width: 767px) {
   .fileupload-buttonbar .toggle,
   .files .toggle,

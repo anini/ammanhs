@@ -9,7 +9,7 @@
 #cover-photo{
 	border: 1px solid #DDD;
 }
-#cover-photo img{
+#cover-photo img, .cover-photo img{
 	border-radius: 4px;
 }
 #title-hr{
@@ -21,6 +21,9 @@
 }
 .activity-details h3{
 	margin-top: 2px;
+}
+.activity-details h3 a{
+	font-size: 85%;
 }
 .activity-stats .octicons{
 	font-size: 26px;
@@ -117,10 +120,15 @@
 #add-activity-reply-button{
 	float: left;
 }
-#images{
+#photos-album{
 	margin-bottom: -4px;
 }
-#images a img{
+#photo-album a{
+	margin: 0 -4px 4px;
+	margin-right: 0.5%;
+	width: 12%;
+}
+#photos-album a img{
 	margin: 0 -4px 4px;
 	margin-right: 0.5%;
 	width: 12%;

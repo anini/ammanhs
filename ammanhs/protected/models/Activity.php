@@ -139,9 +139,6 @@ class Activity extends CActiveRecord
 			$this->content=Text::addBlankTargetToAnchors($this->content);
 			$this->content=Text::linkUrls($this->content);
 		}
-		if($this->isNewRecord){
-			$this->generateUniqueTitle(false);
-		}
 		if(!$this->created_at){
 			$this->created_at=time();
         }else{

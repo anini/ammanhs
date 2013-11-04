@@ -1,7 +1,7 @@
 <?php
 $cs=Yii::app()->clientScript;
 $cs->registerCSSFile('/css/gallery/blueimp-gallery.min.css?v=1.0');
-$cs->registerScriptFile('/js/gallery/blueimp-gallery.min.js?v=1.0', CClientScript::POS_END);
+$cs->registerScriptFile('/js/gallery/blueimp-gallery.min.js?v=1.2', CClientScript::POS_END);
 ?>
 
 <hr/>
@@ -18,12 +18,12 @@ $cs->registerScriptFile('/js/gallery/blueimp-gallery.min.js?v=1.0', CClientScrip
 
 <div id="photos-album" data-original-title="<?php echo Yii::t('core', 'Photos Album'); ?>">
     <?php foreach($photos as $photo){ ?>
-    <a href="<?php echo Img::uri($photo->uri); ?>" <?php if($photo->caption){echo 'data-original-title="'.$photo->caption.'"';} ?>" title="<?php echo ($photo->caption?$photo->caption:$activity_title); ?>" data-gallery="<?php echo ($photo->caption?$photo->caption:$activity_title); ?>">
+    <a href="<?php echo Img::uri($photo->uri); ?>" <?php if($photo->caption){echo 'data-original-title="'.$photo->caption.'"';} ?> title="<?php echo ($photo->caption?$photo->caption:$activity_title); ?>" name="<?php echo ($photo->caption?$photo->caption:$activity_title); ?>">
         <?php
         $uri=explode('/album/', $photo->uri);
         $thumb=$uri[0].'/album/thumbnail/'.$uri[1];
         ?>
-        <img src="<?php echo Img::uri($thumb); ?>" alt="<?php echo $photo->caption; ?>">
+        <img src="<?php echo Img::uri($thumb); ?>" alt="<?php echo ($photo->caption?$photo->caption:$activity_title); ?>">
     </a> 
     <?php } ?>
 </div>
