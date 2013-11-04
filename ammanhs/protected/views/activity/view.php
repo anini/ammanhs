@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle=$model->title.' - '.Yii::t('core', 'Amman Hackerspace');
 $this->breadcrumbs=array(
 	Yii::t('core', 'Activities')=>array('index'),
 	$model->title,
