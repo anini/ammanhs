@@ -50,6 +50,7 @@ class Activity extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('date, title, content', 'required'),
+			array('title', 'unique'),
 			array('date, stat_photos, stat_attachments, stat_views, stat_replies, publish_status, created_at, updated_at', 'numerical', 'integerOnly'=>true),
 			array('title, photo_uri', 'length', 'max'=>256),
 			array('tags', 'length', 'max'=>128),
