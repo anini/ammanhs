@@ -61,7 +61,7 @@ class ActivityController extends Controller
 		if(!$model || $model->publish_status<Constants::PUBLISH_STATUS_DRAFT){
 			Yii::app()->user->setFlash('flash', array(
                     'status'=>'error',
-                    'message'=>Yii::t('core', 'Sorry! This is activity is no longer available.')
+                    'message'=>Yii::t('core', 'Sorry! This activity is no longer available.')
                 ));
                 $this->redirect(array('index'), true, 301);
 		}
@@ -127,6 +127,7 @@ class ActivityController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$model->scenario='edit';
 		$model->date=date('m/d/Y', $model->date);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -275,7 +276,7 @@ class ActivityController extends Controller
 						break;
 					case 'album':
 						// Adding watermark on the image
-						Img::addWatermark($image_path);
+						Img::addWatermark($file_path);
 						$model=new ActivityPhoto;
 						if(isset($_POST['caption']) && $_POST['caption']){
 							$model->caption=$_POST['caption'];

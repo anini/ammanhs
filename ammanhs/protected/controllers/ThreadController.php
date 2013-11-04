@@ -79,7 +79,7 @@ class ThreadController extends Controller
 		if(!$model || $model->publish_status<Constants::PUBLISH_STATUS_DRAFT){
 			Yii::app()->user->setFlash('flash', array(
                     'status'=>'error',
-                    'message'=>Yii::t('core', 'Sorry! This is thread is no longer available.')
+                    'message'=>Yii::t('core', 'Sorry! This thread is no longer available.')
                 ));
                 $this->redirect(array('index'), true, 301);
 		}
