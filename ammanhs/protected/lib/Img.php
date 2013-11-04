@@ -153,6 +153,7 @@ class Img{
 
 	public static function addWatermark($image_path, $quality=null){
 		$type=pathinfo($image_path, PATHINFO_EXTENSION);
+		$type=strtolower($type);
 		switch($type){
 			case 'png':
                 $png_image=imagecreatefrompng($image_path);
@@ -191,7 +192,7 @@ class Img{
         imagesavealpha($image, true);
         imagecolortransparent($watermark);
         */
-        $success=imagecopy($image, $watermark, 10, imagesy($image)-$wm_sy-10, 0, 0, $wm_sx, $wm_sy)
+        $success=imagecopy($image, $watermark, 10, /*imagesy($image)-$wm_sy-*/10, 0, 0, $wm_sx, $wm_sy)
         && $write_image($image, $image_path, $quality);
         // Free up memory (imagedestroy does not delete files):
         imagedestroy($watermark);
