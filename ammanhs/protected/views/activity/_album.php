@@ -16,7 +16,7 @@ $cs->registerScriptFile('/js/gallery/blueimp-gallery.min.js?v=1.2', CClientScrip
     <ol class="indicator"></ol>
 </div>
 
-<div id="photos-album" data-original-title="<?php echo Yii::t('core', 'Photos Album'); ?>">
+<div id="album" data-original-title="<?php echo Yii::t('core', 'Photos Album'); ?>">
     <?php foreach($photos as $photo){ ?>
     <a href="<?php echo Img::uri($photo->uri); ?>" <?php if($photo->caption){echo 'data-original-title="'.$photo->caption.'"';} ?> title="<?php echo ($photo->caption?$photo->caption:$activity_title); ?>" name="<?php echo ($photo->caption?$photo->caption:$activity_title); ?>">
         <?php
@@ -29,7 +29,7 @@ $cs->registerScriptFile('/js/gallery/blueimp-gallery.min.js?v=1.2', CClientScrip
 </div>
 
 <script>
-document.getElementById('photos-album').onclick=function(event){
+document.getElementById('album').onclick=function(event){
     event=event||window.event;
     var target=event.target||event.srcElement,
         link=target.src ? target.parentNode : target,

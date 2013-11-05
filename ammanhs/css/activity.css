@@ -120,7 +120,7 @@
 #add-activity-reply-button{
 	float: left;
 }
-#photos-album{
+#album{
 	-moz-column-count: 8;
     -moz-column-gap: 0px;
     -webkit-column-count: 8;
@@ -128,7 +128,7 @@
     column-count: 8;
     column-gap: 0px;
 }
-#photos-album a img{
+#album a img{
 	margin: 2%;
 	width: 98%;
 }
@@ -148,6 +148,6 @@
 #activity-view .tooltip{
 	font-size: 20px !important;
 }
-#activity-view #photos-album .tooltip{
+#activity-view #album .tooltip{
 	font-size: 12px !important;
 }

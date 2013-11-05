@@ -1,7 +1,17 @@
 $(document).ready(function(){
+    var h=document.location.hash;
+    var a=h.split('photo=');
+    if(typeof a[1] !== 'undefined'){
+        var photos=$('#album a');
+        if(typeof photos[a[1]-1] !== 'undefined'){
+            photos[a[1]-1].click();
+        }else{
+            document.location.hash='album';
+        }
+    }
     $('#attachments-table').tooltip({placement: 'top'});
-    $('#photos-album').tooltip({placement: 'top'});
-    var photos=$('#photos-album a');
+    $('#album').tooltip({placement: 'top'});
+    var photos=$('#album a');
     for(i=0; i<photos.length; i++){
         if($(photos[i]).attr('data-original-title')){
             $(photos[i]).tooltip({placement: 'bottom'});
