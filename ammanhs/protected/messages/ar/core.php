@@ -4,7 +4,8 @@ return array(
 	'slogan'=>'مختبر ومركز أبحاث ومجتمع مفتوح المصدر',
 	'Copy Rights - Arabic'=>'جميع حقوق النسخ والطبع والتوزيع ممنوحة ضمن شروط رخصة التشارك الإبداعي مع ذِكرِ المصدر',
 	'Copy Rights - English'=>'All rights granted under the terms of Creative Commons License',
-	
+	'site description'=>'مجتمع مفتوح المصدر ومركز أبحاث ومختبر تصنيع وبوابة معرفة، يوفر المكان والأدوات المناسبة والبيئة الإبداعية لعمل وتطبيق أي مشروع متعلق بالتكنولوجيا عامة، والإلكترونيات والروبوت خاصة.',
+	//'An open source community, research center, fablab and knowledge hub, provides the physical place, needed tools and the creative environment to implement any electronic and robotic related project'
 	// Header
 	'Home'=>'الرئيسية',
 	'Threads'=>'المواضيع',
@@ -107,6 +108,7 @@ return array(
 	'Stat Points'=>'النقاط',
 	'Stat Threads'=>'المواضيع',
 	'Stat Replies'=>'الردود',
+	'Member since :date'=>'عضو منذ :date',
 	'Member since :time'=>'<span class="muted">عضو منذ</span> <span itemprop="dateCreated">:time</span>',
 	'Select image'=>'اختر صورة',
 	'Change the image'=>'غير الصورة',

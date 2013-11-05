@@ -6,11 +6,16 @@ $this->breadcrumbs=array(
 $cs=Yii::app()->clientScript;
 $cs->registerMetaTag($model->name, 'twitter:title');
 $cs->registerMetaTag($model->name , 'og:title');
+
+$description=Yii::t('core', 'Member since :date', array(':date'=>Date('Y/m/d', $model->created_at))).' | ';
 if($model->about){
-	$cs->registerMetaTag($model->about, 'description', null, array(), 'metadescription');
-	$cs->registerMetaTag($model->about, 'twitter:description');
-	$cs->registerMetaTag($model->about, 'og:description');
+	$description.=$model->about;
+}else{
+	$description.=Yii::t('core', 'site description');
 }
+$cs->registerMetaTag($description, 'description', null, array(), 'metadescription');
+$cs->registerMetaTag($description, 'twitter:description');
+$cs->registerMetaTag($description, 'og:description');
 $cs->registerCSSFile('/css/user.css?v=3.3');
 $this->menu=array(
 	array('label'=>'List User', 'url'=>array('index')),
@@ -46,7 +51,7 @@ $this->menu=array(
 			    <?php } ?>
 			    <?php if($model->website){ ?>
 			    <div id="user-website">
-			    	<span class="octicons octicon-link muted"></span><a href="http://<?php echo $model->website; ?>" target="_blank" rel="nofollow" title="<?php echo $model->website; ?>"><?php echo $model->website; ?></a>
+			    	<span class="octicons octicon-link muted"></span><a href="<?php echo $model->website; ?>" target="_blank" rel="nofollow" title="<?php echo $model->website; ?>"><?php echo $model->website; ?></a>
 				</div>
 			    <?php } ?>
 			    <div>
