@@ -26,9 +26,12 @@ function refresh_sidebar(){
 	$('#sidebar').load('/site/refreshSidebar', enable_tooltips);
 }
 
-function open_contact_modal(){
+function open_contact_modal(hash){
     $('#contact-link').click();
-    document.location.hash='contact';
+    if(typeof hash==='undefined'){
+    	hash='contact';
+    }
+    document.location.hash=hash;
     return false;
 }
 

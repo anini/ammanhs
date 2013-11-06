@@ -2,8 +2,10 @@
 return array(
 	'Amman Hackerspace'=>'فضاء المتمكنين | عمّان',
 	'slogan'=>'مختبر ومركز أبحاث ومجتمع مفتوح المصدر',
-	'Copy Rights - Arabic'=>'جميع حقوق النسخ والطبع والتوزيع ممنوحة ضمن شروط رخصة التشارك الإبداعي مع ذِكرِ المصدر',
-	'Copy Rights - English'=>'All rights granted under the terms of Creative Commons License',
+	'Copy Rights - Arabic'=>'الموقع برخصة <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US" rel="nofollow" target="_blank">المشاع الإبداعي النسبة-بذات الرخصة-غير التجاري 3.0</a>',
+	//جميع حقوق النسخ والطبع والتوزيع ممنوحة ضمن شروط رخصة التشارك الإبداعي مع ذِكرِ المصدر
+	'Copy Rights - English'=>'Site is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US" rel="nofollow" target="_blank">Creative Commons BY-NC-SA 3.0 License</a>',
+	//All rights granted under the terms of Creative Commons License
 	'site description'=>'مجتمع مفتوح المصدر ومركز أبحاث ومختبر تصنيع وبوابة معرفة، يوفر المكان والأدوات المناسبة والبيئة الإبداعية لعمل وتطبيق أي مشروع متعلق بالتكنولوجيا عامة، والإلكترونيات والروبوت خاصة.',
 	//'An open source community, research center, fablab and knowledge hub, provides the physical place, needed tools and the creative environment to implement any electronic and robotic related project'
 	// Header
@@ -20,6 +22,8 @@ return array(
 	'Logout'=>'تسجيل الخروج',
 	'Sponsers'=>'الرعاة',
 	'E-Store'=>'المتجر الإلكتروني',
+	'How can we improve this page?'=>'كيف يمكننا تحسين هذه الصفحة؟',
+	'Suggest an activity'=>'اقترح فعالية',
 
 	//Validators
 	'{attribute} is not a valid email address.'=>'{attribute} ليس بريد إلكتروني صحيح.',
