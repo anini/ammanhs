@@ -4,12 +4,11 @@
 		<h4><?php echo Yii::t('core', 'Contact Us'); ?></h4> 
 	</div>
 	<div class="modal-body">
-		<div class="span12"> 
+		<div class="span12">
 			<?php if(Yii::app()->user->hasFlash('contact')): ?>
 			<div class="flash-success">
 				<?php echo Yii::app()->user->getFlash('contact'); ?>
 			</div>
-
 			<?php else: ?>
 			<?php $form=$this->beginWidget('CActiveForm', array(
 				'id'=>'contact-form',
@@ -45,7 +44,7 @@
 				<div class="control-group">
 					<?php echo $form->labelEx($model, 'subject', array('class'=>'control-label')); ?>
 					<div class="controls">
-						<?php echo $form->textField($model, 'subject',array('maxlength'=>128, 'class'=>'span10')); ?>
+						<?php echo $form->textField($model, 'subject',array('maxlength'=>128, 'class'=>'span10', 'id'=>'title-field')); ?>
 						<?php echo $form->error($model, 'subject', array('class'=>'help-inline error ge-ss')); ?>
 					</div>
 				</div>
@@ -58,24 +57,24 @@
 					</div>
 				</div>
 
-				<?php if(CCaptcha::checkRequirements()): ?>
-				<div class="control-group">
-					<div class="controls">
-						<?php $this->widget('CCaptcha'); ?>
+				<?php /*if(CCaptcha::checkRequirements()){ ?>
+					<div class="control-group">
+						<div class="controls">
+							<?php $this->widget('CCaptcha'); ?>
+						</div>
+						<?php echo $form->labelEx($model, 'verifyCode', array('class'=>'control-label')); ?>
+						<div class="controls">
+							<?php echo $form->textField($model, 'verifyCode', array('class'=>'span10', 'placeholder'=>Yii::t('core', 'Please enter the letters shown in the image above.'))); ?>
+							<?php echo $form->error($model, 'verifyCode', array('class'=>'help-inline error ge-ss')); ?>
+						</div>
 					</div>
-					<?php echo $form->labelEx($model, 'verifyCode', array('class'=>'control-label')); ?>
-					<div class="controls">
-						<?php echo $form->textField($model, 'verifyCode', array('class'=>'span10', 'placeholder'=>Yii::t('core', 'Please enter the letters shown in the image above.'))); ?>
-						<?php echo $form->error($model, 'verifyCode', array('class'=>'help-inline error ge-ss')); ?>
-					</div>
+				<?php } */?>
+
+				<div class="form-actions" style="margin-bottom: 0;">
+					<button class="btn btn-primary" type="submit"><?php echo Yii::t('core', 'Send'); ?></button>
 				</div>
-			<?php endif; ?>
 
-			<div class="form-actions" style="margin-bottom: 0;">
-				<button class="btn btn-primary" type="submit"><?php echo Yii::t('core', 'Send'); ?></button>
-			</div>
-
-			<?php echo CHTML::hiddenField('ContactForm[ref]', '', array('id'=>'contact-ref')); ?>
+				<?php echo CHTML::hiddenField('ContactForm[ref]', '', array('id'=>'contact-ref')); ?>
 
 			<?php $this->endWidget(); ?>
 
@@ -85,8 +84,12 @@
 </div>
 
 <script type="text/javascript">
+if(document.location.hash=='#suggest-activity'){
+	$('#title-field').val('اقتراح فعالية');
+	$('.modal-header h4').text('اقتراح فعالية');
+}
 $('.modal').on('hidden', function(){
 	document.location.hash='';
 });
-document.getElementById('contact-ref').value=document.location.href;
+$('#contact-ref').val(document.location.href);
 </script>
