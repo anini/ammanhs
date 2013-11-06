@@ -131,6 +131,7 @@ class SiteController extends Controller
 		if($this->beginCache('ammanhs', array("duration"=>(3600*12)))){
 			$urls[]=$this->createAbsoluteUrl('site/threadsSitemap');
 			$urls[]=$this->createAbsoluteUrl('site/usersSitemap');
+			$urls[]=$this->createAbsoluteUrl('site/activitiesSitemap');
 			$this->renderPartial('sitemap',array('urls'=>$urls));
 			$this->endCache();
 		}
@@ -147,6 +148,7 @@ class SiteController extends Controller
 					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 					xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
 					>';
+			$this->renderPartial('_sitemap', array('url'=>Yii::app()->urlManager->createAbsoluteUrl('thread/index')));
 			// REVIEW: NOTE: might need a limit and loop to avoid out of memory
 			$c_threads=new CDbCriteria();
 			$c_threads->condition='publish_status>='.Constants::PUBLISH_STATUS_DRAFT;
@@ -171,13 +173,38 @@ class SiteController extends Controller
 					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 					xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
 					>';
+			$this->renderPartial('_sitemap', array('url'=>Yii::app()->urlManager->createAbsoluteUrl('site/index')));
 			// REVIEW: NOTE: might need a limit and loop to avoid out of memory
 			$c_users=new CDbCriteria();
-			$c_users->select='id';
 			//$c_users->condition="active > 0";
 			$users=User::model()->findAll($c_users);
 			foreach($users as $user){
-				$url=$user->profileLink;
+				$url=$user->getProfileLink(true);
+				$this->renderPartial('_sitemap', array('url'=>$url));
+			}
+			echo '</urlset>';
+			$this->endCache();
+		}
+	}
+
+	public function actionActivitiesSitemap(){
+		header('Content-Type: application/xml');
+		if($this->beginCache('activities', array("duration"=>(300*12)))){
+			echo
+			'<?xml version="1.0" encoding="UTF-8"?>
+				<urlset
+					xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+					xmlns:xhtml="http://www.w3.org/1999/xhtml"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+					>';
+			$this->renderPartial('_sitemap', array('url'=>Yii::app()->urlManager->createAbsoluteUrl('activity/index')));
+			// REVIEW: NOTE: might need a limit and loop to avoid out of memory
+			$c_activities=new CDbCriteria();
+			$c_activities->condition='publish_status>='.Constants::PUBLISH_STATUS_DRAFT;
+			$activities=Activity::model()->findAll($c_activities);
+			foreach($activities as $activity){
+				$url=$activity->getLink(true);
 				$this->renderPartial('_sitemap', array('url'=>$url));
 			}
 			echo '</urlset>';
