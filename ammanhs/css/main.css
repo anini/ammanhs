@@ -26,14 +26,14 @@ html{
     margin-bottom: 20px;
 }
 #footer-links{
+    float: right;
 }
 #footer-links > div{
     display: inline-block;
-    padding: 0 5px;
+    padding: 10px 5px;
 }
 #follow-us-footer{
-    display: block !important;
-    margin-top: 20px;
+    float: left;
 }
 #sponsers{
     direction: ltr;
@@ -167,26 +167,32 @@ form .help-inline{
 }
 .social-buttons-title{
     display: inline-block;
-    line-height: 46px;
+    line-height: 40px;
     vertical-align: text-bottom;
 }
 .social-buttons{
     display: inline-block;
 }
-.facebook-button, .twitter-button, .google-button{
-    background: url('/images/common/social_buttons.png') no-repeat;
-    height: 46px;
-    width: 46px;
+.social-buttons a:hover{
+    opacity: 0.7;
+}
+.facebook-button, .twitter-button, .google-button, .linkedin-button{
+    background: url('/images/common/social.png') no-repeat;
+    height: 40px;
+    width: 40px;
     display: inline-table;
 }
 .facebook-button{
     background-position: 0 0;
 }
 .twitter-button{
-    background-position: -48px 0;
+    background-position: -40px 0;
 }
 .google-button{
-    background-position: -95px 0;
+    background-position: -80px 0;
+}
+.linkedin-button{
+    background-position: -120px 0;
 }
 .add-thread-button{
     padding: 10px !important;
