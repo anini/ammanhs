@@ -1,4 +1,4 @@
-.shadow-box{
+hshadow-box{
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
@@ -10,7 +10,13 @@
 	border: 1px solid #DDD;
 }
 #cover-photo img, .cover-photo img{
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
 	border-radius: 4px;
+	border: 1px solid #BBB;
+}
+#cover-photo a, #attachments-table a{
+	text-decoration: none;
 }
 #title-hr{
 	margin: 0;
@@ -20,10 +26,16 @@
 	color: white;
 }
 .activity-details h3{
-	margin-top: 2px;
+	height: 40px;
 }
 .activity-details h3 a{
 	font-size: 85%;
+}
+.activity-title{
+	float: right;
+}
+.activity-stats{
+	float: left;
 }
 .activity-stats .octicons{
 	font-size: 26px;

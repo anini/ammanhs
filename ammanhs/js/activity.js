@@ -11,7 +11,7 @@ $(document).ready(function(){
     }
     $('#attachments-table').tooltip({placement: 'top'});
     $('#album').tooltip({placement: 'top'});
-    var photos=$('#album a');
+    var photos=$('#album a img');
     for(i=0; i<photos.length; i++){
         if($(photos[i]).attr('data-original-title')){
             $(photos[i]).tooltip({placement: 'bottom'});
