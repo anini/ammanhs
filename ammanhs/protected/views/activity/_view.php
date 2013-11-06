@@ -1,23 +1,29 @@
 <div class="row activity-view">
-	<div class="span3 activity-photo" style="text-align:center;">
+	<div class="span3 activity-photo">
 		<?php echo $model->photo_a(360, 128); ?>
 	</div>
 	<div class="span6 activity-details">
-		<h3 style="text-align:center; margin-top: 0;">
-			<div class="activity-stats">
-				<div class="create-date muted">
-					<span><?php echo date('Y/m/d', $model->date); ?></span>
-				</div>
-				<div class="stat-photos">
-		    		<span class="octicons octicon-device-camera" data-original-title="<?php echo $model->stat_photos.' '.(Yii::t('core', ((abs(substr($model->stat_photos, -2))<11 && abs(substr($model->stat_photos, -2))>2)?'photos':'photo'))); ?>"><span><?php echo $model->stat_photos; ?></span></span>
-		    	</div>
-		    	<div>
-		    		<span class="octicons octicon-file-zip" data-original-title="<?php echo $model->stat_attachments.' '.(Yii::t('core', ((abs(substr($model->stat_attachments, -2))<11 && abs(substr($model->stat_attachments, -2))>2)?'attachments':'attachment'))); ?>"><span><?php echo $model->stat_attachments; ?></span></span>
-		    	</div>
-			</div>
-			<div class="activity-title">
-				<a href="<?php echo $this->createUrl('activity/view', array('id'=>$model->uq_title)); ?>"><?php echo $model->title; ?></a>
-			</div>
+		<h3>
+			<table>
+				<body>
+					<tr>
+						<td>
+							<a href="<?php echo $this->createUrl('activity/view', array('id'=>$model->uq_title)); ?>"><?php echo $model->title; ?></a>
+						</td>
+						<td class="activity-stats">
+							<div class="create-date muted">
+								<span><?php echo date('Y/m/d', $model->date); ?></span>
+							</div>
+							<div class="stat-photos">
+					    		<span class="octicons octicon-device-camera" data-original-title="<?php echo $model->stat_photos.' '.(Yii::t('core', ((abs(substr($model->stat_photos, -2))<11 && abs(substr($model->stat_photos, -2))>2)?'photos':'photo'))); ?>"><span><?php echo $model->stat_photos; ?></span></span>
+					    	</div>
+					    	<div>
+					    		<span class="octicons octicon-file-zip" data-original-title="<?php echo $model->stat_attachments.' '.(Yii::t('core', ((abs(substr($model->stat_attachments, -2))<11 && abs(substr($model->stat_attachments, -2))>2)?'attachments':'attachment'))); ?>"><span><?php echo $model->stat_attachments; ?></span></span>
+					    	</div>
+						</td>
+					</tr>
+				</body>
+			</table>
 		</h3>
 		<div class="row">
 			<div class="span6">

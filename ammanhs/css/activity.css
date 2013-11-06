@@ -25,17 +25,21 @@ hshadow-box{
 	float: left;
 	color: white;
 }
+.activity-photo{
+	text-align: center;
+}
 .activity-details h3{
-	height: 40px;
+	margin-top: 0;
+}
+.activity-details h3 table{
+	width: 100%;
 }
 .activity-details h3 a{
 	font-size: 85%;
 }
-.activity-title{
-	float: right;
-}
 .activity-stats{
-	float: left;
+	width: 170px;
+	vertical-align: top;
 }
 .activity-stats .octicons{
 	font-size: 26px;
