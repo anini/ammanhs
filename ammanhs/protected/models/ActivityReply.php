@@ -116,6 +116,11 @@ class ActivityReply extends CActiveRecord
 
     public function beforeSave()
     {
+        if($this->isNewRecord || $this->scenario=='edit'){
+            $this->content=Text::addNofollowRelToAnchors($this->content);
+            $this->content=Text::addBlankTargetToAnchors($this->content);
+            $this->content=Text::linkUrls($this->content);
+        }
         if(!$this->created_at){
             $this->created_at=time();
         }else{
@@ -132,6 +137,13 @@ class ActivityReply extends CActiveRecord
             $this->user->stat_points+=Constants::ACTIVITY_REPLY_ADDED_EARNED_POINTS;
             $this->user->stat_replies++;
             $this->user->save();
+        }
+        if($this->isNewRecord || $this->scenario=='edit'){
+            // Cloning all external images
+            $content=Img::cloneAllExternalImages($this->content, 'activityReply', $this->id);
+            Yii::app()->db->createCommand(
+                "UPDATE tbl_activity_reply SET content=:content where id=:id"
+                )->bindValues(array(':content'=>$content, ':id'=>$this->id))->execute();
         }
         $this->activity->stat_replies=count($this->activity->replies);
         $this->activity->save();
