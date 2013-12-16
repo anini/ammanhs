@@ -51,7 +51,7 @@ $this->menu=array(
 			    <?php } ?>
 			    <?php if($model->website){ ?>
 			    <div id="user-website">
-			    	<span class="octicons octicon-link muted"></span><a href="<?php echo $model->website; ?>" target="_blank" rel="nofollow" title="<?php echo $model->website; ?>"><?php echo $model->website; ?></a>
+			    	<span class="octicons octicon-link muted"></span><a href="http://<?php echo $model->website; ?>" target="_blank" rel="nofollow" title="<?php echo $model->website; ?>"><?php echo $model->website; ?></a>
 				</div>
 			    <?php } ?>
 			    <div>
