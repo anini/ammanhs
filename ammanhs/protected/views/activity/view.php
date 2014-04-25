@@ -11,7 +11,7 @@ $cs->registerMetaTag($model->title , 'og:title');
 $cs->registerMetaTag(strip_tags($model->content), 'description', null, array(), 'metadescription');
 $cs->registerMetaTag(strip_tags($model->content), 'twitter:description');
 $cs->registerMetaTag(strip_tags($model->content), 'og:description');
-$cs->registerCSSFile('/css/activity.css?v=1.0');
+$cs->registerCSSFile('/css/activity.css?v=1.1');
 $cs->registerScriptFile('/js/activity.js?v=1.0', CClientScript::POS_END);
 
 $this->menu=array(

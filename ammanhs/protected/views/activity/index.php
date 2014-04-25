@@ -10,7 +10,7 @@ $cs->registerMetaTag(Yii::t('core', 'Activities').' - '.Yii::t('core', 'Amman Ha
 //$cs->registerMetaTag(strip_tags($model->content), 'description', null, array(), 'metadescription');
 //$cs->registerMetaTag(strip_tags($model->content), 'twitter:description');
 //$cs->registerMetaTag(strip_tags($model->content), 'og:description');
-$cs->registerCSSFile('/css/activity.css?v=0');
+$cs->registerCSSFile('/css/activity.css?v=1.1');
 
 $this->menu=array(
 	array('label'=>'Create Activity', 'url'=>array('create')),
