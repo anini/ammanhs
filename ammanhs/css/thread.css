@@ -163,9 +163,6 @@
 	padding: 10px;
 	padding-left: 40px;
 }
-.reply-content a{
-	color: #08c;
-}
 #thread-content{
 	width: 100%;
 	padding-top: 20px;
@@ -202,6 +199,9 @@
 }
 .reply-user-title a, .shadow-box a{
 	color: #333;
+}
+.reply-content a{
+	color: #08c;
 }
 .reply-user-title a:hover, .shadow-box a:hover{
 	text-decoration: none;
