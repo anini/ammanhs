@@ -53,9 +53,9 @@ class SearchController extends Controller
         }
         
         $q=urldecode($q);
-
+        $q=htmlentities($q);
         $time=microtime();
-        $results=Thread::model()->with(array('user'))->findAll('title LIKE :q OR tags LIKE :q OR content LIKE :q', array(':q'=>"%$q%"));
+        $results=Thread::model()->with(array('user'))->findAll('publish_status>=:draft AND (title LIKE :q OR tags LIKE :q OR content LIKE :q)', array(':q'=>"%$q%", ':draft'=>Constants::PUBLISH_STATUS_DRAFT));
         $num_of_results=COUNT($results);
         //$results = Search::find($q, $sort, $page, $results_per_page);
         $time=microtime()-$time;
