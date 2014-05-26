@@ -49,7 +49,7 @@ class UrlManager extends CUrlManager
 	}
 
 	public static function getShortLink($object_class, $object_id){
-		return strtolower($object_class).'/'.$object_id;
+		return '/'.strtolower($object_class).'/'.$object_id;
 	}
 
 }
