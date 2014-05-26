@@ -53,7 +53,8 @@ class SearchController extends Controller
         }
         
         $q=urldecode($q);
-        $q=htmlentities($q);
+        $q=preg_replace('#[\'|\"]#', '', $q);
+        $q=htmlentities($q, ENT_QUOTES, 'UTF-8');
         $time=microtime();
         $results=Thread::model()->with(array('user'))->findAll('publish_status>=:draft AND (title LIKE :q OR tags LIKE :q OR content LIKE :q)', array(':q'=>"%$q%", ':draft'=>Constants::PUBLISH_STATUS_DRAFT));
         $num_of_results=COUNT($results);

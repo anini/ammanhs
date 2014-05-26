@@ -9,7 +9,7 @@ $cs->registerCSSFile("/css/search.css");
 <div class="row">
 	<div class="span9">
 		<form class="navbar-search" action="/search">
-			<input name="q" <?php if(isset($_GET['q'])) echo 'value="'.htmlentities($_GET['q']).'"'; ?> type="text" class="search-query span4" placeholder="<?php echo Yii::t('core','Search'); ?>"
+			<input name="q" <?php if(isset($_GET['q'])) echo 'value="'.htmlentities($_GET['q'], ENT_QUOTES, 'UTF-8').'"'; ?> type="text" class="search-query span4" placeholder="<?php echo Yii::t('core','Search'); ?>"
 			><span class="octicons octicon-search search-icon"></span>
 		</form>
 	</div>
