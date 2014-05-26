@@ -69,7 +69,7 @@ class UserController extends Controller
 				$this->redirect($model->profileLink, true, 301);
 			}
 		}
-		$user_feed=$model->getUserFeed(10, array('thread'));
+		$user_feed=$model->getUserFeed(null, array('thread'));
 		if(Yii::app()->user->isGuest || Yii::app()->user->id!=$model->id){
 			$model->stat_views++;
 			$model->save(false);
