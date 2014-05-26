@@ -140,23 +140,24 @@ class UserLog extends CActiveRecord
 		$uri='';
 
 		$object_class=get_class($object);
+		$object_id=$object->id;
+
 		switch($object_class){
 			case 'Thread':
-				$thread_id=$object->id;
-				$uri=$object->link;
+				$thread_id=$object_id;
+				$uri=UrlManager::getShortLink($object_class, $object_id);
 				break;
 			case 'ThreadReply':
-				$thread_reply_id=$object->id;
-				$uri=$object->link;
+				$thread_reply_id=$object_id;
+				$uri=UrlManager::getShortLink('thread', $object->thread_id).'/#reply-'.$object_id;
 				break;
 			case 'ActivityReply':
-				$activity_reply_id=$object->id;
-				$uri=$object->link;
+				$activity_reply_id=$object_id;
+				$uri=UrlManager::getShortLink('activity', $object->activity_id).'/#reply-'.$object_id;
 				break;
 			case 'User':
 				if($action!='Join')
-					$targeted_user_id=$object->id;
-				$uri=$object->profileLink;
+					$targeted_user_id=$object_id;
 				break;
 		}
 
@@ -169,7 +170,7 @@ class UserLog extends CActiveRecord
 		$user_activity->points_earned=$points_earned;
 		$user_activity->uri=$uri;
 		if($action=='Join')
-			$user_activity->user_id=$object->id;
+			$user_activity->user_id=$object_id;
 		if(!$user_activity->save()){
 			echo CActiveForm::validate($user_activity);
 			Yii::app()->end();
@@ -183,6 +184,7 @@ class UserLog extends CActiveRecord
 		$object_id=$object->id;
 		$user_id=$user->id;
 		$minus_points=0;
+		$condition='';
 		switch($object_class){
 			case 'Thread':
 				if($action=='Add'){
