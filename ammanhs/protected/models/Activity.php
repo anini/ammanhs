@@ -73,7 +73,7 @@ class Activity extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'photos'=>array(self::HAS_MANY, 'ActivityPhoto', 'activity_id'),
-			'replies'=>array(self::HAS_MANY, 'ActivityReply', 'activity_id'),
+			'replies'=>array(self::HAS_MANY, 'ActivityReply', 'activity_id', 'alias'=> 'reply', 'on'=>('reply.publish_status>='.Constants::PUBLISH_STATUS_DRAFT)),
 			'attachments'=>array(self::HAS_MANY, 'ActivityAttachment', 'activity_id')
 		);
 	}

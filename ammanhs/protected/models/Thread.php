@@ -72,7 +72,7 @@ class Thread extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user'=>array(self::BELONGS_TO, 'User', 'user_id'),
-			'replies'=>array(self::HAS_MANY, 'ThreadReply', 'thread_id', 'alias'=> 'reply', 'on'=>'reply.publish_status>='.Constants::PUBLISH_STATUS_DRAFT),
+			'replies'=>array(self::HAS_MANY, 'ThreadReply', 'thread_id', 'alias'=> 'reply', 'on'=>('reply.publish_status>='.Constants::PUBLISH_STATUS_DRAFT)),
 		);
 	}
 
@@ -219,6 +219,14 @@ class Thread extends CActiveRecord
 		if($save){
 			$this->save(false);
 		}
-		
+	}
+
+	public static function getRecentThreads(){
+		$criteria=new CDbCriteria();
+		$criteria->condition='publish_status>='.Constants::PUBLISH_STATUS_DRAFT;
+		$criteria->order='created_at desc';
+		$criteria->limit=3;
+		$recent=Thread::model()->findAll($criteria);
+		return $recent;
 	}
 }
