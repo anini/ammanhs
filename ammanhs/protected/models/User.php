@@ -269,11 +269,13 @@ class User extends CActiveRecord
 		if($newer_than>0){
 			$condition .= " AND created_at < {$newer_than}";
 		}
-		$user_feed = UserLog::model()->findAll(array(
+
+		$attributes = array(
 			'condition' => $condition,
-			'order' => 't.created_at DESC',
-			'limit' => $limit,
-			));
+			'order' => 't.created_at DESC'
+			);
+		if(!is_null($limit)) $attributes['limit'] = $limit;
+		$user_feed = UserLog::model()->findAll($attributes);
         return $user_feed;
 	}
 }
