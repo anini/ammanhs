@@ -31,8 +31,194 @@ class SiteController extends Controller
 		exit();
 	}
 
+	public function actionFix(){
+		if(Yii::app()->user->isGuest || Yii::app()->user->model->id!=1) die('-_-');
+		die('This is really dangerous!');
+		Yii::app()->db->createCommand(
+			"drop table tbl_user_log;"
+		)->execute();
+		Yii::app()->db->createCommand(
+			"rename table tbl_user_log_old to tbl_user_log;"
+		)->execute();
+
+		$data = Yii::app()->db->createCommand(
+			"
+			select * from
+			(
+				select
+					user_id,
+					'Add' as action,
+					id as thread_id,
+					null as thread_reply_id,
+					null as activity_reply_id,
+					null as targeted_user_id,
+					concat('/thread/', id) as uri,
+					3 as points_earned,
+					created_at
+				from
+					tbl_thread
+				where
+					publish_status>=0
+
+				UNION ALL
+
+				select
+					user_id,
+					'Add' as action,
+					null as thread_id,
+					id as thread_reply_id,
+					null as activity_reply_id,
+					null as targeted_user_id,
+					concat('/thread/', thread_id, '/#reply-', id) as uri,
+					1 as points_earned,
+					created_at
+				from
+					tbl_thread_reply
+				where
+					publish_status>=0
+
+				UNION ALL
+
+				select
+					user_id,
+					'Add' as action,
+					null as thread_id,
+					null as thread_reply_id,
+					id as activity_reply_id,
+					null as targeted_user_id,
+					concat('/activity/', activity_id, '/#reply-', id) as uri,
+					1 as points_earned,
+					created_at
+				from
+					tbl_activity_reply
+				where
+					publish_status>=0
+
+				UNION ALL
+
+				select
+					user_id,
+					case when (vote_type = 1) then 'VoteUp' else 'VoteDown' end as action,
+					thread_id,
+					null as thread_reply_id,
+					null as activity_reply_id,
+					null as targeted_user_id,
+					concat('/thread/', thread_id) as uri,
+					0 as points_earned,
+					(case when (updated_at is null) then created_at else updated_at end) as created_at
+				from
+					tbl_thread_vote
+
+				UNION ALL
+
+				select
+					user_id,
+					case when (vote_type = 1) then 'VoteUp' else 'VoteDown' end as action,
+					null as thread_id,
+					thread_reply_id,
+					null as activity_reply_id,
+					null as targeted_user_id,
+					concat('/thread/', (select thread_id from tbl_thread_reply where id = thread_reply_id), '/#reply-', thread_reply_id) as uri,
+					0 as points_earned,
+					(case when (updated_at is null) then created_at else updated_at end) as created_at
+				from
+					tbl_thread_reply_vote
+
+				UNION ALL
+
+				select
+					id as user_id,
+					'Join' as action,
+					null as thread_id,
+					null as thread_reply_id,
+					null as activity_reply_id,
+					null as targeted_user_id,
+					concat('/u/', id) as uri,
+					0 as points_earned,
+					created_at
+				from
+					tbl_user
+			) as a
+
+			order by created_at
+			"
+		)->queryAll();
+		$str_data='';
+		$count=sizeof($data);
+		foreach($data as $k=>$record){
+			$str_data.='('.
+				$record['user_id'].',"'.
+				$record['action'].'",'.
+				(is_null($record['thread_id'])?'null':$record['thread_id']).','.
+				(is_null($record['thread_reply_id'])?'null':$record['thread_reply_id']).','.
+				(is_null($record['activity_reply_id'])?'null':$record['activity_reply_id']).','.
+				(is_null($record['targeted_user_id'])?'null':$record['targeted_user_id']).',"'.
+				$record['uri'].'",'.
+				$record['points_earned'].','.
+				$record['created_at'].
+				')';
+			if($k<$count-1) $str_data.=',';
+		}
+
+		Yii::app()->db->createCommand(
+			"
+			CREATE TABLE tbl_user_log_temp
+			(
+				id int(11) NOT NULL AUTO_INCREMENT,
+				user_id int(11) NOT NULL,
+				action enum('Add','Edit','VoteUp','VoteDown','Follow','Join','Unsubscribe') NOT NULL DEFAULT 'Add',
+				thread_id int(11) DEFAULT NULL,
+				thread_reply_id int(11) DEFAULT NULL,
+				targeted_user_id int(11) DEFAULT NULL,
+				uri varchar(256) DEFAULT NULL,
+				points_earned int(11) NOT NULL DEFAULT '0',
+				created_at int(11) DEFAULT NULL,
+				activity_reply_id int(11) DEFAULT NULL,
+				PRIMARY KEY (id),
+				KEY ix_tbl_user_log_user_id (user_id),
+				KEY ix_tbl_user_log_action (action),
+				KEY ix_tbl_user_log_thread_id (thread_id),
+				KEY ix_tbl_user_log_thread_reply_id (thread_reply_id),
+				KEY ix_tbl_user_log_targeted_user_id (targeted_user_id),
+				KEY ix_tbl_user_log_created_at (created_at),
+				KEY ix_tbl_user_log_activity_reply_id (activity_reply_id)
+			) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8
+			"
+		)->execute();
+
+		Yii::app()->db->createCommand(
+			'insert into tbl_user_log_temp
+				(
+					user_id,
+					action,
+					thread_id,
+					thread_reply_id,
+					activity_reply_id,
+					targeted_user_id,
+					uri,
+					points_earned,
+					created_at
+				)
+				values '.$str_data.';'
+		)->execute();
+
+		Yii::app()->db->createCommand(
+			"rename table tbl_user_log to tbl_user_log_old;"
+		)->execute();
+
+		Yii::app()->db->createCommand(
+			"rename table tbl_user_log_temp to tbl_user_log;"
+		)->execute();
+	}
+
 	public function actionTest(){
 		if(Yii::app()->user->isGuest || Yii::app()->user->model->id!=1) die('-_-');
+		$replies=ThreadReply::model()->findAll();
+		foreach ($replies as $r){
+			$r->scenario='edit';
+			$r->save();
+		}
+		die('done!');
 		$threads=Thread::model()->findAll();
 		$content='';
 		foreach ($threads as $t){
@@ -211,5 +397,4 @@ class SiteController extends Controller
 			$this->endCache();
 		}
 	}
-
 }
