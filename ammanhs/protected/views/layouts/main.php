@@ -18,7 +18,7 @@
 		<script src="/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 
 		<?php $cs=Yii::app()->clientScript; ?>
-		<?php $cs->registerCSSFile("/css/main.css?v=2.5"); ?>
+		<?php $cs->registerCSSFile("/css/main.css?v=2.6"); ?>
 		<?php $cs->registerCSSFile("/css/octicons.css?v=2.1"); ?>
 		<?php $cs->registerCSSFile("/css/bootstrap/bootstrap.min.css?v=2.1"); ?>
 		<?php $cs->registerCSSFile("/css/bootstrap/bootstrap-responsive.min.css"); ?>

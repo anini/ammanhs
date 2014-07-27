@@ -75,3 +75,6 @@
 	-o-animation: rotating-left 70s linear infinite;
 	animation: rotating-left 70s linear infinite;
 }
+.hero-unit{
+	background: #eee url(/images/tree.png)100% 0 no-repeat;
+}
