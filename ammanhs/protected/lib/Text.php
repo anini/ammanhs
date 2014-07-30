@@ -175,7 +175,7 @@ class Text
         return $html;
     }
     
-    public static function embedYoutubeVideos($html, $responsive=true, $width="100%", $hight="100%"){
+    public static function embedYoutubeVideos($html, $responsive=true, $width="100%", $height="100%"){
         $pattern='/(?<!\'|"|\/|\.)(((http(s)?:\/\/(www\.)?)|(www\.)|\b)(youtu\.be|youtube\.com)\/(embed\/|v\/|watch\/?(\?v=|\?(?!v=).+v=|\/))?(((?!#|\&|\?)[a-zA-Z0-9._-]+))([a-zA-Z0-9._\/~#&=;%+?-]*))/si';
         $replacement=($responsive?'<div class="yt-video">':'').'<iframe src="http://youtube.com/embed/$10?rel=0"'.(!$responsive?(' width="'.$width.'"'.' height="'.$height.'"'):'').'></iframe><a class="original-youtube-link" href="$1"></a>'.($responsive?'</div>':'');
         $html=preg_replace($pattern, $replacement, $html);
