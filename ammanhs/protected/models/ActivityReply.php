@@ -117,6 +117,7 @@ class ActivityReply extends CActiveRecord
     public function beforeSave()
     {
         if($this->isNewRecord || $this->scenario=='edit'){
+            $this->content=Text::embedYoutubeVideos($this->content);
             $this->content=Text::addNofollowRelToAnchors($this->content);
             $this->content=Text::addBlankTargetToAnchors($this->content);
             $this->content=Text::linkUrls($this->content);

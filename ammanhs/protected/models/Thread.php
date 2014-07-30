@@ -138,6 +138,7 @@ class Thread extends CActiveRecord
 	{
 		if($this->isNewRecord || $this->scenario=='edit'){
 			$this->generateUniqueTitle(false);
+			$this->content=Text::embedYoutubeVideos($this->content);
 			$this->content=Text::addNofollowRelToAnchors($this->content);
 			$this->content=Text::addBlankTargetToAnchors($this->content);
 			$this->content=Text::linkUrls($this->content);
