@@ -48,8 +48,11 @@ class UrlManager extends CUrlManager
 	    return $string;
 	}
 
-	public static function getShortLink($object_class, $object_id){
-		return '/'.strtolower($object_class).'/'.$object_id;
+	public static function getShortLink($object_class, $object_id, $absolute=false){
+		$link='/'.strtolower($object_class).'/'.$object_id;
+		if($absolute || !(Yii::app() instanceof CWebApplication))
+			return $link='http://'.Yii::app()->params['static_host'].$link;
+		return $link;
 	}
 
 }
