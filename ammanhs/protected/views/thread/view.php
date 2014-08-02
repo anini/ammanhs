@@ -11,7 +11,7 @@ $cs->registerMetaTag($model->title , 'og:title');
 $cs->registerMetaTag(strip_tags($model->content), 'description', null, array(), 'metadescription');
 $cs->registerMetaTag(strip_tags($model->content), 'twitter:description');
 $cs->registerMetaTag(strip_tags($model->content), 'og:description');
-$cs->registerCSSFile('/css/thread.css?v=3.6');
+$cs->registerCSSFile('/css/thread.css?v=4.0');
 $cs->registerScriptFile('/js/thread.js?v=1.3', CClientScript::POS_END);
 $this->menu=array(
 	array('label'=>'List Thread','url'=>array('index')),
@@ -71,6 +71,44 @@ $this->menu=array(
 					<div class="arrow vote-down vote-down-<?php echo ($thread_voted && $thread_voted=='down')?'on':'off'; ?>" data-original-title="<?php echo Yii::t('core', 'This '.strtolower($model->type).' does not show any research effort; it is unclear or not useful!'); ?>" onclick="$('#thread-vote-type').val(-1); $('#thread-vote-form').submit();"></div>
 					<?php $this->endWidget(); ?>
 				</div>
+			</div>
+
+			<div id="thread-share" class="span7">
+				<hr/>
+				<?php $share_link=UrlManager::getShortLink('thread', $model->id, true); ?>
+				<table width="100%">
+					<tr>
+						<td>
+							<div id="fb-root"></div>
+							<script>(function(d, s, id) {
+							  var js, fjs=d.getElementsByTagName(s)[0];
+							  if(d.getElementById(id)) return;
+							  js=d.createElement(s); js.id = id;
+							  js.src="//connect.facebook.net/en_US/all.js#xfbml=1";
+							  fjs.parentNode.insertBefore(js, fjs);
+							}(document, 'script', 'facebook-jssdk'));</script>
+							<div id="share-buttons">
+								<div class="fb-share-button" data-href="<?php echo $share_link; ?>" data-type="button_count"></div>
+								<a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-url="<?php echo $share_link; ?>" data-lang="en" data-related="anywhereTheJavascriptAPI" data-text="<?php echo $model->title; ?>">Tweet</a>
+								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+								<div class="g-plus" data-action="share" data-annotation="bubble"  data-height="28" data-href="<?php echo $share_link; ?>"></div>
+								<script type="text/javascript">
+								  (function(){
+								    var po=document.createElement('script'); po.type='text/javascript'; po.async=true;
+								    po.src='https://apis.google.com/js/platform.js';
+								    var s=document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+								  })();
+								</script>
+							</div>
+						</td>
+						<td id="short-link">
+							<div>
+								<span><?php echo Yii::t('core', 'Short link:'); ?></span>
+								<input type="text" value="<?php echo $share_link; ?>" onClick="this.setSelectionRange(0, this.value.length)"/>
+							</div>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>

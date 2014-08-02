@@ -170,6 +170,7 @@ return array(
 
 	//Common
 	'Follow us:'=>'تابعنا:',
+	'Short link:'=>'رابط مختصر:',
 
 	//Search
 	'Search results fot :q'=>'نتائج البحث عن ":q"',

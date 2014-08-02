@@ -181,6 +181,7 @@
 #thread-vote{
 	padding-top: 20px;
 	display: inline-table;
+	display: inline-flex;
 }
 #thread-vote .tooltip-inner{
 	min-width:200px;
@@ -228,6 +229,7 @@
 	width: 80%;
 	float: left;
 	display: inline-table;
+	display: inline-flex;
 }
 .thread-reply .shadow-box{
 	padding: 1px;
@@ -252,4 +254,50 @@
 }
 #add-thread-reply-button{
 	float: left;
+}
+.fb-share-button>span>iframe{
+	transform: scale(1.4);
+	-ms-transform: scale(1.4); 
+	-webkit-transform: scale(1.4); 
+	-o-transform: scale(1.4); 
+	-moz-transform: scale(1.4); 
+	transform-origin: top left;
+	-ms-transform-origin: top left;
+	-webkit-transform-origin: top left;
+	-moz-transform-origin: top left;
+	-webkit-transform-origin: top left;
+	margin-top: -14px;
+}
+#twitter-widget-0{
+	width: 115px !important;
+}
+#___plus_0{
+	margin-right: 10px !important;
+}
+#share-buttons{
+	margin-right: 30px;
+}
+#short-link{
+	font-size: 14px;
+	width: 320px;
+}
+#short-link div{
+	float: left;
+}
+#short-link input{
+	margin-bottom: 0;
+	width: 210px;
+	text-align: center;
+	margin-right: 5px;
+	height: 18px;
+}
+@media (max-width: 1200px){
+	#short-link input{
+		width: 90px;
+	}
+}
+@media (max-width: 979px){
+	#short-link{
+		display: none;
+	}
 }
