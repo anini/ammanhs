@@ -13,7 +13,7 @@
     </a>
       <form class="navbar-search" action="/search">
         <input name="q" <?php if(isset($_GET['q']) && (is_string($_GET['q'])||is_numeric($_GET['q']))) echo 'value="'.htmlentities($_GET['q'], ENT_QUOTES, 'UTF-8').'"'; ?> type="text" class="search-query span2" placeholder="<?php echo Yii::t('core','Search'); ?>" id="header-search" 
-        onfocus="$('#main-menu').slideUp(200);setTimeout(function(){$('#header-search').remo, ENT_QUOTES, 'UTF-8'veClass('span2');$('#header-search').addClass('span4');}, 250);" onblur="$(this).removeClass('span4');$(this).addClass('span2');setTimeout(function(){$('#main-menu').slideDown(200);}, 500);"><span class='octicons octicon-search'></span>
+        onfocus="$('#main-menu').slideUp(200);setTimeout(function(){$('#header-search').removeClass('span2');$('#header-search').addClass('span4');}, 250);" onblur="$(this).removeClass('span4');$(this).addClass('span2');setTimeout(function(){$('#main-menu').slideDown(200);}, 500);"><span class='octicons octicon-search'></span>
       </form>
     
      </div>
