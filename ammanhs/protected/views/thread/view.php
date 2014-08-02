@@ -91,8 +91,9 @@ $this->menu=array(
 								<div class="fb-share-button" data-href="<?php echo $share_link; ?>" data-type="button_count"></div>
 								<a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-url="<?php echo $share_link; ?>" data-lang="en" data-related="anywhereTheJavascriptAPI" data-text="<?php echo $model->title; ?>">Tweet</a>
 								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-								<div class="g-plus" data-action="share" data-annotation="bubble"  data-height="28" data-href="<?php echo $share_link; ?>"></div>
+								<div class="g-plus" data-action="share" lang="en-US" data-annotation="bubble"  data-height="28" data-href="<?php echo $share_link; ?>"></div>
 								<script type="text/javascript">
+								  window.___gcfg={lang:'en-US'};
 								  (function(){
 								    var po=document.createElement('script'); po.type='text/javascript'; po.async=true;
 								    po.src='https://apis.google.com/js/platform.js';

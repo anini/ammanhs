@@ -266,7 +266,6 @@
 	-webkit-transform-origin: top left;
 	-moz-transform-origin: top left;
 	-webkit-transform-origin: top left;
-	margin-top: -14px;
 }
 #twitter-widget-0{
 	width: 115px !important;
@@ -276,6 +275,7 @@
 }
 #share-buttons{
 	margin-right: 30px;
+	display: inline-flex;
 }
 #short-link{
 	font-size: 14px;
