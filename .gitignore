@@ -4,10 +4,11 @@ dump.rdb
 *.sublime-workspace
 *.sublime-project
 config/local.php
-assets/
+*/assets/
 */images/avatar/
 */images/activity/
 */images/thread/
 */images/threadReply/
 */images/preview/*/
 !*/images/preview/docs/
+*/*/runtime/
