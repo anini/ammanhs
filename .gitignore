@@ -3,7 +3,7 @@
 dump.rdb
 *.sublime-workspace
 *.sublime-project
-config/local.php
+*/*/config/local.php
 */assets/
 */images/avatar/
 */images/activity/
