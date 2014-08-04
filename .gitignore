@@ -5,3 +5,7 @@ dump.rdb
 *.sublime-project
 config/local.php
 assets/
+images/avatar/
+images/activity/
+images/thread/
+images/threadReply/
