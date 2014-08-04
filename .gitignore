@@ -3,4 +3,5 @@
 dump.rdb
 *.sublime-workspace
 *.sublime-project
-
+config/local.php
+assets/
