@@ -1,0 +1,1 @@
+<b>Amman Hackerspace website</b> is an Arabic social platform for electronics and robotics makers. The website features articles, Q&A, project discussions, moderation, and search, with the aim of advancing knowledge sharing and showcasing local innovations.
